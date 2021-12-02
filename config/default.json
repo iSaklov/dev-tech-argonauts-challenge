@@ -1,0 +1,6 @@
+{
+	"port": 5000,
+	"jwtSecret": "Wild Code School",
+	"mongoUri": "mongodb+srv://argonaute:WildCodeSchool@cluster0.qtxlh.mongodb.net/argonautesDB?retryWrites=true&w=majority",
+	"baseUrl": "http://localhost:5000"
+}
