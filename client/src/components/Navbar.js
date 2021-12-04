@@ -14,13 +14,15 @@ export const Navbar = () => {
 
 	return (
 		<nav>
-			<div class="nav-wrapper">
-			<a href="/" class="brand-logo center">WILD CODE SCHOOL</a>
-			<ul id="nav-mobile" class="left hide-on-med-and-down">
-				<li><NavLink to="/create">Create</NavLink></li>
-				<li><NavLink to="/links">Links</NavLink></li>
-				<li><a href="/" onClick={logoutHandler}>Se deconnecter</a></li>
-			</ul>
+			<div className="nav-wrapper">
+				<a href="#" className="brand-logo center">
+					<img src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png" alt="Wild Code School logo" style={{maxWidth: "96px"}}/>
+				</a>
+				<ul id="nav-mobile" className="right hide-on-med-and-down">
+					{/* <li><NavLink to="/">Link One</NavLink></li>
+					<li><NavLink to="/">Link Two</NavLink></li> */}
+					<li><a href="/" onClick={logoutHandler}>Se deconnecter</a></li>
+				</ul>
 			</div>
 		</nav>
 	)

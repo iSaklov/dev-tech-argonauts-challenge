@@ -41,8 +41,8 @@ export const AuthPage = () => {
 	}
 
 	return (
-		<div className="row">
-			<div className="col s6 offset-s3 _auth">
+		<div className="row auth_page">
+			<div className="col s6 offset-s3 auth_div">
 				<h1>Les Argonautes</h1>
 				<div className="card blue-grey darken-1">
 					<div className="card-content white-text">
@@ -76,7 +76,7 @@ export const AuthPage = () => {
 					</div>
 					<div className="card-action">
 						<button
-							className="btn yellow darken-4"
+							className="btn yellow _wild"
 							onClick={loginHandler}
 							disabled={loading}
 						>
