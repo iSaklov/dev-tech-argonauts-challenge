@@ -6,6 +6,7 @@ import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 import { ArgonautAdd } from '../components/Argonauts/ArgonautAdd'
 import { ArgonautsList } from '../components/Argonauts/ArgonautsList'
+import Modal from '../components/Modal/Modal'
 
 export const HomePage = () => {
 	const [argos, setArgos] = useState([])
@@ -72,19 +73,13 @@ export const HomePage = () => {
 		setArgos(argos.filter(argo => argo.id !== id))
 	}
 
-	async function addArgonaut(name) {
-		// setArgonauts(argonaut.concat([
-		// 	{
-		// 		name
-		// 	}
-		// ]))
-			try {
-			const data = await request('/api/argonaut/add', 'POST', { name, }, {
-				Authorization: `Bearer ${token}`
-			})
-			setArgonauts(name)
-
-		} catch (e) {}
+	function addArgonaut(name) {
+		setArgos(argos.concat([
+			{
+				id: Date.now(),
+				name
+			}
+		]))
 	}
 
 	function argonautUp(id) {
@@ -123,16 +118,18 @@ export const HomePage = () => {
 			</div> */}
 			<ArgonautAdd onCreate={addArgonaut}/>
 			{loading && <Loader />}
-			<ArgonautsList argonauts={argonauts} />
-			{/* {argos.length ? (
-				<ArgonautsList argonauts={argonauts} onToggle={argonautUp} />
+			{argos.length ? (
+				<ArgonautsList argonauts={argos} onToggle={argonautUp} />
 			) : (
 				loading ? null : (
 					<p className="center">Votre liste de membres de l'équipage est est vide</p>
 				)
-			)} */}
+			)}
+			<Modal />
+			<div>
 				{/* { !loading && argonauts && <ArgonautsList argonauts={argonauts} />} */}
-				{/* { !loading && <ArgonautsList argonauts={argos} onToggle={argonautUp} />} */}
+				{ !loading && <ArgonautsList argonauts={argos} onToggle={argonautUp} />}
+			</div>
 		</ListContext.Provider>
 	)
 }

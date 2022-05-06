@@ -31,7 +31,7 @@ export const AuthPage = () => {
 			const data = await request('/api/auth/register', 'POST', {...form})
 			message(data.message)
 		} catch (e) {}
-	}
+	}  
 
 	const loginHandler = async () => {
 		try {
@@ -70,7 +70,7 @@ export const AuthPage = () => {
 								className="validate"
 								value={form.password}
 								onChange={changeHandler}
-								/>
+							/>
 							</div>
 						</div>
 					</div>
