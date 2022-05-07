@@ -29,8 +29,8 @@ export const DetailPage = () => {
 	}
 
 	return (
-		<div>
+		<>
 			{ !loading && argonaut && <ArgonautCard argonaut={argonaut} />}
-		</div>
+		</>
 	)
 }

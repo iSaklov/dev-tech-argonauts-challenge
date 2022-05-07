@@ -8,7 +8,7 @@ import { ArgonautsList } from '../components/ArgonautsList'
 
 export const ArgonautsPage = () => {
 	const {token} = useContext(AuthContext)
-	const {request, loading} = useHttp()
+	const {loading, request} = useHttp()
 	const [argonauts, setArgonauts] = useState([])
 	//const argonautId = useParams().id
 

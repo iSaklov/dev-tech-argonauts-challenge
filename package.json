@@ -13,9 +13,10 @@
   },
   "keywords": [
     "mern",
+    "mongodb",
+    "express",
     "react",
-    "nodejs",
-    "mongodb"
+    "nodejs"
   ],
   "author": "Ivan Saklov <isaklov@gmail.com>",
   "license": "ISC",

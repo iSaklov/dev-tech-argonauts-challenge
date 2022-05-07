@@ -52,7 +52,7 @@ export const HomePage = () => {
 					Authorization: `Bearer ${token}`
 				})
 				console.log(data)
-				// navigate(`/detail/${data.argonaut._id}`)
+				navigate(`/detail/${data.argonaut._id}`)
 				fetchArgonauts()
 			} catch (e) {}
 		}
@@ -97,7 +97,8 @@ export const HomePage = () => {
 
 	return (
 		<ListContext.Provider value={{ removeArgonaut }}>
-			{/* <div className="row">
+
+			<div className="row">
 				<div className="col s8 offset-s2">
 					<h3>Ajouter un(e) Argonaute</h3>
 					<p>
@@ -120,8 +121,9 @@ export const HomePage = () => {
 						Embarquer
   					</button>
 				</div>
-			</div> */}
-			<ArgonautAdd onCreate={addArgonaut}/>
+			</div>
+
+			{/* <ArgonautAdd onCreate={addArgonaut}/> */}
 			{loading && <Loader />}
 			<ArgonautsList argonauts={argonauts} />
 			{/* {argos.length ? (
