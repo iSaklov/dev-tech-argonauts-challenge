@@ -1,14 +1,11 @@
 const { Router } = require('express')
-// const config = require('config')
-const Argonaut = require('../models/Argonaut')
 const auth = require('../middleware/auth.middleware')
+const Argonaut = require('../models/Argonaut')
 const router = Router()
 
 router.post('/add', auth, async (req, res) => {
 	try {
-		// const baseUrl = config.get('baseUrl')
-		const {name} = req.body
-		// const {from} = req.body
+		const { name } = req.body
 
 		const existing = await Argonaut.findOne({ name })
 
@@ -22,16 +19,22 @@ router.post('/add', auth, async (req, res) => {
 
 		await argonaut.save()
 
-		res.status(201).json({ argonaut })
+		res.status(201).json({
+			// argonaut
+			message: 'Post saved successfully!'
+		})
 	} catch (e) {
-		res.status(500).json({ message: 'Quelque chose ne va pas, on essaie encore' })
+		res.status(500).json({
+			message: 'Quelque chose ne va pas, on essaie encore',
+			error: e
+		})
 	}
 })
 
 router.get('/', auth, async (req, res) => {
 	try {
 		const argonauts = await Argonaut.find({ owner: req.user.userId })
-		res.json(argonauts)
+		res.status(200).json(argonauts)
 	} catch (e) {
 		res.status(500).json({ message: 'Quelque chose ne va pas, on essaie encore' })
 	}
@@ -40,9 +43,41 @@ router.get('/', auth, async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
 	try {
 		const argonaut = await Argonaut.findById(req.params.id)
-		res.json(argonaut)
+		res.status(200).json(argonaut)
 	} catch (e) {
-		res.status(500).json({ message: 'Quelque chose ne va pas, on essaie encore' })
+		res.status(404).json({ message: 'Cet argonaute n\'a pas été trouvé' })
+	}
+})
+
+router.put('/:id', auth, async (req, res) => {
+	try {
+		const argonaut = new Argonaut({
+			name: req.body,
+			imageUrl: req.body.imageUrl,
+			owner: req.user.userId
+		})
+
+		await argonaut.updateOne({_id: req.params.id})
+
+		res.status(201).json({ 
+			// argonaut
+		message: 'Argonaut updated successfully !'
+		})
+	} catch (e) {
+		res.status(500).json({
+			message: 'Argonaute n\' a pas pu être modifié', e
+		})
+	}
+})
+
+router.delete('/', auth, async (req, res) => {
+	try {
+		await Argonaut.deleteOne({_id: req.argonaut._id})
+		res.status(200).json({
+			message: 'L\'argonaute a été débarqué avec succes !'
+		})
+	} catch (e) {
+		res.status(500).json({ message: 'ERROR DELETE' })
 	}
 })
 

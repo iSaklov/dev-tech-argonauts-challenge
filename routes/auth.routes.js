@@ -33,7 +33,7 @@ router.post(
 			return res.status(400).json({ message: 'Cet argonaute est déjà embarqué'})
 		}
 
-		const hashedPassword = await bcrypt.hash(password, 9)
+		const hashedPassword = await bcrypt.hash(password, 10)
 		const user = new User({ email, password: hashedPassword })
 
 		await user.save()
@@ -67,13 +67,13 @@ router.post(
 		const user = await User.findOne({ email })
 
 		if (!user) {
-			return res.status(400).json({ message: `Cet argonaute n'a pas été trouvé`})
+			return res.status(401).json({ message: `Cet argonaute n'a pas été trouvé`})
 		}
 
 		const isMatch = await bcrypt.compare(password, user.password)
 
 		if(!isMatch) {
-			return res.status(400).json({ message: 'Mot de passe incorrecte, essayez encore' })
+			return res.status(401).json({ message: 'Mot de passe incorrecte, essayez encore' })
 		}
 
 		const token = jwt.sign(

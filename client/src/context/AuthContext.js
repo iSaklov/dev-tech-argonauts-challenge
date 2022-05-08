@@ -9,3 +9,5 @@ export const AuthContext = createContext({
 	logout: noop,
 	isAuthenticated: false
 })
+
+export const ArgoContext = createContext()

@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import { ListContext } from '../context/ListContext'
+import { ArgoContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
-import { ArgonautAdd } from '../components/Argonauts/ArgonautAdd'
 import { ArgonautsList } from '../components/Argonauts/ArgonautsList'
 
 export const HomePage = () => {
@@ -21,7 +20,6 @@ export const HomePage = () => {
 	}, [])
 
 	const navigate = useNavigate()
-	// const auth = useContext(AuthContext)
 	const {token} = useContext(AuthContext)
 	const {request, loading} = useHttp()
 	const [argonaut, setArgonaut] = useState('')
@@ -68,27 +66,16 @@ export const HomePage = () => {
 		} catch (e) {}
 	}
 
-	function removeArgonaut(id) {
-		setArgos(argos.filter(argo => argo.id !== id))
-	}
+	async function removeArgonaut(id) {
+		console.log('id == ' + id)
 
-	async function addArgonaut(name) {
-		// setArgonauts(argonaut.concat([
-		// 	{
-		// 		name
-		// 	}
-		// ]))
-			try {
-			const data = await request('/api/argonaut/add', 'POST', { name, }, {
+		setArgonauts(argonauts.filter(argo => argo._id !== id))
+		try {
+			await request('api/argonaut/:id', 'DELETE', {id}, {
 				Authorization: `Bearer ${token}`
 			})
-			setArgonauts(name)
-
+			// fetchArgonauts()
 		} catch (e) {}
-	}
-
-	function argonautUp(id) {
-		console.log('argo ID = ' + id)
 	}
 
 	if (loading) {
@@ -96,7 +83,7 @@ export const HomePage = () => {
 	}
 
 	return (
-		<ListContext.Provider value={{ removeArgonaut }}>
+		<ArgoContext.Provider value={{ removeArgonaut }}>
 
 			<div className="row">
 				<div className="col s8 offset-s2">
@@ -123,18 +110,9 @@ export const HomePage = () => {
 				</div>
 			</div>
 
-			{/* <ArgonautAdd onCreate={addArgonaut}/> */}
 			{loading && <Loader />}
 			<ArgonautsList argonauts={argonauts} />
-			{/* {argos.length ? (
-				<ArgonautsList argonauts={argonauts} onToggle={argonautUp} />
-			) : (
-				loading ? null : (
-					<p className="center">Votre liste de membres de l'équipage est est vide</p>
-				)
-			)} */}
-				{/* { !loading && argonauts && <ArgonautsList argonauts={argonauts} />} */}
-				{/* { !loading && <ArgonautsList argonauts={argos} onToggle={argonautUp} />} */}
-		</ListContext.Provider>
+
+		</ArgoContext.Provider>
 	)
 }
