@@ -20,7 +20,7 @@ export const useRoutes = isAuthenticated => {
 	return (
 		<Routes>
 			<Route path="/" exact element={<AuthPage />} />
-			<Route path="*" element={<AuthPage />} />
+			{/* <Route path="*" element={<AuthPage />} /> */}
 			{/* <Navigate to="/" /> */}
 			{/* <Redirect to="/create" /> */}
 		</Routes>

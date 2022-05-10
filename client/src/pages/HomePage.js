@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
-import { ArgoContext } from '../context/AuthContext'
+import { AuthContext } from '../context/Context'
+import { ArgoContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
-import { ArgonautsList } from '../components/Argonauts/ArgonautsList'
+import { AddArgo } from '../components/Argonauts/AddArgo'
+import { ArgosList } from '../components/Argonauts/ArgosList'
+
 
 export const HomePage = () => {
 	const [argos, setArgos] = useState([])
@@ -22,7 +24,6 @@ export const HomePage = () => {
 	const navigate = useNavigate()
 	const {token} = useContext(AuthContext)
 	const {request, loading} = useHttp()
-	const [argonaut, setArgonaut] = useState('')
 	const [argonauts, setArgonauts] = useState([])
 
 	useEffect(() => {
@@ -35,7 +36,6 @@ export const HomePage = () => {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(fetched)
-			
 		} catch (e) {}
 	}, [token, request])
 
@@ -43,38 +43,37 @@ export const HomePage = () => {
 		fetchArgonauts()
 	}, [fetchArgonauts])
 
-	const pressHandler = async event => {
-		if (event.key === 'Enter') {
-			try {
-				const data = await request('/api/argonaut/add', 'POST', { name: argonaut }, {
-					Authorization: `Bearer ${token}`
-				})
-				console.log(data)
-				navigate(`/detail/${data.argonaut._id}`)
-				fetchArgonauts()
-			} catch (e) {}
-		}
-	}
-
-	const buttonHandler = async () => {
+	const addArgo = async (argonaut) => {
 		try {
-			const data = await request('/api/argonaut/add', 'POST', { name: argonaut }, {
+			await request('/api/argonaut', 'POST', { name: argonaut }, {
 				Authorization: `Bearer ${token}`
 			})
-			console.log(data)
-			fetchArgonauts()
+			setArgonauts(
+				argonauts.concat([
+					{
+						name: argonaut,
+						date: Date.now()
+					}
+				])
+			)
 		} catch (e) {}
 	}
 
-	async function removeArgonaut(id) {
-		console.log('id == ' + id)
-
-		setArgonauts(argonauts.filter(argo => argo._id !== id))
+	const removeArgonaut = async (id) => {
 		try {
-			await request('api/argonaut/:id', 'DELETE', {id}, {
+			await request(`api/argonaut/${id}`, 'DELETE', null, {
 				Authorization: `Bearer ${token}`
 			})
-			// fetchArgonauts()
+			setArgonauts(argonauts.filter(argo => argo._id !== id))
+		} catch (e) {}
+	}
+
+	const updateArgonaut = async (id) => {
+		try {
+			await request(`api/argonaut/${id}`, 'PUT', null, {
+				Authorization: `Bearer ${token}`
+			})
+			setArgonauts(argonauts.map())
 		} catch (e) {}
 	}
 
@@ -83,36 +82,10 @@ export const HomePage = () => {
 	}
 
 	return (
-		<ArgoContext.Provider value={{ removeArgonaut }}>
-
-			<div className="row">
-				<div className="col s8 offset-s2">
-					<h3>Ajouter un(e) Argonaute</h3>
-					<p>
-						<label htmlFor="argonaut">Nom de l'Argonaute</label>
-					</p>
-					<input
-						placeholder="Charalampos"
-						id="argonaut"
-						type="text"
-						value={argonaut}
-						onChange={e => setArgonaut(e.target.value)}
-						onKeyPress={pressHandler}
-						style={{maxWidth: "70%"}}
-					/>
-
-					<button
-						className="btn waves-effect waves-light _wild" type="submit"
-						name="action"
-						onClick={buttonHandler}>
-						Embarquer
-  					</button>
-				</div>
-			</div>
-
+		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
+			<AddArgo onCreate={ addArgo } />
 			{loading && <Loader />}
-			<ArgonautsList argonauts={argonauts} />
-
+			<ArgosList argonauts={ argonauts } />
 		</ArgoContext.Provider>
 	)
 }

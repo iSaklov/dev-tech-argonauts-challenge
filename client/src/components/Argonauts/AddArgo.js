@@ -1,19 +1,15 @@
 import React, { useContext, useState } from 'react'
-// import { AuthContext } from '../../context/AuthContext'
-import { useInputValue } from '../../hooks/inputValue.hook'
+// import { useInputValue } from '../../hooks/inputValue.hook'
 
-export const ArgonautAdd = ({ onCreate }) => {
+export const AddArgo = ({ onCreate }) => {
 	// 1 VERSION CLASSIC REACT
-	
-	const [value, setValue] = useState('');
 	const [argonaut, setArgonaut] = useState('')
 
-	function submitHandler(event) {
+	const submitHandler = event => {
 		event.preventDefault()
-
-		if (value.trim()) {
-			onCreate(value)
-			setValue('')
+		if (argonaut.trim()) {
+			onCreate(argonaut)
+			setArgonaut('')
 		}
 	}
 
@@ -21,27 +17,25 @@ export const ArgonautAdd = ({ onCreate }) => {
 		<div className="row">
 			<div className="col s8 offset-s2">
 				<h3>Ajouter un(e) Argonaute</h3>
-				<form onSubmit={submitHandler}>
-					<p>
-						<label htmlFor="argonaut">Nom de l'Argonaute</label>
-					</p>
-					<input
-						placeholder="Charalampos"
-						id="argonaut"
-						type="text"
-						value={value}
-						onChange={e => setValue(e.target.value)}
-						// onKeyPress={pressHandler}
-						style={{maxWidth: "70%"}}
-					/>
-					<button
-						className="btn waves-effect waves-light _wild" type="submit"
-						name="action"
-						// onClick={buttonHandler}
-						>
-						Embarquer
-					</button>
-				</form>
+				<p>
+					<label htmlFor="argonaut">Nom de l'Argonaute</label>
+				</p>
+				<input
+					placeholder="Charalampos"
+					id="argonaut"
+					type="text"
+					value={argonaut}
+					onChange={event => setArgonaut(event.target.value)}
+					style={{maxWidth: "70%"}}
+				/>
+
+				<button
+					className="btn waves-effect waves-light _wild"
+					type="submit"
+					onClick={submitHandler}
+				>
+					Embarquer
+				</button>
 			</div>
 		</div>
 	)

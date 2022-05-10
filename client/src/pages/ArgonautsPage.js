@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react'
 //import { useParams } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
-import { ArgonautsList } from '../components/ArgonautsList'
+import { ArgosList } from '../components/ArgosList'
 // import { ArgonautCard } from '../components/ArgonautCard'
 
 export const ArgonautsPage = () => {
@@ -31,7 +31,7 @@ export const ArgonautsPage = () => {
 
 	return (
 		<>
-			{ !loading && argonauts && <ArgonautsList argonauts={argonauts} />}
+			{ !loading && argonauts && <ArgosList argonauts={argonauts} />}
 		</>
 	)
 }

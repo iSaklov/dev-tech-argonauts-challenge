@@ -3,7 +3,7 @@ const auth = require('../middleware/auth.middleware')
 const Argonaut = require('../models/Argonaut')
 const router = Router()
 
-router.post('/add', auth, async (req, res) => {
+router.post('/', auth, async (req, res) => {
 	try {
 		const { name } = req.body
 
@@ -70,9 +70,9 @@ router.put('/:id', auth, async (req, res) => {
 	}
 })
 
-router.delete('/', auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
 	try {
-		await Argonaut.deleteOne({_id: req.argonaut._id})
+		await Argonaut.deleteOne({ _id: req.params.id })
 		res.status(200).json({
 			message: 'L\'argonaute a été débarqué avec succes !'
 		})
