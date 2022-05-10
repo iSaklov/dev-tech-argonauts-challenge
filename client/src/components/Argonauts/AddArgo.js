@@ -26,6 +26,7 @@ export const AddArgo = ({ onCreate }) => {
 					value={argonaut}
 					onChange={event => setArgonaut(event.target.value)}
 					style={{maxWidth: "70%"}}
+					autoComplete={false}
 				/>
 
 				<button

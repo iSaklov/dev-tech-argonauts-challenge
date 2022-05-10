@@ -51,13 +51,15 @@ router.get('/:id', auth, async (req, res) => {
 
 router.put('/:id', auth, async (req, res) => {
 	try {
+		const { name } = req.body
 		const argonaut = new Argonaut({
-			name: req.body,
-			imageUrl: req.body.imageUrl,
+			_id: req.params.id,
+			name: name,
+			// imageUrl: req.body.imageUrl,
 			owner: req.user.userId
 		})
 
-		await argonaut.updateOne({_id: req.params.id})
+		await Argonaut.updateOne({_id: req.params.id}, argonaut)
 
 		res.status(201).json({ 
 			// argonaut

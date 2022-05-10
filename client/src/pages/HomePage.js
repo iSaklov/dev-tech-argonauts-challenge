@@ -68,12 +68,12 @@ export const HomePage = () => {
 		} catch (e) {}
 	}
 
-	const updateArgonaut = async (id) => {
+	const updateArgonaut = async (id, name) => {
 		try {
-			await request(`api/argonaut/${id}`, 'PUT', null, {
+			await request(`api/argonaut/${id}`, 'PUT', { name }, {
 				Authorization: `Bearer ${token}`
 			})
-			setArgonauts(argonauts.map())
+			// setArgonauts(argonauts.map())
 		} catch (e) {}
 	}
 

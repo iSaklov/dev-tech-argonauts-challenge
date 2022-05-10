@@ -15,18 +15,6 @@ code {
     monospace;
 }
 
-/* nav {
-  color: #f76c6c !important;
-  background-color: #f4f4f4 !important;
-    background: #f4f4f4;
-  text-align: center;
-  padding: 2em;
-}
-
-nav h1 {
-  margin: 0;
-} */
-
 nav {
   background: #f4f4f4;
 }
@@ -69,4 +57,9 @@ footer {
   color: #fff;
   background: #f76c6c;
   padding: 0.25em 0;
+}
+
+
+input:read-only {
+  border-bottom: none !important;
 }
