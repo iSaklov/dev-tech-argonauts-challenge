@@ -1,7 +1,9 @@
 import React from 'react'
+import { useHttp } from '../../hooks/http.hook'
 import { ArgoItem } from './ArgoItem'
 
 export const ArgosList = ({ argonauts }) => {
+	const { loading } = useHttp()
 
 	if (!argonauts.length) {
 		return <p className="center">La liste de membres de l'équipage est vide</p>
@@ -22,7 +24,6 @@ export const ArgosList = ({ argonauts }) => {
 			<tbody>
 				{ argonauts.map((argonaut, index) => {
 					return (
-					// <ArgoItem argonaut={argonaut} key={argonaut._id} index={index} onChange={onToggle}/>
 					<ArgoItem argonaut={argonaut} key={argonaut._id} index={index} />
 					)
 				})}

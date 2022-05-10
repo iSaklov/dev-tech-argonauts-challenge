@@ -24,7 +24,10 @@ export const useHttp = () => {
 				throw new Error(data.message || 'Quelque chose a mal tourné')
 			}
 
-			setLoading(false)
+			// setLoading(false)
+			window.setTimeout(() => {	
+				setLoading(false)
+			}, 3000)
 
 			return data
 		} catch (e) {

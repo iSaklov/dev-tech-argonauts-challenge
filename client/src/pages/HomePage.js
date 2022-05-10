@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/Context'
 import { ArgoContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
-import { Loader } from '../components/Loader'
 import { AddArgo } from '../components/Argonauts/AddArgo'
+import { Loader } from '../components/Loader'
 import { ArgosList } from '../components/Argonauts/ArgosList'
 
 
@@ -22,8 +22,8 @@ export const HomePage = () => {
 	}, [])
 
 	const navigate = useNavigate()
-	const {token} = useContext(AuthContext)
-	const {request, loading} = useHttp()
+	const { token } = useContext(AuthContext)
+	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
 
 	useEffect(() => {
@@ -77,15 +77,10 @@ export const HomePage = () => {
 		} catch (e) {}
 	}
 
-	if (loading) {
-		return <Loader />
-	}
-
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
 			<AddArgo onCreate={ addArgo } />
-			{loading && <Loader />}
-			<ArgosList argonauts={ argonauts } />
+			{loading ? <Loader /> : <ArgosList argonauts={ argonauts } />}
 		</ArgoContext.Provider>
 	)
 }
