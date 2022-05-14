@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 // import { useInputValue } from '../../hooks/inputValue.hook'
 
-export const AddArgo = ({ onCreate }) => {
-	const [argonaut, setArgonaut] = useState('')
+const AddArgo = ({ onCreate }) => {
+	const [name, setName] = useState('')
 
 	const submitHandler = event => {
 		event.preventDefault()
-		if (argonaut.trim()) {
-			onCreate(argonaut)
-			setArgonaut('')
+		if (name.trim()) {
+			onCreate(name)
+			setName('')
 		}
 	}
 
@@ -21,16 +21,15 @@ export const AddArgo = ({ onCreate }) => {
 				</p>
 				<input
 					placeholder="Charalampos"
-					id="argonaut"
+					id="name"
 					type="text"
-					value={argonaut}
-					onChange={event => setArgonaut(event.target.value)}
+					value={name}
+					onChange={event => setName(event.target.value)}
 					style={{maxWidth: "70%"}}
-					autoComplete={false}
+					autoComplete="false"
 				/>
-
 				<button
-					className="btn waves-effect waves-light _wild"
+					className="btn waves-effect waves-light"
 					type="submit"
 					onClick={submitHandler}
 				>
@@ -40,3 +39,5 @@ export const AddArgo = ({ onCreate }) => {
 		</div>
 	)
 }
+
+export default AddArgo

@@ -3,23 +3,25 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/Context'
 import { ArgoContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
-import { AddArgo } from '../components/Argonauts/AddArgo'
 import { Loader } from '../components/Loader'
-import { ArgosList } from '../components/Argonauts/ArgosList'
+import AddArgo from '../components/Argonauts/AddArgo'
+import ArgosList from '../components/Argonauts/ArgosList'
+
+
 
 
 export const HomePage = () => {
-	const [argos, setArgos] = useState([])
+	// const [argos, setArgos] = useState([])
 
-	useEffect(() => {
-		fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-			.then(response => response.json())
-			.then(argos => {
-				setTimeout(() => {
-					setArgos(argos)
-				}, 2000)
-			})
-	}, [])
+	// useEffect(() => {
+	// 	fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+	// 		.then(response => response.json())
+	// 		.then(argos => {
+	// 			setTimeout(() => {
+	// 				setArgos(argos)
+	// 			}, 2000)
+	// 		})
+	// }, [])
 
 	const navigate = useNavigate()
 	const { token } = useContext(AuthContext)
@@ -43,19 +45,12 @@ export const HomePage = () => {
 		fetchArgonauts()
 	}, [fetchArgonauts])
 
-	const addArgo = async (argonaut) => {
+	const addArgonaut = async (name) => {
 		try {
-			await request('/api/argonaut', 'POST', { name: argonaut }, {
+			const data = await request('/api/argonaut/add', 'POST', { name }, {
 				Authorization: `Bearer ${token}`
 			})
-			setArgonauts(
-				argonauts.concat([
-					{
-						name: argonaut,
-						date: Date.now()
-					}
-				])
-			)
+			setArgonauts([...argonauts, data.argonaut])
 		} catch (e) {}
 	}
 
@@ -79,7 +74,7 @@ export const HomePage = () => {
 
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
-			<AddArgo onCreate={ addArgo } />
+			<AddArgo onCreate={ addArgonaut } />
 			{loading ? <Loader /> : <ArgosList argonauts={ argonauts } />}
 		</ArgoContext.Provider>
 	)

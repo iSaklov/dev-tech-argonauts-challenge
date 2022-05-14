@@ -1,8 +1,7 @@
 import React from 'react'
-import { useHttp } from '../../hooks/http.hook'
-import { ArgoItem } from './ArgoItem'
+import ArgoItem from './ArgoItem'
 
-export const ArgosList = ({ argonauts }) => {
+const ArgosList = ({ argonauts }) => {
 	if (!argonauts.length) {
 		return <p className="center">La liste de membres de l'équipage est vide</p>
 	}
@@ -22,7 +21,7 @@ export const ArgosList = ({ argonauts }) => {
 			<tbody>
 				{ argonauts.map((argonaut, index) => {
 					return (
-					<ArgoItem argonaut={argonaut} key={argonaut._id} index={index} onUpdate />
+					<ArgoItem argonaut={argonaut} index={index + 1} key={argonaut._id} />
 					)
 				})}
 			</tbody>
@@ -30,3 +29,5 @@ export const ArgosList = ({ argonauts }) => {
 		</>
 	)
 }
+
+export default ArgosList

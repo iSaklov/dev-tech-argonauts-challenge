@@ -3,7 +3,7 @@ const auth = require('../middleware/auth.middleware')
 const Argonaut = require('../models/Argonaut')
 const router = Router()
 
-router.post('/', auth, async (req, res) => {
+router.post('/add', auth, async (req, res) => {
 	try {
 		const { name } = req.body
 
@@ -20,7 +20,7 @@ router.post('/', auth, async (req, res) => {
 		await argonaut.save()
 
 		res.status(201).json({
-			// argonaut
+			argonaut,
 			message: 'Post saved successfully!'
 		})
 	} catch (e) {
