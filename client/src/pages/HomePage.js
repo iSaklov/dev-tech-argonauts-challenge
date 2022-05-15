@@ -50,7 +50,8 @@ export const HomePage = () => {
 			const data = await request('/api/argonaut/add', 'POST', { name }, {
 				Authorization: `Bearer ${token}`
 			})
-			setArgonauts([...argonauts, data.argonaut])
+			// setArgonauts([...argonauts, data.argonaut])
+			setArgonauts(argonauts.concat(data.argonaut))
 		} catch (e) {}
 	}
 
@@ -63,12 +64,14 @@ export const HomePage = () => {
 		} catch (e) {}
 	}
 
-	const updateArgonaut = async (id, name) => {
+	const updateArgonaut = async (id, newName) => {
 		try {
-			await request(`api/argonaut/${id}`, 'PUT', { name }, {
+			const data = await request(`api/argonaut/${id}`, 'PUT', { newName }, {
 				Authorization: `Bearer ${token}`
 			})
-			// setArgonauts(argonauts.map())
+			setArgonauts(argonauts.map(argo => {
+				return argo._id === id ? data.argonaut : argo
+			}))
 		} catch (e) {}
 	}
 

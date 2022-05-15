@@ -14,18 +14,19 @@ router.post('/add', auth, async (req, res) => {
 		}
 
 		const argonaut = new Argonaut({
-			name, owner: req.user.userId
+			name,
+			owner: req.user.userId
 		})
 
 		await argonaut.save()
 
 		res.status(201).json({
 			argonaut,
-			message: 'Post saved successfully!'
+			message: 'Argonaute embarqué avec succès !'
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Quelque chose ne va pas, on essaie encore',
+			message: 'Argonaute \'a pas pu être embarqué',
 			error: e
 		})
 	}
@@ -36,7 +37,10 @@ router.get('/', auth, async (req, res) => {
 		const argonauts = await Argonaut.find({ owner: req.user.userId })
 		res.status(200).json(argonauts)
 	} catch (e) {
-		res.status(500).json({ message: 'Quelque chose ne va pas, on essaie encore' })
+		res.status(500).json({
+			message: 'Quelque chose tourne mal, veuillez rafraîchir la page',
+			error: e
+		})
 	}
 })
 
@@ -45,16 +49,19 @@ router.get('/:id', auth, async (req, res) => {
 		const argonaut = await Argonaut.findById(req.params.id)
 		res.status(200).json(argonaut)
 	} catch (e) {
-		res.status(404).json({ message: 'Cet argonaute n\'a pas été trouvé' })
+		res.status(404).json({
+			message: 'Cet argonaute n\'a pas été trouvé',
+			error: e
+		})
 	}
 })
 
 router.put('/:id', auth, async (req, res) => {
 	try {
-		const { name } = req.body
+		const { newName } = req.body
 		const argonaut = new Argonaut({
 			_id: req.params.id,
-			name: name,
+			name: newName,
 			// imageUrl: req.body.imageUrl,
 			owner: req.user.userId
 		})
@@ -62,12 +69,13 @@ router.put('/:id', auth, async (req, res) => {
 		await Argonaut.updateOne({_id: req.params.id}, argonaut)
 
 		res.status(201).json({ 
-			// argonaut
-		message: 'Argonaut updated successfully !'
+			argonaut,
+			message: 'Argonaute vient d\'être modifié avec succès !'
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Argonaute n\' a pas pu être modifié', e
+			message: 'Argonaute n\' a pas pu être modifié',
+			error: e
 		})
 	}
 })
@@ -76,10 +84,13 @@ router.delete('/:id', auth, async (req, res) => {
 	try {
 		await Argonaut.deleteOne({ _id: req.params.id })
 		res.status(200).json({
-			message: 'L\'argonaute a été débarqué avec succes !'
+			message: 'L\'argonaute a été débarqué avec succès !'
 		})
 	} catch (e) {
-		res.status(500).json({ message: 'ERROR DELETE' })
+		res.status(500).json({
+			message: 'ERROR DELETE',
+			error: e
+		})
 	}
 })
 

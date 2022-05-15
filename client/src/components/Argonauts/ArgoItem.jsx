@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom'
 import { ArgoContext } from '../../context/Context'
 import Modal from '../Modal/Modal'
 
-const ArgoItem = ({ argonaut, number }) => {
+const ArgoItem = ({ argonaut, index }) => {
 
 	const { updateArgonaut, removeArgonaut } = useContext(ArgoContext)
-	const [argo, setArgo] = useState(argonaut)
-	const [name, setName] = useState(argonaut.name)
+	// const [argonaut, setargonaut] = useState(argonautnaut)
+	const [name, setName] = useState('')
 	const [selected, setSelected] = useState(false)
+
+	// setName(argonaut.name)
 
 	const classes = []
 
@@ -19,7 +21,8 @@ const ArgoItem = ({ argonaut, number }) => {
 	const saveHandler = event => {
 		event.preventDefault()
 		if(name.trim()) {
-			updateArgonaut(argo._id, argo.name)
+			updateArgonaut(argonaut._id, name)
+			console.log(`newName is ${name}`)
 			// setSelected(false) // default reloading by component
 		}
 	}
@@ -30,26 +33,27 @@ const ArgoItem = ({ argonaut, number }) => {
 	}
 
 	return (
-		<tr key={argo._id}>
-			<td>{number}</td>
+		<tr key={argonaut._id}>
+			<td>{index}</td>
 			<td>
 				<input
 					type="text"
 					id="name"
 					name="name"
-					value={argo.name}
+					value={name}
 					readOnly={!selected}
 					autoFocus={selected}
 					// { selected ? autoFocus="true" : null}
 					// { selected ? readOnly="false" : readOnly="true"}
 					// autoComplete={selected}
-					onChange={event => setArgo({...argo, name: event.target.value})}
+					// onChange={event => setargonaut({...argonaut, name: event.target.value})}
+					onChange={event => setName(event.target.value)}
 					// className={classes.join(' ')}
 				/>
 			</td>
-			<td>{new Date(argo.date).toLocaleDateString()}</td>
+			<td>{new Date(argonaut.date).toLocaleDateString()}</td>
 			<td>
-				<Link to={`/detail/${argo._id}`}>Ouvrir</Link>
+				<Link to={`/detail/${argonaut._id}`}>Ouvrir</Link>
 			</td>
 			<td>
 				<Modal />
@@ -66,7 +70,7 @@ const ArgoItem = ({ argonaut, number }) => {
 							</button>
 							<button
 								className="btn waves-effect waves-light red"
-								onClick={removeArgonaut.bind(null, argo._id)}
+								onClick={removeArgonaut.bind(null, argonaut._id)}
 							>
 								<i className="small material-icons">delete</i>
 							</button>
