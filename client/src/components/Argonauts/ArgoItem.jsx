@@ -7,7 +7,7 @@ const ArgoItem = ({ argonaut, index }) => {
 
 	const { updateArgonaut, removeArgonaut } = useContext(ArgoContext)
 	// const [argonaut, setargonaut] = useState(argonautnaut)
-	const [name, setName] = useState('')
+	const [name, setName] = useState(argonaut.name)
 	const [selected, setSelected] = useState(false)
 
 	// setName(argonaut.name)

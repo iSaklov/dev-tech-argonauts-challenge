@@ -1,5 +1,5 @@
 import React from "react"
-import './Modal.css'
+import classes from './Modal.module.css'
 
 export default class Modal extends React.Component {
 	state = {
@@ -12,15 +12,14 @@ export default class Modal extends React.Component {
 				<button onClick={() => this.setState({ isOpen: true })}>
 					Open modal
 				</button>
-
 				{this.state.isOpen && (
-					<div className="modal">
-						<div className="modal-body">
-							<h1>Modal Title</h1>
-							<p>I am awesome</p>
+					<div className={classes.modal} onClick={() => this.setState({ isOpen: false })}>
+						<div className={classes.modal_body} onClick={(e) => e.stopPropagation()}>
 							<button onClick={() => this.setState({ isOpen: false })}>
 								Close
 							</button>
+							<h1>Modal Title</h1>
+							<p>I am awesome</p>
 						</div>
 					</div>
 				)}
