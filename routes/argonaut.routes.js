@@ -5,7 +5,7 @@ const router = Router()
 
 router.post('/add', auth, async (req, res) => {
 	try {
-		const { name } = req.body
+		const { name, img } = req.body
 
 		const existing = await Argonaut.findOne({ name })
 
@@ -15,6 +15,7 @@ router.post('/add', auth, async (req, res) => {
 
 		const argonaut = new Argonaut({
 			name,
+			img,
 			owner: req.user.userId
 		})
 

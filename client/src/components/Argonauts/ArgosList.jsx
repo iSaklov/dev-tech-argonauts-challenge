@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { TransitionGroup, CSSTransition } from "react-transition-group"
 import MySelect from '../UI/MySelect'
 import ArgoItem from './ArgoItem'
 
@@ -32,17 +33,25 @@ const ArgosList = ({ argonauts }) => {
 			</div> */}
 			<table>
 				<thead>
-				<tr>
-					<th>#</th>
-					<th>Nom d'argonaut</th>
-					<th>Date d'embarquation</th>
-					<th>Voir sa belle gueule</th>
-				</tr>
+						<tr>
+							<th>#</th>
+							<th>Nom d'argonaut</th>
+							<th>Date d'embarquation</th>
+							<th>Sa belle gueule</th>
+						</tr>
 				</thead>
 				<tbody>
-					{ argonauts.map((argonaut, index) =>
-						<ArgoItem argonaut={argonaut} index={index + 1} key={argonaut._id} />
-					)}
+					<TransitionGroup component={null}>
+						{ argonauts.map((argonaut, index) =>
+						  <CSSTransition
+								key={argonaut._id}
+								timeout={250}
+								classNames="argonaut"
+            	>
+								<ArgoItem argonaut={argonaut} index={index + 1} />
+							</CSSTransition>
+						)}
+					</TransitionGroup>
 				</tbody>
 			</table>
 		</>

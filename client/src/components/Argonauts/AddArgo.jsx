@@ -15,14 +15,12 @@ const AddArgo = ({ onCreate }) => {
 	return (
 		<div className="row">
 			<div className="col s8 offset-s2">
-				<h3>Ajouter un(e) Argonaute</h3>
+				<h4>Ajouter un(e) Argonaute</h4>
 				<p>
 					<label htmlFor="argonaut">Nom de l'Argonaute</label>
 				</p>
 				<input
 					placeholder="Charalampos"
-					id="name"
-					type="text"
 					value={name}
 					onChange={event => setName(event.target.value)}
 					style={{maxWidth: "70%"}}

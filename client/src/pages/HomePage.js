@@ -6,27 +6,19 @@ import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 import AddArgo from '../components/Argonauts/AddArgo'
 import ArgosList from '../components/Argonauts/ArgosList'
+// import { useArgos } from '../hooks/useArgos'
 
 
 
 
 export const HomePage = () => {
-	// const [argos, setArgos] = useState([])
-
-	// useEffect(() => {
-	// 	fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-	// 		.then(response => response.json())
-	// 		.then(argos => {
-	// 			setTimeout(() => {
-	// 				setArgos(argos)
-	// 			}, 2000)
-	// 		})
-	// }, [])
 
 	const navigate = useNavigate()
 	const { token } = useContext(AuthContext)
 	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
+	const [filter, setFilter] = useState({sort: '', query: ''})
+	// const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
 
 	useEffect(() => {
 		window.M.updateTextFields()
@@ -34,12 +26,19 @@ export const HomePage = () => {
 
 	const fetchArgonauts = useCallback( async () => {
 		try {
-			const fetched = await request(`/api/argonaut/`, 'GET', null, {
+			const fetched = await request('/api/argonaut/', 'GET', null, {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(fetched)
 		} catch (e) {}
 	}, [token, request])
+
+	const getImage = useCallback( async () => {
+		try{
+			const fetched = await request('https://api.thecatapi.com/v1/images/search?limit=1&category_ids=2')
+			return fetched[0].url
+		} catch (e) {}
+	}, [])
 
 	useEffect(() => {
 		fetchArgonauts()
@@ -47,7 +46,8 @@ export const HomePage = () => {
 
 	const addArgonaut = async (name) => {
 		try {
-			const data = await request('/api/argonaut/add', 'POST', { name }, {
+			const img = await getImage()
+			const data = await request('/api/argonaut/add', 'POST', { name, img }, {
 				Authorization: `Bearer ${token}`
 			})
 			// setArgonauts([...argonauts, data.argonaut])
@@ -68,17 +68,19 @@ export const HomePage = () => {
 		try {
 			const data = await request(`api/argonaut/${id}`, 'PUT', { newName }, {
 				Authorization: `Bearer ${token}`
-			})
-			setArgonauts(argonauts.map(argo => {
-				return argo._id === id ? data.argonaut : argo
-			}))
+			}) 
+			setArgonauts( argonauts.map(argo => (
+				argo._id === id
+					? {...argo, name: data.argonaut.name}
+					: argo
+			)))
 		} catch (e) {}
 	}
 
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
 			<AddArgo onCreate={ addArgonaut } />
-			{loading ? <Loader /> : <ArgosList argonauts={ argonauts } />}
+			{loading ? <Loader /> : <ArgosList argonauts={argonauts} />}
 		</ArgoContext.Provider>
 	)
 }

@@ -1,26 +1,24 @@
 @import "~materialize-css/dist/css/materialize.min.css";
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+:root {
+  --main-color: #f76c6c;
+  --main-bg-color: #f4f4f4;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
+/* NAVBAR */
 nav {
-  background: #f4f4f4;
+  background: var(--main-bg-color);
 }
 
 nav ul a {
-  color: #f76c6c;
+  color: var(--main-color);
 }
 
 .container {
@@ -28,6 +26,7 @@ nav ul a {
   text-align: center;
 }
 
+/* AUTHENTIFICATION */
 .card-action {
   display: flex;
   justify-content: space-evenly;
@@ -43,23 +42,30 @@ nav ul a {
   box-shadow: 0 1px 0 0 #f76c6c !important;
 }
 
-._wild {
-  background-color: #f76c6c !important;
+/* REACT TRANSITION */
+.argonaut-enter {
+  opacity: 0;
+}
+.argonaut-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.argonaut-exit {
+  opacity: 1;
+}
+.argonaut-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
 }
 
-input:focus {
-  border-bottom: 1px solid #f76c6c !important;
+/* MAIN */
+input:read-only {
+  border-bottom: none !important;
 }
 
 footer {
-  margin-top: 2em;
-  text-align: center;
   color: #fff;
-  background: #f76c6c;
-  padding: 0.25em 0;
-}
-
-
-input:read-only {
-  border-bottom: none !important;
+  background: var(--main-color);
+  padding: 0.5rem 0;
+  text-align: center;
 }
