@@ -59,8 +59,14 @@ nav ul a {
 }
 
 /* MAIN */
-input:read-only {
-  border-bottom: none !important;
+input[type=text]:not(.browser-default):read-only {
+  border-bottom: none;
+}
+
+.button_disabler {
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: sepia();
 }
 
 footer {

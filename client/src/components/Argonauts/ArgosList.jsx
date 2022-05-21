@@ -11,6 +11,13 @@ const ArgosList = ({ argonauts }) => {
 	// 	setArgos([...argonauts].sort((a, b) => a[sort].localeCompare(b[sort])))
 	// }
 
+	const btnBlocker = () => {
+		const buttons = document.querySelectorAll('.btn_blocked')
+		for(const btn of buttons) {
+			btn.classList.toggle('button_disabler')
+		}
+	}
+
 	if (!argonauts.length) {
 		return (
 				<p className="center">La liste de membres de l'équipage est vide</p>
@@ -48,7 +55,7 @@ const ArgosList = ({ argonauts }) => {
 								timeout={250}
 								classNames="argonaut"
             	>
-								<ArgoItem argonaut={argonaut} index={index + 1} />
+								<ArgoItem argonaut={argonaut} index={index + 1} btnBlocker={btnBlocker}/>
 							</CSSTransition>
 						)}
 					</TransitionGroup>
