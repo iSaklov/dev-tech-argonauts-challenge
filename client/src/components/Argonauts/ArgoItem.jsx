@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-// import { Link } from 'react-router-dom'
 import { ArgoContext } from '../../context/Context'
 import Modal from '../Modal/Modal'
 

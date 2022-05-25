@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TransitionGroup, CSSTransition } from "react-transition-group"
 import MySelect from '../UI/MySelect'
 import ArgoItem from './ArgoItem'
@@ -27,7 +27,7 @@ const ArgosList = ({ argonauts }) => {
 	return (
 		<>
 			<h4>Membres de l'équipage</h4>
-			{/* <div style={{margin: '5rem'}}>
+			{/* <div style={{margin: '15rem'}}>
 				<MySelect
 					value={selectedSort}
 					onChange={sort => setSelectedSort(sort)}
@@ -38,6 +38,9 @@ const ArgosList = ({ argonauts }) => {
 					]}
 				/>
 			</div> */}
+
+			<MySelect />
+
 			<table>
 				<thead>
 						<tr>

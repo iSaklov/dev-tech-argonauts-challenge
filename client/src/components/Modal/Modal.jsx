@@ -13,7 +13,7 @@ export default class Modal extends React.Component {
 					onClick={() => this.setState({ isOpen: true })}
 					className="waves-effect waves-light btn"
 				>
-					<i className="small material-icons">adb</i> 
+					<i className="small material-icons left">adb</i>clique-miaou 
 				</button>
 				{this.state.isOpen && (
 					<div className={classes.modal} onClick={() => this.setState({ isOpen: false })}>
