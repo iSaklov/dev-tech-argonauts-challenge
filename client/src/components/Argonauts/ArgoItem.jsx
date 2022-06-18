@@ -11,7 +11,7 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 	useEffect(() => {
 		setName(argonaut.name)
 	}, [argonaut])
-
+ 
 	const editHandler = () => {
 		btnBlocker()
 		setSelected(true)

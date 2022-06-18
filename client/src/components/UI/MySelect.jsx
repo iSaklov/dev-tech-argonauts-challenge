@@ -1,38 +1,43 @@
-import React, { Component } from 'react';
-// import 'materialize-css/dist/css/materialize.min.css'
+import React, { Component } from 'react'
+import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
-// const MySelect = ({ options, defaultValue, value, onChange }) => {
-// 	return (
-// 		<select
-// 			value={value}
-// 			onChange={event => onChange(event.target.value)}
-// 		>
-// 			<option disabled value="">{defaultValue}</option>
-// 			{options.map(option =>
-// 				<option key={option.value} value={option.value}>
-// 					{option.name}
-// 				</option>
-// 			)}
-// 		</select>
-// 	)
-// }
+export default class MySelect extends Component {
 
-// export default MySelect
+  constructor(props) {
+    super(props)
+    this.state = {
+			value: '',
+		}
+		this.handleChange = this.handleChange.bind(this);
+  }
 
-export default class MySelect extends Component{
 	componentDidMount(){
-		console.log(M);
+		// console.log(M);
 		M.AutoInit();
 	}
+
+	handleChange(event) {
+		console.log(event.target.value)
+		this.setState({
+			value: event.target.value
+		})
+		// return event.target.value
+  }
+
 	render() {
 		return (
-			<div class="input-field col s12">
-				<select>
-					<option value="" disabled selected>Choose your option</option>
-					<option value="1">Option 1</option>
-					<option value="2">Option 2</option>
-					<option value="3">Option 3</option>
+			<div className="input-field col s12">
+				<select
+					value={this.props.value}
+					onChange={this.handleChange}
+				>
+					<option disabled value="">{this.props.defaultValue}</option>
+					{this.props.options.map(option =>
+						<option key={option.value} value={option.value}>
+							{option.name}
+						</option>
+					)}
 				</select>
 				<label>Materialize Select</label>
 			</div>

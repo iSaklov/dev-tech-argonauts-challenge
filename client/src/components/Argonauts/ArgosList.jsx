@@ -4,13 +4,6 @@ import MySelect from '../UI/MySelect'
 import ArgoItem from './ArgoItem'
 
 const ArgosList = ({ argonauts }) => {
-	// const [selectedSort, setSelectedSort] = useState('')
-
-	// const sortArgos = (sort) => {
-	// 	setSelectedSort(sort)
-	// 	setArgos([...argonauts].sort((a, b) => a[sort].localeCompare(b[sort])))
-	// }
-
 	const btnBlocker = () => {
 		const buttons = document.querySelectorAll('.btn_blocked')
 		for(const btn of buttons) {
@@ -27,20 +20,6 @@ const ArgosList = ({ argonauts }) => {
 	return (
 		<>
 			<h4>Membres de l'équipage</h4>
-			{/* <div style={{margin: '15rem'}}>
-				<MySelect
-					value={selectedSort}
-					onChange={sort => setSelectedSort(sort)}
-					defaultValue={'Сортировка'}
-					options={[
-						{value: "name", name: "по имени"},
-						{value: "date", name: "по дате"},
-					]}
-				/>
-			</div> */}
-
-			<MySelect />
-
 			<table>
 				<thead>
 						<tr>

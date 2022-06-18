@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react'
+import React, { useState, useEffect, useContext, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/Context'
 import { ArgoContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 import AddArgo from '../components/Argonauts/AddArgo'
+import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 // import { useArgos } from '../hooks/useArgos'
-
-
-
 
 export const HomePage = () => {
 
@@ -19,6 +17,18 @@ export const HomePage = () => {
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
 	// const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
+
+	const sortedArgos = useMemo(() => {
+		console.log('SORTED FUNCTION WORKED')
+		if(filter.sort) {
+			return [...argonauts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
+		}
+		return argonauts
+	}, [filter.sort, argonauts])
+
+	const sortedAndSearchedArgos = useMemo(() => {
+		return sortedArgos.filter(argo => argo.name.toLowerCase().includes(filter.query.toLowerCase()))
+	}, [filter.query, sortedArgos])
 
 	useEffect(() => {
 		window.M.updateTextFields()
@@ -80,7 +90,11 @@ export const HomePage = () => {
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
 			<AddArgo onCreate={ addArgonaut } />
-			{loading ? <Loader /> : <ArgosList argonauts={argonauts} />}
+			<ArgoFilter
+				filter={filter}
+				setFilter={setFilter}
+			/>
+			{loading ? <Loader /> : <ArgosList argonauts={sortedAndSearchedArgos} />}
 		</ArgoContext.Provider>
 	)
 }
