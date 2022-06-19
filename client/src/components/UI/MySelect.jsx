@@ -16,17 +16,17 @@ export default class MySelect extends Component {
 
 	onChange(event) {
 		this.props.onChange(event.target.value)
-		// this.setState({
-		// 	value: event.target.value
-		// })
-		// console.log("The value of state is " + this.state.value)
+		this.setState({
+			value: event.target.value
+		})
+		// console.log("The value of state is " + event.target.value)
 	}
 
 	render() {
 		return (
 			<div className="input-field col s12">
 				<select
-					// value={this.state.value}
+					value={this.state.value}
 					onChange={this.onChange.bind(this)}
 				>
 					<option disabled value="">{this.props.defaultValue}</option>
