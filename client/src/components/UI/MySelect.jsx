@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css/dist/js/materialize.min.js'
 
 export default class MySelect extends Component {
@@ -9,28 +8,26 @@ export default class MySelect extends Component {
     this.state = {
 			value: '',
 		}
-		this.handleChange = this.handleChange.bind(this);
   }
 
 	componentDidMount(){
-		// console.log(M);
 		M.AutoInit();
 	}
 
-	handleChange(event) {
-		console.log(event.target.value)
-		this.setState({
-			value: event.target.value
-		})
-		// return event.target.value
-  }
+	onChange(event) {
+		this.props.onChange(event.target.value)
+		// this.setState({
+		// 	value: event.target.value
+		// })
+		// console.log("The value of state is " + this.state.value)
+	}
 
 	render() {
 		return (
 			<div className="input-field col s12">
 				<select
-					value={this.props.value}
-					onChange={this.handleChange}
+					// value={this.state.value}
+					onChange={this.onChange.bind(this)}
 				>
 					<option disabled value="">{this.props.defaultValue}</option>
 					{this.props.options.map(option =>

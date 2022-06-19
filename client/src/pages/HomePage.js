@@ -27,6 +27,7 @@ export const HomePage = () => {
 	}, [filter.sort, argonauts])
 
 	const sortedAndSearchedArgos = useMemo(() => {
+		console.log('SAERCH FUNCTION WORKED')
 		return sortedArgos.filter(argo => argo.name.toLowerCase().includes(filter.query.toLowerCase()))
 	}, [filter.query, sortedArgos])
 
