@@ -7,21 +7,16 @@ export const useRoutes = isAuthenticated => {
 	if(isAuthenticated) {
 		return (
 			<Routes>
-				<Route exact path="/" element={<HomePage />} />
-				{/* <Route path="/detail/:id" element={<DetailPage />} /> */}
-				{/* <Navigate to="/create"/> */}
-				{/* <Route path="/" exact element={<HomePage />} /> */}
-				{/* <Redirect to="/create" /> */}
+				<Route path="/" element={<HomePage />} />
+				<Route path="*" element={<Navigate to ="/" />} />
 			</Routes>
 		)
 	}
 
 	return (
 		<Routes>
-			<Route path="/" exact element={<AuthPage />} />
-			{/* <Route path="*" element={<AuthPage />} /> */}
-			{/* <Navigate to="/" /> */}
-			{/* <Redirect to="/create" /> */}
+			<Route path="/login" element={<AuthPage />} />
+			<Route path="*" element={<Navigate to ="/login" />} />
 		</Routes>
 	)
 }

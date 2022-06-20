@@ -7,6 +7,7 @@ import { Navbar } from './components/Navbar';
 import { Loader } from './components/Loader';
 import { Footer } from './components/Footer';
 import 'materialize-css/dist/css/materialize.min.css'
+import './styles/App.css'
 
 
 function App() {

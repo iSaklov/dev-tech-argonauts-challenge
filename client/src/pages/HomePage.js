@@ -8,6 +8,7 @@ import AddArgo from '../components/Argonauts/AddArgo'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 import { useArgos } from '../hooks/useArgos'
+import Pagination from '../components/UI/pagination/Pagination'
 
 export const HomePage = () => {
 
@@ -16,15 +17,24 @@ export const HomePage = () => {
 	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
+
+	const [totalPages, setTotalPages] = useState(3)
+	const [limit, setLimit] = useState(10)
+	const [page, setPage] = useState(1)
+
 	const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
+
+
 
 	useEffect(() => {
 		window.M.updateTextFields()
 	}, [])
 
 	const fetchArgonauts = useCallback( async () => {
+	// const fetchArgonauts = useCallback( async (limit, page) => {
 		try {
 			const argonauts = await request('/api/argonaut/', 'GET', null, {
+			// const argonauts = await request('/api/argonaut/', 'GET', {limit: limit, page: page}, {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(argonauts)
@@ -40,6 +50,7 @@ export const HomePage = () => {
 
 	useEffect(() => {
 		fetchArgonauts()
+		// fetchArgonauts(limit, page)
 	}, [])
 
 	const addArgonaut = async (name) => {
@@ -75,6 +86,11 @@ export const HomePage = () => {
 		} catch (e) {}
 	}
 
+	const changePage = (page) => {
+		setPage(page)
+		fetchArgonauts(limit, page)
+	}
+
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
 			<AddArgo onCreate={ addArgonaut } />
@@ -82,7 +98,11 @@ export const HomePage = () => {
 				filter={filter}
 				setFilter={setFilter}
 			/>
-			{loading ? <Loader /> : <ArgosList argonauts={sortedAndSearchedArgos} />}
+			{loading
+				? <Loader />
+				: <ArgosList argonauts={sortedAndSearchedArgos} />
+			}
+			<Pagination page={page} totalPages={totalPages} changePage={changePage}/>
 		</ArgoContext.Provider>
 	)
 }
