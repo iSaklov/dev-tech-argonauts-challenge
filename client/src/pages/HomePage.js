@@ -7,7 +7,7 @@ import { Loader } from '../components/Loader'
 import AddArgo from '../components/Argonauts/AddArgo'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
-// import { useArgos } from '../hooks/useArgos'
+import { useArgos } from '../hooks/useArgos'
 
 export const HomePage = () => {
 
@@ -16,20 +16,7 @@ export const HomePage = () => {
 	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
-	// const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
-
-	const sortedArgos = useMemo(() => {
-		console.log('SORTED FUNCTION WORKED')
-		if(filter.sort) {
-			return [...argonauts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-		}
-		return argonauts
-	}, [filter.sort, argonauts])
-
-	const sortedAndSearchedArgos = useMemo(() => {
-		console.log('SAERCH FUNCTION WORKED')
-		return sortedArgos.filter(argo => argo.name.toLowerCase().includes(filter.query.toLowerCase()))
-	}, [filter.query, sortedArgos])
+	const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
 
 	useEffect(() => {
 		window.M.updateTextFields()
@@ -37,10 +24,10 @@ export const HomePage = () => {
 
 	const fetchArgonauts = useCallback( async () => {
 		try {
-			const fetched = await request('/api/argonaut/', 'GET', null, {
+			const argonauts = await request('/api/argonaut/', 'GET', null, {
 				Authorization: `Bearer ${token}`
 			})
-			setArgonauts(fetched)
+			setArgonauts(argonauts)
 		} catch (e) {}
 	}, [token, request])
 
@@ -53,7 +40,7 @@ export const HomePage = () => {
 
 	useEffect(() => {
 		fetchArgonauts()
-	}, [fetchArgonauts])
+	}, [])
 
 	const addArgonaut = async (name) => {
 		try {

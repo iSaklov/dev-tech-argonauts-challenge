@@ -6,7 +6,7 @@ export const useHttp = () => {
 	const [error, setError] = useState(null)
 
 	const request = useCallback( async (url, method = 'GET', body = null, headers = {}) => {
-		
+	
 		setLoading(true)
 
 		try {
@@ -17,22 +17,17 @@ export const useHttp = () => {
 
 			const response = await fetch(url, { method, body, headers })
 			const data = await response.json()
-
-			console.log('response data : ', data)
+			// console.log('response data : ', data)
 
 			if(!response.ok) {
 				throw new Error(data.message || 'Quelque chose a mal tourné')
 			}
 
 			setLoading(false)
-			// LOADER TESTER
-			// window.setTimeout(() => {	
-			// 	setLoading(false)
-			// }, 2500)
 
 			return data
 		} catch (e) {
-			console.log('Catch ', e.message)
+			console.log(`Catch ${e.message}`)
 			setError(e.message)
 			throw e
 		} finally {
