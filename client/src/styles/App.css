@@ -44,23 +44,23 @@ nav ul a {
 
 /* REACT TRANSITION */
 .argonaut-enter {
-  /* opacity: 0; */
-  transform: translateX(0px);
+  opacity: 0;
+  /* transform: translateX(0px); */
 }
 .argonaut-enter-active {
-  /* opacity: 1;
-  transition: opacity 500ms ease-in; */
-  transform: translateX(0px);
-  transition: all 500ms ease-in;
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+  /* transform: translateX(0px);
+  transition: all 500ms ease-in; */
 }
 .argonaut-exit {
   opacity: 1;
 }
 .argonaut-exit-active {
-  /* opacity: 0;
-  transition: opacity 500ms ease-in; */
-  transform: translateX(-350px);
-  transition: all 500ms ease-in;
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+  /* transform: translateX(-350px);
+  transition: all 500ms ease-in; */
 }
 
 /* MAIN */

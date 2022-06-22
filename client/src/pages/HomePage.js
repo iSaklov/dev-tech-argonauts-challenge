@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/Context'
 import { ArgoContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
@@ -12,34 +12,44 @@ import Pagination from '../components/UI/pagination/Pagination'
 
 export const HomePage = () => {
 
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 	const { token } = useContext(AuthContext)
 	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
-
-	const [totalPages, setTotalPages] = useState(3)
-	const [limit, setLimit] = useState(10)
 	const [page, setPage] = useState(1)
-
 	const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
 
+	console.log(`argos size : ${argonauts.length}`)
 
+	const [totalPages, setTotalPages] = useState(3)
 
 	useEffect(() => {
 		window.M.updateTextFields()
 	}, [])
 
 	const fetchArgonauts = useCallback( async () => {
-	// const fetchArgonauts = useCallback( async (limit, page) => {
 		try {
 			const argonauts = await request('/api/argonaut/', 'GET', null, {
-			// const argonauts = await request('/api/argonaut/', 'GET', {limit: limit, page: page}, {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(argonauts)
 		} catch (e) {}
 	}, [token, request])
+
+	// const fetchArgonauts = async (page) => {
+	// 	try {
+	// 		// Make sure you send 'page' as query parameters to your node.js server
+	// 		const argonauts = await request(`/api/argonaut?page=${page}`, 'GET', null, {
+	// 			Authorization: `Bearer ${token}`
+	// 		})
+	// 		setArgonauts(argonauts)
+	// 	} catch (e) {}
+	// }
+
+	useEffect(() => {
+		fetchArgonauts(page)
+	}, [page])
 
 	const getImage = useCallback( async () => {
 		try{
@@ -48,18 +58,12 @@ export const HomePage = () => {
 		} catch (e) {}
 	}, [])
 
-	useEffect(() => {
-		fetchArgonauts()
-		// fetchArgonauts(limit, page)
-	}, [])
-
 	const addArgonaut = async (name) => {
 		try {
 			const img = await getImage()
 			const data = await request('/api/argonaut/add', 'POST', { name, img }, {
 				Authorization: `Bearer ${token}`
 			})
-			// setArgonauts([...argonauts, data.argonaut])
 			setArgonauts(argonauts.concat(data.argonaut))
 		} catch (e) {}
 	}
@@ -88,7 +92,7 @@ export const HomePage = () => {
 
 	const changePage = (page) => {
 		setPage(page)
-		fetchArgonauts(limit, page)
+		fetchArgonauts(page)
 	}
 
 	return (
@@ -102,7 +106,7 @@ export const HomePage = () => {
 				? <Loader />
 				: <ArgosList argonauts={sortedAndSearchedArgos} />
 			}
-			<Pagination page={page} totalPages={totalPages} changePage={changePage}/>
+			<Pagination page={page} changePage={changePage}/>
 		</ArgoContext.Provider>
 	)
 }

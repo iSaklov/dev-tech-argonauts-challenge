@@ -3,6 +3,24 @@ const auth = require('../middleware/auth.middleware')
 const Argonaut = require('../models/Argonaut')
 const router = Router()
 
+class ArgoService {
+	async getAll(owner) {
+		return await Argonaut.find({ owner }) 
+	}
+
+	getPerPage(page = 1, owner) {
+		const PAGE_SIZE = 3               		// Similar to 'limit'
+		const skip = (page - 1) * PAGE_SIZE		// For page 1, the skip is: (1 - 1) * 10 => 0 * 10 = 0
+		return Argonaut.find({ owner })  
+										.skip(skip)          	// Same as before, always use 'skip' first
+										.limit(PAGE_SIZE)
+	}
+
+	async getCollSize(owner) {
+		return await Argonaut.find({ owner }).countDocuments()
+	}
+}
+
 router.post('/add', auth, async (req, res) => {
 	try {
 		const { name, img } = req.body
@@ -33,9 +51,34 @@ router.post('/add', auth, async (req, res) => {
 	}
 })
 
+// router.get('/', auth, async (req, res) => {
+// 	try {
+// 		const page = parseInt(req.query.page) // Make sure to parse the page to number
+// 		console.log(`page : ${page}`)
+// 		const owner =  req.user.userId
+
+// 		const argoService = new ArgoService()
+// 		// const argonauts = await argoService.getPerPage(page, owner)
+// 		const argonauts = await argoService.getAll(owner)
+
+// 		const size = await argoService.getSize(owner)
+// 		console.log(`size : ${size}`)
+
+// 		res.status(200).json(argonauts)
+// 	} catch (e) {
+// 		res.status(500).json({
+// 			message: 'Quelque chose tourne mal, veuillez rafraîchir la page',
+// 			error: e
+// 		})
+// 	}
+// })
+
 router.get('/', auth, async (req, res) => {
 	try {
-		const argonauts = await Argonaut.find({ owner: req.user.userId })
+		const owner =  req.user.userId
+
+		const argonauts = await Argonaut.find({ owner }) 
+
 		res.status(200).json(argonauts)
 	} catch (e) {
 		res.status(500).json({
@@ -89,7 +132,7 @@ router.delete('/:id', auth, async (req, res) => {
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'ERROR DELETE',
+			message: 'Argonaute n\' a pas pu être supprimé',
 			error: e
 		})
 	}
