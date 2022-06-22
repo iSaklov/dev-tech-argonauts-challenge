@@ -1,6 +1,5 @@
-
-
 export const getPageCount = (totalCount, limit) => {
+	console.log(`result : ${Math.ceil(totalCount / limit)}`)
 	return Math.ceil(totalCount / limit)
 }
 
@@ -11,12 +10,3 @@ export const getPagesArray = totalPage => {
 	}
 	return result
 }
-
-// const fetchArgonauts = async (page) => {
-// 	try {
-// 		const argonauts = await request(`/api/argonaut?page=${page}`, 'GET', null, {
-// 			Authorization: `Bearer ${token}`
-// 		})
-// 		setArgonauts(argonauts)
-// 	} catch (e) {}
-// }

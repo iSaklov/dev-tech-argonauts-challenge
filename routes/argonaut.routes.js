@@ -4,8 +4,8 @@ const Argonaut = require('../models/Argonaut')
 const router = Router()
 
 class ArgoService {
-	async getAll(owner) {
-		return await Argonaut.find({ owner }) 
+	getAll(owner) {
+		return Argonaut.find({ owner }) 
 	}
 
 	getPerPage(page = 1, owner) {
@@ -16,8 +16,8 @@ class ArgoService {
 										.limit(PAGE_SIZE)
 	}
 
-	async getCollSize(owner) {
-		return await Argonaut.find({ owner }).countDocuments()
+	getCollSize(owner) {
+		return Argonaut.find({ owner }).countDocuments()
 	}
 }
 
@@ -51,18 +51,43 @@ router.post('/add', auth, async (req, res) => {
 	}
 })
 
+router.get('/', auth, async (req, res) => {
+	try {
+		const owner =  req.user.userId
+		const page = parseInt(req.query.page) // Make sure to parse the page to number
+		// console.log(`page : ${page}`)
+		const argoService = new ArgoService()
+		let argonauts
+
+		if(isNaN(page)) {
+			argonauts = await argoService.getAll(owner)
+		} else {
+			argonauts = await argoService.getPerPage(page, owner)
+		}
+
+		const size = await argoService.getCollSize(owner)
+		console.log(`size : ${size}`)
+
+		// const argonauts = await Argonaut.find({ owner })
+
+		// res.status(200).json(argonauts)
+		res.status(200).json({
+			argonauts : argonauts,
+			size : size
+		})
+	} catch (e) {
+		res.status(500).json({
+			message: 'Quelque chose tourne mal, veuillez rafraîchir la page',
+			error: e
+		})
+	}
+})
+
 // router.get('/', auth, async (req, res) => {
 // 	try {
-// 		const page = parseInt(req.query.page) // Make sure to parse the page to number
-// 		console.log(`page : ${page}`)
 // 		const owner =  req.user.userId
 
-// 		const argoService = new ArgoService()
-// 		// const argonauts = await argoService.getPerPage(page, owner)
-// 		const argonauts = await argoService.getAll(owner)
-
-// 		const size = await argoService.getSize(owner)
-// 		console.log(`size : ${size}`)
+// 		const argonauts = await Argonaut.find({ owner }) 
 
 // 		res.status(200).json(argonauts)
 // 	} catch (e) {
@@ -72,21 +97,6 @@ router.post('/add', auth, async (req, res) => {
 // 		})
 // 	}
 // })
-
-router.get('/', auth, async (req, res) => {
-	try {
-		const owner =  req.user.userId
-
-		const argonauts = await Argonaut.find({ owner }) 
-
-		res.status(200).json(argonauts)
-	} catch (e) {
-		res.status(500).json({
-			message: 'Quelque chose tourne mal, veuillez rafraîchir la page',
-			error: e
-		})
-	}
-})
 
 router.get('/:id', auth, async (req, res) => {
 	try {

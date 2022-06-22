@@ -9,6 +9,7 @@ import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 import { useArgos } from '../hooks/useArgos'
 import Pagination from '../components/UI/pagination/Pagination'
+import { getPageCount } from '../utils/pages'
 
 export const HomePage = () => {
 
@@ -18,34 +19,41 @@ export const HomePage = () => {
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
 	const [page, setPage] = useState(1)
+	const [totalArgonauts, setTotalArgonauts] = useState()
+	// const [totalPages, setTotalPages] = useState(result)
 	const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
 
-	console.log(`argos size : ${argonauts.length}`)
+	// console.log(`argos size : ${argonauts.length}`)
+	// console.log(`totalPages : ${totalPages}`)
+	console.log(`totalArgonauts : ${totalArgonauts}`)
 
-	const [totalPages, setTotalPages] = useState(3)
+	const result = getPageCount(totalArgonauts, 3)
+	console.log(`result func: ${result}`)
 
 	useEffect(() => {
 		window.M.updateTextFields()
 	}, [])
 
-	const fetchArgonauts = useCallback( async () => {
-		try {
-			const argonauts = await request('/api/argonaut/', 'GET', null, {
-				Authorization: `Bearer ${token}`
-			})
-			setArgonauts(argonauts)
-		} catch (e) {}
-	}, [token, request])
-
-	// const fetchArgonauts = async (page) => {
+	// const fetchArgonauts = useCallback( async () => {
 	// 	try {
-	// 		// Make sure you send 'page' as query parameters to your node.js server
-	// 		const argonauts = await request(`/api/argonaut?page=${page}`, 'GET', null, {
+	// 		const argonauts = await request('/api/argonaut/', 'GET', null, {
 	// 			Authorization: `Bearer ${token}`
 	// 		})
 	// 		setArgonauts(argonauts)
 	// 	} catch (e) {}
-	// }
+	// }, [token, request])
+
+	const fetchArgonauts = useCallback(async (page) => {
+		try {
+			// Make sure you send 'page' as query parameters to your node.js server
+			const data = await request(`/api/argonaut?page=${page}`, 'GET', null, {
+				Authorization: `Bearer ${token}`
+			})
+			console.log(`argonauts : ${data.argonauts}`)
+			setArgonauts(data.argonauts)
+			setTotalArgonauts(data.size)
+		} catch (e) {}
+	}, [token, request])
 
 	useEffect(() => {
 		fetchArgonauts(page)
