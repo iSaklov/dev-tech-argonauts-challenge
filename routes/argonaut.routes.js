@@ -5,15 +5,16 @@ const router = Router()
 
 class ArgoService {
 	getAll(owner) {
-		return Argonaut.find({ owner }) 
+		return Argonaut.find({ owner }).sort({ $natural: -1 }) 
 	}
 
 	getPerPage(page = 1, owner) {
 		const PAGE_SIZE = 3               		// Similar to 'limit'
 		const skip = (page - 1) * PAGE_SIZE		// For page 1, the skip is: (1 - 1) * 10 => 0 * 10 = 0
-		return Argonaut.find({ owner })  
+		return Argonaut.find({ owner }) 
 										.skip(skip)          	// Same as before, always use 'skip' first
 										.limit(PAGE_SIZE)
+										.sort({ $natural: -1 }) // Similar to 'reverse'
 	}
 
 	getCollSize(owner) {
@@ -54,8 +55,7 @@ router.post('/add', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
 	try {
 		const owner =  req.user.userId
-		const page = parseInt(req.query.page) // Make sure to parse the page to number
-		// console.log(`page : ${page}`)
+		const page = parseInt(req.query.page) // Make sure to parse the page to number 
 		const argoService = new ArgoService()
 		let argonauts
 
@@ -66,7 +66,6 @@ router.get('/', auth, async (req, res) => {
 		}
 
 		const size = await argoService.getCollSize(owner)
-		console.log(`size : ${size}`)
 
 		// const argonauts = await Argonaut.find({ owner })
 
@@ -82,21 +81,6 @@ router.get('/', auth, async (req, res) => {
 		})
 	}
 })
-
-// router.get('/', auth, async (req, res) => {
-// 	try {
-// 		const owner =  req.user.userId
-
-// 		const argonauts = await Argonaut.find({ owner }) 
-
-// 		res.status(200).json(argonauts)
-// 	} catch (e) {
-// 		res.status(500).json({
-// 			message: 'Quelque chose tourne mal, veuillez rafraîchir la page',
-// 			error: e
-// 		})
-// 	}
-// })
 
 router.get('/:id', auth, async (req, res) => {
 	try {
