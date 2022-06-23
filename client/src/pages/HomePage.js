@@ -9,7 +9,7 @@ import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 import { useArgos } from '../hooks/useArgos'
 import Pagination from '../components/UI/pagination/Pagination'
-import { getPageCount } from '../utils/pages'
+import { getTotalPages } from '../utils/pages'
 
 export const HomePage = () => {
 
@@ -20,19 +20,20 @@ export const HomePage = () => {
 	const [filter, setFilter] = useState({sort: '', query: ''})
 	const [page, setPage] = useState(1)
 	const [totalArgonauts, setTotalArgonauts] = useState()
-	// const [totalPages, setTotalPages] = useState(result)
+	const [totalPages, setTotalPages] = useState()
 	const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
 
-	// console.log(`argos size : ${argonauts.length}`)
+	// console.log(`totalArgonauts : ${totalArgonauts}`)
 	// console.log(`totalPages : ${totalPages}`)
-	console.log(`totalArgonauts : ${totalArgonauts}`)
-
-	const result = getPageCount(totalArgonauts, 3)
-	console.log(`result func: ${result}`)
+	// console.log(`page : ${page}`)
 
 	useEffect(() => {
 		window.M.updateTextFields()
 	}, [])
+
+	useEffect(() => {
+		setTotalPages(getTotalPages(totalArgonauts, 3))
+	}, [totalArgonauts])
 
 	// const fetchArgonauts = useCallback( async () => {
 	// 	try {
@@ -49,7 +50,6 @@ export const HomePage = () => {
 			const data = await request(`/api/argonaut?page=${page}`, 'GET', null, {
 				Authorization: `Bearer ${token}`
 			})
-			console.log(`argonauts : ${data.argonauts}`)
 			setArgonauts(data.argonauts)
 			setTotalArgonauts(data.size)
 		} catch (e) {}
@@ -114,7 +114,7 @@ export const HomePage = () => {
 				? <Loader />
 				: <ArgosList argonauts={sortedAndSearchedArgos} />
 			}
-			<Pagination page={page} changePage={changePage}/>
+			<Pagination page={page} totalPages={totalPages} changePage={changePage}/>
 		</ArgoContext.Provider>
 	)
 }

@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { getPagesArray } from '../../../utils/pages';
 
 const Pagination = ({ page, totalPages, changePage }) => {
 
 	const pagesArray = page > 1
-												? [page - 1, page, page + 1]
-												: [page, page + 1, page + 2]
-
-	// let pagesArray = getPagesArray(totalPages)
+												? [page - 1, page, page < totalPages ? page + 1 : null]
+												: [page, totalPages > 1 ? page + 1 : null]
 
 	return (
 		<ul className="pagination">
@@ -21,7 +18,7 @@ const Pagination = ({ page, totalPages, changePage }) => {
 					</i>
 				</a>
 			</li>
-			{pagesArray.map(p =>
+			{pagesArray.filter(p => p !== null).map(p =>
 				<li
 					onClick={() => changePage(p)}
 					key={p}
@@ -32,11 +29,11 @@ const Pagination = ({ page, totalPages, changePage }) => {
 					</a>
 				</li>
 			)}
-			<li className="waves-effect">
+			<li className={page === totalPages ? "disabled" : "waves-effect"}>
 				<a>
 					<i
 						className="material-icons"
-						onClick={() => changePage(page + 1)}
+						onClick={() => changePage(page < totalPages ? page + 1 : page)}
 					>
 						chevron_right
 					</i>
