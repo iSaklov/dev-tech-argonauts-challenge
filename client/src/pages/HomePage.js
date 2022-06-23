@@ -89,8 +89,18 @@ export const HomePage = () => {
 			})
 			setArgonauts(argonauts.filter(argo => argo._id !== id))
 			setTotalArgonauts(totalArgonauts - 1)
+			// this works but should be replaced with a more robust solution
+			if(argonauts.length === 1 && page !== 1) {
+				// alert("COUCOU !")
+				changePage(page - 1)
+			}
 		} catch (e) {}
 	}
+
+	useEffect(() => {
+		setArgonauts(argonauts)
+		setTotalArgonauts(totalArgonauts)
+	}, [argonauts, totalArgonauts, removeArgonaut])
 
 	const getImage = useCallback( async () => {
 		try{
