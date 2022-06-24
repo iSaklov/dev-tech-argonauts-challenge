@@ -10,6 +10,7 @@ import ArgosList from '../components/Argonauts/ArgosList'
 import { useArgos } from '../hooks/useArgos'
 import Pagination from '../components/UI/pagination/Pagination'
 import { getTotalPages } from '../utils/pages'
+import { generateName } from '../utils/names'
 
 export const HomePage = () => {
 
@@ -24,9 +25,18 @@ export const HomePage = () => {
 	const [totalPages, setTotalPages] = useState()
 	const limitPerPage = 3
 
-	// console.log(`totalArgonauts : ${totalArgonauts}`)
-	// console.log(`totalPages : ${totalPages}`)
-	// console.log(`page : ${page}`)
+	// console.log(`name is ${name}`)
+	// alert(`${i} is ${name}`)
+
+	const argonautsGenerator = (amount) => {
+		const name = generateName()
+		// alert(`name is ${name}`)
+		addArgonaut(name)
+	}
+
+	useEffect(() => {
+		// const intervalID = setInterval(argonautsGenerator, 2000)
+	}, [])
 
 	useEffect(() => {
 		fetchArgonauts(page)
@@ -58,14 +68,7 @@ export const HomePage = () => {
 				Authorization: `Bearer ${token}`
 			})
 			// setArgonauts(argonauts.concat(data.argonaut))
-			setArgonauts(argonauts.length < limitPerPage 
-									? [data.argonaut, ...argonauts]
-									: [data.argonaut, ...argonauts.slice(0, -1)]
-									)
-			setTotalArgonauts(totalArgonauts + 1)
-			if(page !== 1) {
-				setPage(1) 			// returns to the first page when adding a new element
-			}
+			changePage(1) // returns to the first page when adding a new element
 		} catch (e) {}
 	}
 
@@ -87,20 +90,15 @@ export const HomePage = () => {
 			await request(`api/argonaut/${id}`, 'DELETE', null, {
 				Authorization: `Bearer ${token}`
 			})
-			setArgonauts(argonauts.filter(argo => argo._id !== id))
-			setTotalArgonauts(totalArgonauts - 1)
-			// this works but should be replaced with a more robust solution
+			// setArgonauts(argonauts.filter(argo => argo._id !== id))
 			if(argonauts.length === 1 && page !== 1) {
-				// alert("COUCOU !")
+			// this works but should be replaced with a more robust solution
 				changePage(page - 1)
+			} else {
+				changePage(page)
 			}
 		} catch (e) {}
 	}
-
-	useEffect(() => {
-		setArgonauts(argonauts)
-		setTotalArgonauts(totalArgonauts)
-	}, [argonauts, totalArgonauts, removeArgonaut])
 
 	const getImage = useCallback( async () => {
 		try{
