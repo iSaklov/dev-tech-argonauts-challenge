@@ -31,7 +31,7 @@ export const HomePage = () => {
 	const argonautsGenerator = (amount) => {
 		const name = generateName()
 		// alert(`name is ${name}`)
-		addArgonaut(name)
+		addArgonaut(generateName())
 	}
 
 	useEffect(() => {
@@ -115,6 +115,11 @@ export const HomePage = () => {
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
 			<AddArgo onCreate={ addArgonaut } />
+			<form action="#">
+				<p className="range-field">
+				<input type="range" id="test5" min="0" max="100" />
+				</p>
+			</form>
 			<ArgoFilter
 				filter={filter}
 				setFilter={setFilter}
