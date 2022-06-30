@@ -5,6 +5,7 @@ import { ArgoContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 import AddArgo from '../components/Argonauts/AddArgo'
+import Range from '../components/UI/range/Range'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 import { useArgos } from '../hooks/useArgos'
@@ -115,11 +116,7 @@ export const HomePage = () => {
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
 			<AddArgo onCreate={ addArgonaut } />
-			<form action="#">
-				<p className="range-field">
-				<input type="range" id="test5" min="0" max="100" />
-				</p>
-			</form>
+			<Range />
 			<ArgoFilter
 				filter={filter}
 				setFilter={setFilter}
