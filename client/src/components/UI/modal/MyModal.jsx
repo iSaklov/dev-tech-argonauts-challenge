@@ -1,26 +1,38 @@
-import React, { useEffect, useState }from 'react';
+import React, { useEffect, useState, useRef }from 'react';
 import AddArgo from '../../Argonauts/AddArgo';
 import MyRange from '../range/MyRange';
 import { generateName } from '../../../utils/names'
+// import M from 'materialize-css'
 
 const MyModal = ({ onCreate }) => {
 	const [value, setValue] = useState(25)
+	const timerRef = useRef(null)
+	const addingTimeMs = 500
 
 	const onChange = value => {
 		setValue(value)
-		console.log(`value : ${value}`)
 	}
 
 	const generateArgos = amount => {
 		for(let i = 0; i < amount; i++) {
-    	(function(index) {
-        setTimeout(() => {
-					console.log(index)
-					onCreate(generateName())
-				}, i * 500);
-    	})(i);
+			timerRef.current = setTimeout(() => {
+				// console.log(i)
+				onCreate(generateName())
+			}, addingTimeMs * i)
 		}
+		timerRef.current = setTimeout(() => {
+			window.M.toast({ html: amount > 1
+																			? `${amount} argonautes ont été embarqués avec succès`
+																			: "Argonaute a été embarqué avec succès"
+										})
+		}, addingTimeMs * value)
 	}
+
+	useEffect(() => {
+		// Clear the interval when the component unmounts
+		// console.log(`clear worked`)
+		return () => clearTimeout(timerRef.current);
+	}, []);
 
 	return (
 		<>
@@ -42,7 +54,7 @@ const MyModal = ({ onCreate }) => {
 				</div>
 			</div>
 		</>
-	);
-};
+	)
+}
 
 export default MyModal;
