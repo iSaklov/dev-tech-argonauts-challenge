@@ -66,6 +66,14 @@ nav ul a {
   transition: all 500ms ease-in; */
 }
 
+/* NOUISLIDER */
+.noUi-tooltip {
+  display: none;
+}
+.noUi-active .noUi-tooltip {
+  display: block;
+}
+
 /* MAIN */
 input[type=text]:not(.browser-default):read-only {
   border-bottom: none;

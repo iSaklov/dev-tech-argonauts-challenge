@@ -5,13 +5,13 @@ import { ArgoContext } from '../context/Context'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 import AddArgo from '../components/Argonauts/AddArgo'
-import Range from '../components/UI/range/Range'
+import MyRange from '../components/UI/range/MyRange'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 import { useArgos } from '../hooks/useArgos'
 import Pagination from '../components/UI/pagination/Pagination'
 import { getTotalPages } from '../utils/pages'
-import { generateName } from '../utils/names'
+import MyModal from '../components/UI/modal/MyModal'
 
 export const HomePage = () => {
 
@@ -25,20 +25,7 @@ export const HomePage = () => {
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const limitPerPage = 3
-
-	// console.log(`name is ${name}`)
-	// alert(`${i} is ${name}`)
-
-	const argonautsGenerator = (amount) => {
-		const name = generateName()
-		// alert(`name is ${name}`)
-		addArgonaut(generateName())
-	}
-
-	useEffect(() => {
-		// const intervalID = setInterval(argonautsGenerator, 2000)
-	}, [])
-
+	
 	useEffect(() => {
 		fetchArgonauts(page)
 	}, [])
@@ -115,8 +102,7 @@ export const HomePage = () => {
 
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
-			<AddArgo onCreate={ addArgonaut } />
-			<Range />
+			<MyModal onCreate={ addArgonaut }/>
 			<ArgoFilter
 				filter={filter}
 				setFilter={setFilter}

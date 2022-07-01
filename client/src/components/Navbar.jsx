@@ -20,8 +20,8 @@ export const Navbar = () => {
 					<img src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png" alt="Wild Code School logo" style={{maxWidth: "96px"}}/>
 				</a>
 				<ul id="nav-mobile" className="right hide-on-med-and-down">
-					{/* <li><NavLink to="/">Link One</NavLink></li>
-					<li><NavLink to="/">Link Two</NavLink></li> */}
+					<li><a className="modal-trigger" href="#addModal">Ajout des argonauts</a></li>
+					{/* <li><NavLink to="/">Link Two</NavLink></li> */}
 					<li><a href="/" onClick={logoutHandler}>Se deconnecter</a></li>
 				</ul>
 			</div>
