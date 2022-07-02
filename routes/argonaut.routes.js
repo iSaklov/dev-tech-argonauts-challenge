@@ -1,4 +1,5 @@
 const { Router } = require('express')
+const { contextsKey } = require('express-validator/src/base')
 const auth = require('../middleware/auth.middleware')
 const Argonaut = require('../models/Argonaut')
 const router = Router()
@@ -8,8 +9,8 @@ class ArgoService {
 		return Argonaut.find({ owner }).sort({ $natural: -1 }) 
 	}
 
-	getPerPage(page = 1, owner) {
-		const PAGE_SIZE = 3               		// Similar to 'limit'
+	getPerPage(page = 1, numPerPage = 10, owner) {
+		const PAGE_SIZE = numPerPage					// Similar to 'limit'
 		const skip = (page - 1) * PAGE_SIZE		// For page 1, the skip is: (1 - 1) * 10 => 0 * 10 = 0
 		return Argonaut.find({ owner }) 
 										.skip(skip)          	// Same as before, always use 'skip' first
@@ -55,20 +56,27 @@ router.post('/add', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
 	try {
 		const owner =  req.user.userId
-		const page = parseInt(req.query.page) // Make sure to parse the page to number 
+		const page = parseInt(req.query.page) // Make sure to parse the page to number
+		const numPerPage = parseInt(req.query.numperpage)
 		const argoService = new ArgoService()
-		let argonauts
+		const size = await argoService.getCollSize(owner)
+		let argonauts = []
 
-		if(isNaN(page)) {
+		if(isNaN(page) || isNaN(numPerPage)) {
 			argonauts = await argoService.getAll(owner)
 		} else {
-			argonauts = await argoService.getPerPage(page, owner)
+			argonauts = await argoService.getPerPage(page, numPerPage, owner)
 		}
 
-		const size = await argoService.getCollSize(owner)
-
+		// const argonauts = async () => {
+		// 	if(isNaN(page) || isNaN(numPerPage)) {
+		// 		return await argoService.getAll(owner)
+		// 	} else {
+		// 		return await argoService.getPerPage(page, numPerPage, owner)
+		// 	}
+		// }
+	
 		// const argonauts = await Argonaut.find({ owner })
-
 		// res.status(200).json(argonauts)
 		res.status(200).json({
 			argonauts : argonauts,
@@ -113,6 +121,20 @@ router.put('/:id', auth, async (req, res) => {
 	} catch (e) {
 		res.status(500).json({
 			message: 'Argonaute n\' a pas pu être modifié',
+			error: e
+		})
+	}
+})
+
+router.delete('/', auth, async (req, res) => {
+	try {
+		await Argonaut.deleteMany({ owner: req.user.userId })
+		res.status(200).json({
+			message: 'Tous les argonautes ont été débarqués!'
+		})
+	} catch (e) {
+		res.status(500).json({
+			message: 'Les argonautes n\' ont pas pu être débarqués',
 			error: e
 		})
 	}

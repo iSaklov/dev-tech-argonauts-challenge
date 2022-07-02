@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { TransitionGroup, CSSTransition } from "react-transition-group"
-import MySelect from '../UI/MySelect'
 import ArgoItem from './ArgoItem'
+import DeleteAllArgos from './DeleteAllArgos'
 
-const ArgosList = ({ argonauts }) => {
+const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
+	const [currentNum, setCurrentNum] = useState()
+
+	useEffect(() => {
+		setCurrentNum((page - 1) * numPerPage)
+	}, [page, numPerPage])
+
 	const btnBlocker = () => {
 		const buttons = document.querySelectorAll('.btn_blocked')
 		for(const btn of buttons) {
@@ -27,6 +33,12 @@ const ArgosList = ({ argonauts }) => {
 							<th>Nom d'argonaut</th>
 							<th>Date d'embarquation</th>
 							<th>Sa belle gueule</th>
+							<th>
+								{/* <a className="btn-floating btn-large waves-effect waves-light red">
+									<i class="material-icons">add</i>
+								</a> */}
+								<DeleteAllArgos onDeleteAll={onDeleteAll}/>
+							</th>
 						</tr>
 				</thead>
 				<tbody>
@@ -37,7 +49,10 @@ const ArgosList = ({ argonauts }) => {
 								timeout={250}
 								classNames="argonaut"
             	>
-								<ArgoItem argonaut={argonaut} index={index + 1} btnBlocker={btnBlocker}/>
+								<ArgoItem
+									argonaut={argonaut}
+									index={currentNum + index + 1}
+									btnBlocker={btnBlocker}/>
 							</CSSTransition>
 						)}
 					</TransitionGroup>

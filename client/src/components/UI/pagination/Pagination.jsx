@@ -3,11 +3,21 @@ import React, { useState } from 'react'
 const Pagination = ({ page, totalPages, changePage }) => {
 
 	const pagesArray = page > 1
-												? [page - 1, page, page < totalPages ? page + 1 : null]
-												: [page, totalPages > 1 ? page + 1 : null]
+													? [page - 1, page, page < totalPages ? page + 1 : null]
+													: [page, totalPages > 1 ? page + 1 : null]
 
 	return (
 		<ul className="pagination">
+			<li className={page === 1 ? "disabled" : "waves-effect"}>
+				<a>
+					<i
+						className="material-icons"
+						onClick={() => changePage(1)}
+					>
+						first_page
+					</i>
+				</a>
+			</li>
 			<li className={page === 1 ? "disabled" : "waves-effect"}>
 				<a>
 					<i
@@ -36,6 +46,16 @@ const Pagination = ({ page, totalPages, changePage }) => {
 						onClick={() => changePage(page < totalPages ? page + 1 : page)}
 					>
 						chevron_right
+					</i>
+				</a>
+			</li>
+			<li className={page === totalPages ? "disabled" : "waves-effect"}>
+				<a>
+					<i
+						className="material-icons"
+						onClick={() => changePage(totalPages)}
+					>
+						last_page
 					</i>
 				</a>
 			</li>
