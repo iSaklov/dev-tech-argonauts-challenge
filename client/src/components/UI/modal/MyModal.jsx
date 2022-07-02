@@ -23,7 +23,7 @@ const MyModal = ({ onCreate }) => {
 		timerRef.current = setTimeout(() => {
 			window.M.toast({ html: amount > 1
 																			? `${amount} argonautes ont été embarqués avec succès`
-																			: "Argonaute a été embarqué avec succès"
+																			: "Un argonaute a été embarqué avec succès"
 										})
 		}, addingTimeMs * value)
 	}

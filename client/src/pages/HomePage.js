@@ -22,24 +22,24 @@ export const HomePage = () => {
 	const [page, setPage] = useState(1)
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
-	const limitPerPage = 3
+	const [numPerPage, setNumPerPage] = useState(10)
 	
 	useEffect(() => {
-		fetchArgonauts(page)
+		fetchArgonauts(page, numPerPage)
 	}, [])
 
 	useEffect(() => {
-		setTotalPages(getTotalPages(totalArgonauts, limitPerPage))
+		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
 	}, [totalArgonauts])
 
 	useEffect(() => {
-		window.M.updateTextFields()
+		// window.M.updateTextFields()
 	}, [])
 
-	const fetchArgonauts = useCallback(async (page) => {
+	const fetchArgonauts = useCallback(async (page, numPerPage) => {
 		try {
 			// Make sure you send 'page' as query parameters to your node.js server
-			const data = await request(`/api/argonaut?page=${page}`, 'GET', null, {
+			const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}`, 'GET', null, {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(data.argonauts)
@@ -71,6 +71,16 @@ export const HomePage = () => {
 		} catch (e) {}
 	}
 
+	const removeAllArgonauts = async () => {
+		try {
+			await request(`api/argonaut/`, 'DELETE', null, {
+				Authorization: `Bearer ${token}`
+			})
+			// setArgonauts(argonauts.filter(argo => argo._id !== id))
+			changePage(1)
+		} catch (e) {}
+	}
+
 	const removeArgonaut = async (id) => {
 		try {
 			await request(`api/argonaut/${id}`, 'DELETE', null, {
@@ -95,7 +105,7 @@ export const HomePage = () => {
 
 	const changePage = (page) => {
 		setPage(page)
-		fetchArgonauts(page)
+		fetchArgonauts(page, numPerPage)
 	}
 
 	return (
@@ -107,9 +117,12 @@ export const HomePage = () => {
 			/>
 			{loading
 				? <Loader />
-				: <ArgosList argonauts={sortedAndSearchedArgos} />
+				: <ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
 			}
-			<Pagination page={page} totalPages={totalPages} changePage={changePage}/>
+			{argonauts.length
+				? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
+				: null
+			}
 		</ArgoContext.Provider>
 	)
 }

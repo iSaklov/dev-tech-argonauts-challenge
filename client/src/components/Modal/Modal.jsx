@@ -9,21 +9,21 @@ export default class Modal extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<button
+				<a
 					onClick={() => this.setState({ isOpen: true })}
-					className="waves-effect waves-light btn"
+					className="btn-floating btn-large waves-effect waves-light"
 				>
-					<i className="small material-icons left">adb</i>clique-miaou 
-				</button>
+					<i className="material-icons">adb</i>
+				</a>
 				{this.state.isOpen && (
 					<div className={classes.modal} onClick={() => this.setState({ isOpen: false })}>
 						<div className={classes.modal_body} onClick={(e) => e.stopPropagation()}>
-							<button
+							<a
 								onClick={() => this.setState({ isOpen: false })}
-								className="waves-effect waves-light btn"
+								className="waves-effect waves-light btn-small right"
 							>
-								<i className="tiny material-icons">close</i> 
-							</button>
+								<i className="material-icons">close</i> 
+							</a>
 							<p>Bonjour, je m'appelle <strong>{this.props.name}</strong> !</p>
 							{/* <p>I am awesome</p> */}
 							<img src={this.props.img} />
