@@ -117,11 +117,13 @@ export const HomePage = () => {
 			/>
 			{loading
 				? <Loader />
-				: <ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-			}
-			{argonauts.length
-				? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
-				: null
+				: <>
+						<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
+						{sortedAndSearchedArgos.length
+							? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
+							: null
+						}
+					</>
 			}
 		</ArgoContext.Provider>
 	)

@@ -103,6 +103,10 @@ input[type=text]:not(.browser-default):read-only {
   border-bottom: none;
 }
 
+.my_table {
+  min-height: 1000px;
+}
+
 .button_disabler {
   cursor: not-allowed;
   pointer-events: none;

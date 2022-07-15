@@ -24,19 +24,16 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 	}
 
 	return (
-		<>
+		<div className="my_table">
 			<h4>Membres de l'équipage</h4>
-			<table>
+			<table className="centered striped">
 				<thead>
 						<tr>
-							<th>#</th>
+							<th>№</th>
 							<th>Nom d'argonaut</th>
 							<th>Date d'embarquation</th>
 							<th>Sa belle gueule</th>
 							<th>
-								{/* <a className="btn-floating btn-large waves-effect waves-light red">
-									<i class="material-icons">add</i>
-								</a> */}
 								<DeleteAllArgos onDeleteAll={onDeleteAll}/>
 							</th>
 						</tr>
@@ -52,13 +49,14 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 								<ArgoItem
 									argonaut={argonaut}
 									index={currentNum + index + 1}
-									btnBlocker={btnBlocker}/>
+									btnBlocker={btnBlocker}
+								/>
 							</CSSTransition>
 						)}
 					</TransitionGroup>
 				</tbody>
 			</table>
-		</>
+		</div>
 	)
 }
 
