@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { useRoutes } from './routes'
 import { useAuth } from './hooks/auth.hook'
 import { AuthContext } from './context/Context';
-import { Navbar } from './components/Navbar';
+import { Navmenu as Navbar } from './components/Navbar';
 import { Loader } from './components/Loader';
 import { Footer } from './components/Footer';
 import './styles/App.css'
@@ -24,9 +24,9 @@ function App() {
     }}>
       <BrowserRouter>
         { isAuthenticated && <Navbar />}
-          <div className='container'>
-            {routes}
-          </div>
+        <div className='container'>
+          {routes}
+        </div>
         { isAuthenticated && <Footer />}
       </BrowserRouter>
     </AuthContext.Provider>

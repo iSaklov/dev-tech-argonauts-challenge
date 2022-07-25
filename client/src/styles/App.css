@@ -20,7 +20,7 @@ nav {
   background: var(--main-bg-color);
 }
 
-nav ul a {
+nav a, nav ul a, .sidenav li a {
   color: var(--main-color);
 }
 

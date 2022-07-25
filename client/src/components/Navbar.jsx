@@ -1,8 +1,11 @@
-import React, { useContext } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import React, { Component, useContext, useEffect } from "react"
+import { NavLink, Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/Context"
+import { Navbar, NavItem, Icon } from 'react-materialize';
+import M from 'materialize-css'
 
-export const Navbar = () => {
+export const Navmenu = () => {
+
 	const auth = useContext(AuthContext)
 	const navigate = useNavigate()
 
@@ -13,18 +16,34 @@ export const Navbar = () => {
 	}
 
 	return (
-		<nav>
-			<div className="nav-wrapper">
-				{/* https://www.wildcodeschool.com/fr-FR */}
-				<a href="/" className="brand-logo center">
-					<img src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png" alt="Wild Code School logo" style={{maxWidth: "96px"}}/>
-				</a>
-				<ul id="nav-mobile" className="right hide-on-med-and-down">
-					<li><a className="modal-trigger" href="#addModal">Ajout des argonauts</a></li>
-					{/* <li><NavLink to="/">Link Two</NavLink></li> */}
-					<li><a href="/" onClick={logoutHandler}>Se deconnecter</a></li>
-				</ul>
-			</div>
-		</nav>
+		<Navbar
+			alignLinks="right"
+			brand={
+			<a href="https://www.wildcodeschool.com/fr-FR" target="_blank" rel="nofollow noopener noreferrer">
+				<img src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png" alt="Wild Code School logo" style={{maxWidth: "96px"}}/>
+			</a>
+			}
+			centerLogo
+			id="mobile-nav"
+			menuIcon={<Icon>menu</Icon>}
+			options={{
+				draggable: true,
+				edge: 'right',
+				inDuration: 250,
+				onCloseEnd: null,
+				onCloseStart: null,
+				onOpenEnd: null,
+				onOpenStart: null,
+				outDuration: 200,
+				preventScrolling: true
+			}}
+		>
+			<NavItem>
+				<a className="modal-trigger" href="#addModal">Ajout des argonauts</a>
+			</NavItem>
+			<NavItem>
+				<Link to="/login" onClick={logoutHandler}>Se deconnecter</Link>
+			</NavItem>
+		</Navbar>
 	)
 }
