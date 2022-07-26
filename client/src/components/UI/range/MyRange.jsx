@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import wNumb from 'wnumb'
 import Nouislider from 'nouislider-react'
 import 'nouislider/distribute/nouislider.css'

@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { AuthContext } from "../context/Context"
+import { AuthContext } from "../context/AuthContext"
 import { Navbar, NavItem, Icon } from 'react-materialize';
 
 export const Navmenu = () => {
@@ -37,11 +37,11 @@ export const Navmenu = () => {
 				preventScrolling: true
 			}}
 		>
-			<NavItem>
-				<a className="modal-trigger" href="#addModal">Ajout des argonauts</a>
+			<NavItem className="modal-trigger" href="#addModal">
+					Ajout des argonauts
 			</NavItem>
-			<NavItem>
-				<Link to="/login" onClick={logoutHandler}>Se deconnecter</Link>
+			<NavItem to="/login" onClick={logoutHandler}>
+				Se deconnecter
 			</NavItem>
 		</Navbar>
 	)

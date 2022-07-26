@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 // import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/Context'
-import { ArgoContext } from '../context/Context'
+import { AuthContext } from '../context/AuthContext'
+import { ArgoContext } from '../context/ArgoContext'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
@@ -55,6 +55,7 @@ export const HomePage = () => {
 			})
 			// setArgonauts(argonauts.concat(data.argonaut))
 			changePage(1) // returns to the first page when adding a new element
+			fetchArgonauts(page, numPerPage)
 		} catch (e) {}
 	}
 
@@ -78,6 +79,7 @@ export const HomePage = () => {
 			})
 			// setArgonauts(argonauts.filter(argo => argo._id !== id))
 			changePage(1)
+			fetchArgonauts(page, numPerPage)
 		} catch (e) {}
 	}
 
@@ -106,7 +108,7 @@ export const HomePage = () => {
 
 	const changePage = (page) => {
 		setPage(page)
-		// fetchArgonauts(page, numPerPage)
+		fetchArgonauts(page, numPerPage)
 	}
 
 	return (
