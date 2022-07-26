@@ -11,7 +11,7 @@ const MyInput = (props) => {
 		// <input {...props} />
 		<>
 			<input id="input_text" {...props}/>
-			<label for="input_text">Input text</label>
+			<label htmlFor="input_text">Input text</label>
 			<i className="material-icons prefix">search</i>
 		</>
 	)

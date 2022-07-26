@@ -20,7 +20,7 @@ nav {
   background: var(--main-bg-color);
 }
 
-nav ul a {
+nav a, nav ul a, .sidenav li a {
   color: var(--main-color);
 }
 
@@ -103,6 +103,10 @@ input[type=text]:not(.browser-default):read-only {
   border-bottom: none;
 }
 
+.my_table {
+  min-height: 1000px;
+}
+
 .button_disabler {
   cursor: not-allowed;
   pointer-events: none;
@@ -114,4 +118,8 @@ footer {
   background: var(--main-color);
   padding: 0.5rem 0;
   text-align: center;
+}
+
+footer img {
+  max-height: 10vh;
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ArgoContext } from '../../context/Context'
+import { ArgoContext } from '../../context/ArgoContext'
 import Modal from '../Modal/Modal'
 
 const ArgoItem = ({ argonaut, index, btnBlocker }) => {

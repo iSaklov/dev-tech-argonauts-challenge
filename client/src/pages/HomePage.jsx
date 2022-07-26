@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 // import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/Context'
-import { ArgoContext } from '../context/Context'
+import { AuthContext } from '../context/AuthContext'
+import { ArgoContext } from '../context/ArgoContext'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
@@ -26,15 +26,15 @@ export const HomePage = () => {
 	
 	useEffect(() => {
 		fetchArgonauts(page, numPerPage)
-	}, [])
+	}, [page, numPerPage])
 
 	useEffect(() => {
 		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-	}, [totalArgonauts])
+	}, [totalArgonauts, numPerPage])
 
-	useEffect(() => {
-		// window.M.updateTextFields()
-	}, [])
+	// useEffect(() => {
+	// 	window.M.updateTextFields()
+	// }, [])
 
 	const fetchArgonauts = useCallback(async (page, numPerPage) => {
 		try {
@@ -55,6 +55,7 @@ export const HomePage = () => {
 			})
 			// setArgonauts(argonauts.concat(data.argonaut))
 			changePage(1) // returns to the first page when adding a new element
+			fetchArgonauts(page, numPerPage)
 		} catch (e) {}
 	}
 
@@ -78,6 +79,7 @@ export const HomePage = () => {
 			})
 			// setArgonauts(argonauts.filter(argo => argo._id !== id))
 			changePage(1)
+			fetchArgonauts(page, numPerPage)
 		} catch (e) {}
 	}
 
@@ -87,6 +89,7 @@ export const HomePage = () => {
 				Authorization: `Bearer ${token}`
 			})
 			// setArgonauts(argonauts.filter(argo => argo._id !== id))
+			fetchArgonauts(page, numPerPage)
 			if(argonauts.length === 1 && page !== 1) {
 			// this works but should be replaced with a more robust solution
 				changePage(page - 1)
@@ -114,14 +117,18 @@ export const HomePage = () => {
 			<ArgoFilter
 				filter={filter}
 				setFilter={setFilter}
+				numPerPage={numPerPage}
+				setNumPerPage={setNumPerPage}
 			/>
 			{loading
 				? <Loader />
-				: <ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-			}
-			{argonauts.length
-				? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
-				: null
+				: <>
+						<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
+						{sortedAndSearchedArgos.length
+							? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
+							: null
+						}
+					</>
 			}
 		</ArgoContext.Provider>
 	)
