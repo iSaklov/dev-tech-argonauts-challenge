@@ -26,15 +26,15 @@ export const HomePage = () => {
 	
 	useEffect(() => {
 		fetchArgonauts(page, numPerPage)
-	}, [])
+	}, [page, numPerPage])
 
 	useEffect(() => {
 		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-	}, [totalArgonauts])
+	}, [totalArgonauts, numPerPage])
 
-	useEffect(() => {
-		// window.M.updateTextFields()
-	}, [])
+	// useEffect(() => {
+	// 	window.M.updateTextFields()
+	// }, [])
 
 	const fetchArgonauts = useCallback(async (page, numPerPage) => {
 		try {
@@ -87,6 +87,7 @@ export const HomePage = () => {
 				Authorization: `Bearer ${token}`
 			})
 			// setArgonauts(argonauts.filter(argo => argo._id !== id))
+			fetchArgonauts(page, numPerPage)
 			if(argonauts.length === 1 && page !== 1) {
 			// this works but should be replaced with a more robust solution
 				changePage(page - 1)
@@ -105,7 +106,7 @@ export const HomePage = () => {
 
 	const changePage = (page) => {
 		setPage(page)
-		fetchArgonauts(page, numPerPage)
+		// fetchArgonauts(page, numPerPage)
 	}
 
 	return (
@@ -114,6 +115,8 @@ export const HomePage = () => {
 			<ArgoFilter
 				filter={filter}
 				setFilter={setFilter}
+				numPerPage={numPerPage}
+				setNumPerPage={setNumPerPage}
 			/>
 			{loading
 				? <Loader />
