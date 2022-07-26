@@ -12,7 +12,6 @@ import { getTotalPages } from '../utils/pages'
 import MyModal from '../components/UI/modal/MyModal'
 
 export const HomePage = () => {
-
 	// const navigate = useNavigate()
 	const { token } = useContext(AuthContext)
 	const { request, loading } = useHttp()
@@ -23,18 +22,21 @@ export const HomePage = () => {
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const [numPerPage, setNumPerPage] = useState(10)
-	
-	useEffect(() => {
-		fetchArgonauts(page, numPerPage)
-	}, [page, numPerPage])
-
-	useEffect(() => {
-		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-	}, [totalArgonauts, numPerPage])
 
 	// useEffect(() => {
 	// 	window.M.updateTextFields()
 	// }, [])
+	
+	useEffect(() => {
+		fetchArgonauts(page, numPerPage)
+		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
+	}, [page, numPerPage, totalArgonauts])
+
+	useEffect(() => {
+		if(!argonauts.length && page > 1) {
+			changePage(totalPages)
+		}
+	}, [argonauts, page, totalPages])
 
 	const fetchArgonauts = useCallback(async (page, numPerPage) => {
 		try {
@@ -50,12 +52,14 @@ export const HomePage = () => {
 	const addArgonaut = async (name) => {
 		try {
 			const img = await getImage()
-			const data = await request('/api/argonaut/add', 'POST', { name, img }, {
+			await request('/api/argonaut/add', 'POST', { name, img }, {
 				Authorization: `Bearer ${token}`
 			})
+			// const data = await request('/api/argonaut/add', 'POST', { name, img }, {
+			// 	Authorization: `Bearer ${token}`
+			// })
 			// setArgonauts(argonauts.concat(data.argonaut))
 			changePage(1) // returns to the first page when adding a new element
-			fetchArgonauts(page, numPerPage)
 		} catch (e) {}
 	}
 
@@ -79,7 +83,6 @@ export const HomePage = () => {
 			})
 			// setArgonauts(argonauts.filter(argo => argo._id !== id))
 			changePage(1)
-			fetchArgonauts(page, numPerPage)
 		} catch (e) {}
 	}
 
@@ -89,13 +92,7 @@ export const HomePage = () => {
 				Authorization: `Bearer ${token}`
 			})
 			// setArgonauts(argonauts.filter(argo => argo._id !== id))
-			fetchArgonauts(page, numPerPage)
-			if(argonauts.length === 1 && page !== 1) {
-			// this works but should be replaced with a more robust solution
-				changePage(page - 1)
-			} else {
-				changePage(page)
-			}
+			changePage(page)
 		} catch (e) {}
 	}
 
@@ -108,7 +105,6 @@ export const HomePage = () => {
 
 	const changePage = (page) => {
 		setPage(page)
-		fetchArgonauts(page, numPerPage)
 	}
 
 	return (
