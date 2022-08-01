@@ -1,9 +1,10 @@
+// https://codepen.io/wildcodeschool/pen/LYpoBBN
 import React, { useState, useEffect, useContext, useCallback } from 'react'
-// import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { ArgoContext } from '../context/ArgoContext'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
+// import CatLoader from '../components/UI/loader/CatLoader'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 import { useArgos } from '../hooks/useArgos'
@@ -12,7 +13,6 @@ import { getTotalPages } from '../utils/pages'
 import MyModal from '../components/UI/modal/MyModal'
 
 export const HomePage = () => {
-	// const navigate = useNavigate()
 	const { token } = useContext(AuthContext)
 	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
@@ -105,27 +105,31 @@ export const HomePage = () => {
 
 	const changePage = (page) => {
 		setPage(page)
+		fetchArgonauts(page, numPerPage)
 	}
 
 	return (
-		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut }}>
-			<MyModal onCreate={ addArgonaut }/>
-			<ArgoFilter
-				filter={filter}
-				setFilter={setFilter}
-				numPerPage={numPerPage}
-				setNumPerPage={setNumPerPage}
-			/>
-			{loading
-				? <Loader />
-				: <>
-						<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-						{sortedAndSearchedArgos.length
-							? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
-							: null
-						}
-					</>
-			}
+		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut, getImage }}>
+			<main>
+				<MyModal onCreate={ addArgonaut }/>
+				<ArgoFilter
+					filter={filter}
+					setFilter={setFilter}
+					numPerPage={numPerPage}
+					setNumPerPage={setNumPerPage}
+				/>
+				{loading
+					? <Loader />
+					// ? <CatLoader />
+					: <>
+							<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
+							{sortedAndSearchedArgos.length
+								? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
+								: null
+							}
+						</>
+				}
+			</main>
 		</ArgoContext.Provider>
 	)
 }
