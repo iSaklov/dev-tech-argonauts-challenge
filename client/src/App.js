@@ -7,6 +7,7 @@ import { Navmenu as Navbar } from './components/Navbar';
 import { Loader } from './components/Loader';
 import { Footer } from './components/Footer';
 import './styles/App.css'
+import './styles/Cat.css'
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
     }}>
       <BrowserRouter>
         { isAuthenticated && <Navbar />}
-        <div className='container'>
+        <div className=''>
           {routes}
         </div>
         { isAuthenticated && <Footer />}
