@@ -29,7 +29,7 @@ body {
   background-color: var(--main-color);
 }
 
-/* AUTHENTIFICATION */
+/********** AUTHENTIFICATION **********/
 .auth-page h1 {
   margin-top: 10vh;
   font-size: 2.25rem;
@@ -88,11 +88,7 @@ body {
 
 }
 
-/* HOME PAGE*/
-main {
-  margin: 1rem 0.25rem;
-}
-
+/********** HOME PAGE **********/
 /* NAVBAR */
 nav {
   background: var(--main-bg-color);
@@ -100,6 +96,31 @@ nav {
 
 nav a, nav ul a, .sidenav li a {
   color: var(--main-color);
+}
+
+/* MAIN */
+main {
+  /* margin: 1rem 0.25rem; */
+  background-color: white;
+  min-height: 100vh;
+}
+
+input[type=text]:not(.browser-default):read-only {
+  border-bottom: none;
+}
+
+.my_table {
+  min-height: 1000px;
+}
+
+.pagination {
+  padding-bottom: 1rem;
+}
+
+.button_disabler {
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: sepia();
 }
 
 /* INPUT FIELDS */
@@ -127,21 +148,6 @@ nav a, nav ul a, .sidenav li a {
 }
 .noUi-active .noUi-tooltip {
   display: block;
-}
-
-/* MAIN */
-input[type=text]:not(.browser-default):read-only {
-  border-bottom: none;
-}
-
-.my_table {
-  min-height: 1000px;
-}
-
-.button_disabler {
-  cursor: not-allowed;
-  pointer-events: none;
-  filter: sepia();
 }
 
 footer {
