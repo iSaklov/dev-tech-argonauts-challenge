@@ -25,9 +25,7 @@ function App() {
     }}>
       <BrowserRouter>
         { isAuthenticated && <Navbar />}
-        <div className=''>
           {routes}
-        </div>
         { isAuthenticated && <Footer />}
       </BrowserRouter>
     </AuthContext.Provider>
