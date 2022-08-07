@@ -12,14 +12,12 @@ const MyModal = ({ onCreate }) => {
 	}
 
 	const generateArgos = amount => {
-
 		for(let i = 0; i < amount; i++) {
 			onCreate(generateName())
 		}
-
-		M.toast({ html: amount > 1
-													? `${amount} argonautes ont été embarqués avec succès`
-													: "Un argonaute a été embarqué avec succès"
+		M.toast({ html: value > 1
+									? `${value} argonautes ont été embarqués avec succès`
+									: "Un argonaute a été embarqué avec succès"
 						})
 	}
 

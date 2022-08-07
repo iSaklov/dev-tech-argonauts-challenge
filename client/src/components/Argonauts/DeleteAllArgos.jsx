@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Button, Icon } from 'react-materialize'
 
-const DeleteAllArgos = ({ onDeleteAll={onDeleteAll} }) => {
+const DeleteAllArgos = ({ onDeleteAll }) => {
 	return (
 		<Modal
 			actions={[
@@ -46,7 +46,7 @@ const DeleteAllArgos = ({ onDeleteAll={onDeleteAll} }) => {
 				<p>Si vous confirmez cette action, toutes les données seront supprimées. Cette action est irréversible.</p>
 			</div>
 		</Modal>
-	);
-};
+	)
+}
 
 export default DeleteAllArgos

@@ -120,12 +120,32 @@ input[type=text]:not(.browser-default):read-only {
   border-bottom: none;
 }
 
-.my_table {
-  min-height: 1000px;
+/* ARGO LIST */
+.space button {
+  visibility: hidden;
 }
 
 .pagination {
+  padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.pagination button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  /* text-decoration: underline; */
+  display: inline;
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.pagination .disabled button {
+  color: #999;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .button_disabler {

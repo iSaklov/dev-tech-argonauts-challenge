@@ -26,17 +26,6 @@ export const HomePage = () => {
 	// useEffect(() => {
 	// 	window.M.updateTextFields()
 	// }, [])
-	
-	useEffect(() => {
-		fetchArgonauts(page, numPerPage)
-		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-	}, [page, numPerPage, totalArgonauts])
-
-	useEffect(() => {
-		if(!argonauts.length && page > 1) {
-			changePage(totalPages)
-		}
-	}, [argonauts, page, totalPages])
 
 	const fetchArgonauts = useCallback(async (page, numPerPage) => {
 		try {
@@ -101,12 +90,23 @@ export const HomePage = () => {
 			const fetched = await request('https://api.thecatapi.com/v1/images/search?limit=1&category_ids=2')
 			return fetched[0].url
 		} catch (e) {}
-	}, [])
+	}, [request])
 
-	const changePage = (page) => {
+	const changePage = useCallback((page) => {
 		setPage(page)
 		fetchArgonauts(page, numPerPage)
-	}
+	}, [fetchArgonauts, numPerPage])
+
+	useEffect(() => {
+		fetchArgonauts(page, numPerPage)
+		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
+	}, [page, numPerPage, totalArgonauts, fetchArgonauts])
+
+	useEffect(() => {
+		if(!argonauts.length && page > 1) {
+			changePage(totalPages)
+		}
+	}, [argonauts, page, totalPages, changePage])
 
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut, getImage }}>
