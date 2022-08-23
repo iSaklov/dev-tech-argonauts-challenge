@@ -42,4 +42,4 @@ const MyModal = ({ onCreate }) => {
 	)
 }
 
-export default MyModal;
+export default MyModal

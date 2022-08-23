@@ -17,13 +17,16 @@ export const HomePage = () => {
 	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
-	// const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
+	const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
 	const [page, setPage] = useState(1)
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const [numPerPage, setNumPerPage] = useState(10)
-	
-	const [search, setSearch] = useState('w')
+	const [search, setSearch] = useState('')
+
+	useEffect(() => {
+		setSearch(filter.query)
+	}, [filter.query])
 
 	// useEffect(() => {
 	// 	window.M.updateTextFields()
@@ -99,7 +102,7 @@ export const HomePage = () => {
 	const changePage = useCallback((page) => {
 		setPage(page)
 		fetchArgonauts(page, numPerPage, search)
-	}, [fetchArgonauts, numPerPage])
+	}, [fetchArgonauts, numPerPage, search])
 
 	useEffect(() => {
 		fetchArgonauts(page, numPerPage, search)
@@ -125,16 +128,10 @@ export const HomePage = () => {
 				{loading
 					? <Loader />
 					// ? <CatLoader />
-					// : <>
-					// 		<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-					// 		{sortedAndSearchedArgos.length
-					// 			? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
-					// 			: null
-					// 		}
-					// 	</>
-					: <>
-						<ArgosList argonauts={argonauts} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-						{argonauts.length
+					:
+					<>
+						<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
+						{sortedAndSearchedArgos.length
 							? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
 							: null
 						}

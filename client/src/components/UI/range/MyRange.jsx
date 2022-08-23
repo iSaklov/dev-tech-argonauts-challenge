@@ -36,4 +36,4 @@ class MyRange extends React.Component {
   }
 }
 
-export default MyRange;
+export default MyRange
