@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo } from "react"
 
 export const useSortedArgos = (argos, sort) => {
 	const sortedArgos = useMemo(() => {
