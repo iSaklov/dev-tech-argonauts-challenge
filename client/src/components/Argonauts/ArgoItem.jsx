@@ -33,6 +33,31 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 		setSelected(false)
 	}
 
+	if(!argonaut.name) {
+		return (
+			<tr key={argonaut._id} className="space">
+				<td />
+				<td />
+				<td />
+				<td>
+					<button
+						className="btn-floating btn-large"
+					>
+						<i className="material-icons">adb</i>
+					</button>
+				</td>
+				<td>
+					<button className="btn">
+						<i className="small material-icons">edit</i>
+					</button>
+					<button className="btn">
+						<i className="small material-icons">delete</i>
+					</button>
+				</td>
+			</tr>
+		)
+	}
+
 	return (
 		<tr key={argonaut._id}>
 			<td>{index}</td>

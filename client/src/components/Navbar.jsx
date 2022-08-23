@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
-import { Navbar, NavItem, Icon } from 'react-materialize';
+import { Navbar, NavItem, Icon } from 'react-materialize'
 
 export const Navmenu = () => {
 
@@ -18,11 +18,11 @@ export const Navmenu = () => {
 		<Navbar
 			alignLinks="right"
 			brand={
-			<a href="https://www.wildcodeschool.com/fr-FR" target="_blank" rel="nofollow noopener noreferrer">
+			<a className="brand-logo" href="https://www.wildcodeschool.com/fr-FR" target="_blank" rel="nofollow noopener noreferrer">
 				<img src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png" alt="Wild Code School logo" style={{maxWidth: "96px"}}/>
 			</a>
 			}
-			centerLogo
+			// centerLogo
 			id="mobile-nav"
 			menuIcon={<Icon>menu</Icon>}
 			options={{

@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
+import CatHead from '../components/UI/cat/CatHead'
 
 
 export const AuthPage = () => {
@@ -62,7 +63,7 @@ export const AuthPage = () => {
 													value={form.email}
 													onChange={changeHandler}
 												/>
-												<label for="email" data-error="wrong" data-success="right">Email</label>
+												<label htmlFor="email" data-error="wrong" data-success="right">Email</label>
 											</div>
 											<div className="input-field col s11 m9 offset-m1">
 												<i className="material-icons prefix">fingerprint</i>
@@ -74,7 +75,7 @@ export const AuthPage = () => {
 													value={form.password}
 													onChange={changeHandler}
 												/>
-												<label for="password">Mot de passe</label>
+												<label htmlFor="password">Mot de passe</label>
 											</div>
 										</div>
 									</form>
@@ -99,19 +100,7 @@ export const AuthPage = () => {
 					</div>
 				</div>
 			</div>
-			<div className="cat">
-				<div className="ear ear--left"></div>
-				<div className="ear ear--right"></div>
-				<div className="face">
-					<div className="eye eye--left">
-						<div className="eye-pupil"></div>
-					</div>
-					<div className="eye eye--right">
-						<div className="eye-pupil"></div>
-					</div>
-					<div className="muzzle"></div>
-				</div>
-			</div>
+			<CatHead />
 		</div>
 	)
 }

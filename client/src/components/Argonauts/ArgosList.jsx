@@ -1,14 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from "react-transition-group"
 import ArgoItem from './ArgoItem'
 import DeleteAllArgos from './DeleteAllArgos'
 
 const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 	const [currentNum, setCurrentNum] = useState()
+	const [argos, setArgos] = useState([])
+	const nodeRef = useRef(null)
+
+	useEffect(() => {
+		setArgos(argonauts)
+	}, [argonauts])
 
 	useEffect(() => {
 		setCurrentNum((page - 1) * numPerPage)
 	}, [page, numPerPage])
+
+	useEffect(() => {
+		const dummy = {
+			_id: Date.now(),
+			name: undefined,
+			date: undefined,
+			img: undefined,
+			owner: undefined
+		}
+		
+		if(argos.length < numPerPage) {
+			for(let i = argos.length; i < numPerPage; i++) {
+				setArgos([...argos, dummy])
+			}
+		}
+		
+	}, [argos, numPerPage])
 
 	const btnBlocker = () => {
 		const buttons = document.querySelectorAll('.btn_blocked')
@@ -24,7 +47,7 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 	}
 
 	return (
-		<div className="my_table">
+		<div>
 			<h4>Membres de l'équipage</h4>
 			<table className="centered striped">
 				<thead>
@@ -40,10 +63,10 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 				</thead>
 				<tbody>
 					<TransitionGroup component={null}>
-						{ argonauts.map((argonaut, index) =>
+						{ argos.map((argonaut, index) =>
 						  <CSSTransition
 								key={argonaut._id}
-								timeout={250}
+								nodeRef={nodeRef} in timeout={250}
 								classNames="argonaut"
             	>
 								<ArgoItem

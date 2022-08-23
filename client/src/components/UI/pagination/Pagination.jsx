@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const Pagination = ({ page, totalPages, changePage }) => {
 
@@ -8,56 +8,56 @@ const Pagination = ({ page, totalPages, changePage }) => {
 
 	return (
 		<ul className="pagination">
-			<li className={page === 1 ? "disabled" : "waves-effect"}>
-				<a>
+			<li className={page === 1 ? "disabled" : "waves-effect waves-light"}>
+				<button>
 					<i
 						className="material-icons"
 						onClick={() => changePage(1)}
 					>
 						first_page
 					</i>
-				</a>
+				</button>
 			</li>
-			<li className={page === 1 ? "disabled" : "waves-effect"}>
-				<a>
+			<li className={page === 1 ? "disabled" : "waves-effect waves-light"}>
+				<button>
 					<i
 						className="material-icons"
 						onClick={() => changePage(page > 1 ? page - 1 : page)}
 					>
 						chevron_left
 					</i>
-				</a>
+				</button>
 			</li>
 			{pagesArray.filter(p => p !== null).map(p =>
 				<li
 					onClick={() => changePage(p)}
 					key={p}
-					className={page === p ? "active" : "waves-effect"}
+					className={page === p ? "active" : "waves-effect waves-light"}
 				>
-					<a>
+					<button>
 						{p}
-					</a>
+					</button>
 				</li>
 			)}
-			<li className={page === totalPages ? "disabled" : "waves-effect"}>
-				<a>
+			<li className={page === totalPages ? "disabled" : "waves-effect waves-light"}>
+				<button>
 					<i
 						className="material-icons"
 						onClick={() => changePage(page < totalPages ? page + 1 : page)}
 					>
 						chevron_right
 					</i>
-				</a>
+				</button>
 			</li>
-			<li className={page === totalPages ? "disabled" : "waves-effect"}>
-				<a>
+			<li className={page === totalPages ? "disabled" : "waves-effect waves-light"}>
+				<button>
 					<i
 						className="material-icons"
 						onClick={() => changePage(totalPages)}
 					>
 						last_page
 					</i>
-				</a>
+				</button>
 			</li>
 		</ul>
 	)

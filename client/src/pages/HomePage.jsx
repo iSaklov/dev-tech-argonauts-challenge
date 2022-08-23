@@ -22,30 +22,26 @@ export const HomePage = () => {
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const [numPerPage, setNumPerPage] = useState(10)
+	const [search, setSearch] = useState('')
+
+	useEffect(() => {
+		setSearch(filter.query)
+	}, [filter.query])
 
 	// useEffect(() => {
 	// 	window.M.updateTextFields()
 	// }, [])
-	
-	useEffect(() => {
-		fetchArgonauts(page, numPerPage)
-		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-	}, [page, numPerPage, totalArgonauts])
 
-	useEffect(() => {
-		if(!argonauts.length && page > 1) {
-			changePage(totalPages)
-		}
-	}, [argonauts, page, totalPages])
-
-	const fetchArgonauts = useCallback(async (page, numPerPage) => {
+	const fetchArgonauts = useCallback(async (page, numPerPage, search) => {
 		try {
 			// Make sure you send 'page' as query parameters to your node.js server
-			const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}`, 'GET', null, {
+			// const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}`, 'GET', null, {
+			const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${search}`, 'GET', null, {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(data.argonauts)
 			setTotalArgonauts(data.size)
+			// setTotalArgonauts(argonauts.length)
 		} catch (e) {}
 	}, [token, request])
 
@@ -101,12 +97,23 @@ export const HomePage = () => {
 			const fetched = await request('https://api.thecatapi.com/v1/images/search?limit=1&category_ids=2')
 			return fetched[0].url
 		} catch (e) {}
-	}, [])
+	}, [request])
 
-	const changePage = (page) => {
+	const changePage = useCallback((page) => {
 		setPage(page)
-		fetchArgonauts(page, numPerPage)
-	}
+		fetchArgonauts(page, numPerPage, search)
+	}, [fetchArgonauts, numPerPage, search])
+
+	useEffect(() => {
+		fetchArgonauts(page, numPerPage, search)
+		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
+	}, [page, numPerPage, totalArgonauts, fetchArgonauts, search])
+
+	useEffect(() => {
+		if(!argonauts.length && page > 1) {
+			changePage(totalPages)
+		}
+	}, [argonauts, page, totalPages, changePage])
 
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut, getImage }}>
@@ -121,13 +128,14 @@ export const HomePage = () => {
 				{loading
 					? <Loader />
 					// ? <CatLoader />
-					: <>
-							<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-							{sortedAndSearchedArgos.length
-								? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
-								: null
-							}
-						</>
+					:
+					<>
+						<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
+						{sortedAndSearchedArgos.length
+							? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
+							: null
+						}
+					</>
 				}
 			</main>
 		</ArgoContext.Provider>

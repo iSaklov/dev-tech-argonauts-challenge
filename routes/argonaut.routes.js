@@ -1,5 +1,4 @@
 const { Router } = require('express')
-const { contextsKey } = require('express-validator/src/base')
 const auth = require('../middleware/auth.middleware')
 const Argonaut = require('../models/Argonaut')
 const router = Router()
@@ -9,17 +8,24 @@ class ArgoService {
 		return Argonaut.find({ owner }).sort({ $natural: -1 }) 
 	}
 
-	getPerPage(page = 1, numPerPage = 10, owner) {
+	getPerPage(owner, page = 1, numPerPage = 10, search = '') {
 		const PAGE_SIZE = numPerPage					// Similar to 'limit'
 		const skip = (page - 1) * PAGE_SIZE		// For page 1, the skip is: (1 - 1) * 10 => 0 * 10 = 0
-		return Argonaut.find({ owner }) 
+		return Argonaut.find({
+											owner,
+											name: { $regex: search, $options: 'i' }
+										})
 										.skip(skip)          	// Same as before, always use 'skip' first
 										.limit(PAGE_SIZE)
 										.sort({ $natural: -1 }) // Similar to 'reverse'
 	}
 
-	getCollSize(owner) {
-		return Argonaut.find({ owner }).countDocuments()
+	getCollectionSize(owner, search = '') {
+		return Argonaut.find({
+											owner,
+											name: { $regex: search, $options: 'i' }
+										})
+										.countDocuments()
 	}
 }
 
@@ -55,28 +61,25 @@ router.post('/add', auth, async (req, res) => {
 
 router.get('/', auth, async (req, res) => {
 	try {
-		const owner =  req.user.userId
-		const page = parseInt(req.query.page) // Make sure to parse the page to number
-		const numPerPage = parseInt(req.query.numperpage)
 		const argoService = new ArgoService()
-		const size = await argoService.getCollSize(owner)
-		let argonauts = []
+		const owner =  req.user.userId
+		const page = parseInt(req.query.page)
+		const numPerPage = parseInt(req.query.numperpage)
+		const search = req.query.search
 
-		if(isNaN(page) || isNaN(numPerPage)) {
-			argonauts = await argoService.getAll(owner)
+		let argonauts = []
+		let size = 0
+		
+		if(!isNaN(page) || !isNaN(numPerPage)) {
+			console.log('--- IF ---')
+			argonauts = await argoService.getPerPage(owner, page, numPerPage, search)
+			size = await argoService.getCollectionSize(owner, search)
 		} else {
-			argonauts = await argoService.getPerPage(page, numPerPage, owner)
+			console.log('--- ELSE ---')
+			argonauts = await argoService.getAll(owner)
+			size = await argoService.getCollectionSize(owner)
 		}
 
-		// const argonauts = async () => {
-		// 	if(isNaN(page) || isNaN(numPerPage)) {
-		// 		return await argoService.getAll(owner)
-		// 	} else {
-		// 		return await argoService.getPerPage(page, numPerPage, owner)
-		// 	}
-		// }
-	
-		// const argonauts = await Argonaut.find({ owner })
 		// res.status(200).json(argonauts)
 		res.status(200).json({
 			argonauts : argonauts,

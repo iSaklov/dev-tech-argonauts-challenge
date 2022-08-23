@@ -6,7 +6,7 @@ export const Footer = () => {
 		<footer>
   		<p>Réalisé par Jason en Anthestérion de l'an 515 avant JC</p>
 			<p>Révisé par iSaklov à Paris 2022. Tous les droits sont résérvés ©</p>
-			<img src={cat} alt="Image d'un chaton-licorne rose" />
+			<img src={cat} alt="un chaton-licorne rose" />
 		</footer>
 	)
 }
