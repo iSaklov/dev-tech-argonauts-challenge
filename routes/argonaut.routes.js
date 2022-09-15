@@ -8,16 +8,36 @@ class ArgoService {
 		return Argonaut.find({ owner }).sort({ $natural: -1 }) 
 	}
 
-	getPerPage(owner, page = 1, numPerPage = 10, search = '') {
+	getPerPage(owner, page = 1, numPerPage = 10, search = '', sort = '') {
 		const PAGE_SIZE = numPerPage					// Similar to 'limit'
 		const skip = (page - 1) * PAGE_SIZE		// For page 1, the skip is: (1 - 1) * 10 => 0 * 10 = 0
-		return Argonaut.find({
-											owner,
-											name: { $regex: search, $options: 'i' }
-										})
-										.skip(skip)          	// Same as before, always use 'skip' first
-										.limit(PAGE_SIZE)
-										.sort({ $natural: -1 }) // Similar to 'reverse'
+
+		switch(sort) {
+			case '':
+				return Argonaut.find({
+									owner,
+									name: { $regex: search, $options: 'i' }
+								})
+								.skip(skip)          	// Same as before, always use 'skip' first
+								.limit(PAGE_SIZE)
+								.sort({ $natural: -1 }) // Similar to 'reverse'
+			case 'name':
+				return Argonaut.find({
+								owner,
+								name: { $regex: search, $options: 'i' }
+							})
+							.skip(skip)
+							.limit(PAGE_SIZE)
+							.sort({ name: 1 })
+			case 'date':
+				return Argonaut.find({
+								owner,
+								name: { $regex: search, $options: 'i' }
+							})
+							.skip(skip)
+							.limit(PAGE_SIZE)
+							.sort({ date: 1 })
+		}
 	}
 
 	getCollectionSize(owner, search = '') {
@@ -66,16 +86,15 @@ router.get('/', auth, async (req, res) => {
 		const page = parseInt(req.query.page)
 		const numPerPage = parseInt(req.query.numperpage)
 		const search = req.query.search
+		const sort = req.query.sort
 
 		let argonauts = []
 		let size = 0
 		
 		if(!isNaN(page) || !isNaN(numPerPage)) {
-			console.log('--- IF ---')
-			argonauts = await argoService.getPerPage(owner, page, numPerPage, search)
+			argonauts = await argoService.getPerPage(owner, page, numPerPage, search, sort)
 			size = await argoService.getCollectionSize(owner, search)
 		} else {
-			console.log('--- ELSE ---')
 			argonauts = await argoService.getAll(owner)
 			size = await argoService.getCollectionSize(owner)
 		}

@@ -7,7 +7,7 @@ import { Loader } from '../components/Loader'
 // import CatLoader from '../components/UI/loader/CatLoader'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
-import { useArgos } from '../hooks/useArgos'
+// import { useArgos } from '../hooks/useArgos'
 import Pagination from '../components/UI/pagination/Pagination'
 import { getTotalPages } from '../utils/pages'
 import MyModal from '../components/UI/modal/MyModal'
@@ -17,31 +17,24 @@ export const HomePage = () => {
 	const { request, loading } = useHttp()
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
-	const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
+	// const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
 	const [page, setPage] = useState(1)
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const [numPerPage, setNumPerPage] = useState(10)
-	const [search, setSearch] = useState('')
-
-	useEffect(() => {
-		setSearch(filter.query)
-	}, [filter.query])
 
 	// useEffect(() => {
 	// 	window.M.updateTextFields()
 	// }, [])
 
-	const fetchArgonauts = useCallback(async (page, numPerPage, search) => {
+	const fetchArgonauts = useCallback(async (page, numPerPage, search, sort) => {
 		try {
 			// Make sure you send 'page' as query parameters to your node.js server
-			// const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}`, 'GET', null, {
-			const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${search}`, 'GET', null, {
+			const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${search}&sort=${sort}`, 'GET', null, {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(data.argonauts)
 			setTotalArgonauts(data.size)
-			// setTotalArgonauts(argonauts.length)
 		} catch (e) {}
 	}, [token, request])
 
@@ -51,10 +44,6 @@ export const HomePage = () => {
 			await request('/api/argonaut/add', 'POST', { name, img }, {
 				Authorization: `Bearer ${token}`
 			})
-			// const data = await request('/api/argonaut/add', 'POST', { name, img }, {
-			// 	Authorization: `Bearer ${token}`
-			// })
-			// setArgonauts(argonauts.concat(data.argonaut))
 			changePage(1) // returns to the first page when adding a new element
 		} catch (e) {}
 	}
@@ -77,7 +66,6 @@ export const HomePage = () => {
 			await request(`api/argonaut/`, 'DELETE', null, {
 				Authorization: `Bearer ${token}`
 			})
-			// setArgonauts(argonauts.filter(argo => argo._id !== id))
 			changePage(1)
 		} catch (e) {}
 	}
@@ -101,13 +89,13 @@ export const HomePage = () => {
 
 	const changePage = useCallback((page) => {
 		setPage(page)
-		fetchArgonauts(page, numPerPage, search)
-	}, [fetchArgonauts, numPerPage, search])
+		fetchArgonauts(page, numPerPage, filter.query, filter.sort)
+	}, [fetchArgonauts, numPerPage, filter.query, filter.sort])
 
 	useEffect(() => {
-		fetchArgonauts(page, numPerPage, search)
+		fetchArgonauts(page, numPerPage, filter.query, filter.sort)
 		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-	}, [page, numPerPage, totalArgonauts, fetchArgonauts, search])
+	}, [page, numPerPage, totalArgonauts, fetchArgonauts, filter.query, filter.sort])
 
 	useEffect(() => {
 		if(!argonauts.length && page > 1) {
@@ -130,8 +118,8 @@ export const HomePage = () => {
 					// ? <CatLoader />
 					:
 					<>
-						<ArgosList argonauts={sortedAndSearchedArgos} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-						{sortedAndSearchedArgos.length
+						<ArgosList argonauts={argonauts} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
+						{argonauts.length
 							? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
 							: null
 						}
