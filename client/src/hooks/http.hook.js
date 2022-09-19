@@ -1,5 +1,5 @@
-import { Error } from "mongoose";
-import { useState, useCallback } from "react";
+import { Error } from "mongoose"
+import { useState, useCallback } from "react"
 
 export const useHttp = () => {
 	const [loading, setLoading] = useState(false)
@@ -27,7 +27,6 @@ export const useHttp = () => {
 
 			return data
 		} catch (e) {
-			console.log(`Catch ${e.message}`)
 			setError(e.message)
 			throw e
 		} finally {

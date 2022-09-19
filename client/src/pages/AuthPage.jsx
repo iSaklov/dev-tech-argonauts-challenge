@@ -13,6 +13,7 @@ export const AuthPage = () => {
 		email: '', 
 		password: ''
 	})
+	const [redirect, setRedirect] = useState(false)
 
 	useEffect(() => {
 		message(error)
@@ -38,6 +39,7 @@ export const AuthPage = () => {
 		try {
 			const data = await request('/api/auth/login', 'POST', {...form})
 			auth.login(data.token, data.userId)
+			message(data.message)
 		} catch (e) {}
 	}
 

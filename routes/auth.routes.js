@@ -41,7 +41,7 @@ router.post(
 		res.status(201).json({ message: 'Nouvel argonaute a été embarqué avec succès' })
 
 	} catch (e) {
-		res.status(500).json({ message: 'Quelque chose ne va pas, on essaie encore' })
+		res.status(500).json({ message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement' })
 	}
 })
 
@@ -59,7 +59,7 @@ router.post(
 		if(!errors.isEmpty()) {
 			return res.status(400).json({
 				errors: errors.array(),
-				message: 'Les données saisies sont incorrectes'
+				message: 'Les données saisies sont invalides'
 			})
 		}
 
@@ -82,10 +82,10 @@ router.post(
 			{ expiresIn: '1h' }
 		)
 
-		res.json({ token, userId: user.id })
+		res.json({ token, userId: user.id, message: 'Vous vous êtes connecté avec succès' })
 
 	} catch (e) {
-		res.status(500).json({ message: 'Quelque chose ne va pas, on essaie encore' })
+		res.status(500).json({ message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement' })
 	}	
 })
 

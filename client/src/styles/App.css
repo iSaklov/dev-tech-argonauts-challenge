@@ -162,6 +162,18 @@ input[type=text]:not(.browser-default):read-only {
   filter: sepia();
 }
 
+.btn-floating {
+  background-color: var(--main-color);
+}
+
+.btn-floating:focus {
+  background-color: var(--palatinate-purple);
+}
+
+.btn-floating:hover {
+  background-color: var(--antique-fuchsia);
+}
+
 /* INPUT FIELDS */
 /* label color */
 
