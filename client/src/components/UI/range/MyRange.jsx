@@ -5,12 +5,12 @@ import 'nouislider/distribute/nouislider.css'
 
 class MyRange extends React.Component {
 	constructor(props) {
-		super(props);
-		this.onChange = this.onChange.bind(this);
+		super(props)
+		this.onChange = this.onChange.bind(this)
 	}
 
 	onChange(value) {
-		this.props.onChange(value);
+		this.props.onChange(value)
 	}
 
   render() {

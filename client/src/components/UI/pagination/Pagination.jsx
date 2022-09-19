@@ -63,4 +63,4 @@ const Pagination = ({ page, totalPages, changePage }) => {
 	)
 }
 
-export default Pagination;
+export default Pagination

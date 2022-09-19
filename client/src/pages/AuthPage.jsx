@@ -13,7 +13,6 @@ export const AuthPage = () => {
 		email: '', 
 		password: ''
 	})
-	const [redirect, setRedirect] = useState(false)
 
 	useEffect(() => {
 		message(error)

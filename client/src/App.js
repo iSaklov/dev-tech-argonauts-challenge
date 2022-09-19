@@ -28,7 +28,7 @@ function App() {
         { isAuthenticated && <Footer />}
       </BrowserRouter>
     </AuthContext.Provider>
-  );
+  )
 }
 
 export default App

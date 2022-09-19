@@ -1,6 +1,6 @@
-import React, { useState }from 'react';
-import AddArgo from '../../Argonauts/AddArgo';
-import MyRange from '../range/MyRange';
+import React, { useState }from 'react'
+import AddArgo from '../../Argonauts/AddArgo'
+import MyRange from '../range/MyRange'
 import { generateName } from '../../../utils/names'
 import M from 'materialize-css'
 

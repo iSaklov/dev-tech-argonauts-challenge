@@ -1,5 +1,5 @@
 // https://codepen.io/Rplus/pen/PWZYRM
-import React from 'react';
+import React from 'react'
 import classes from './CatLoader.module.css'
 
 const CatLoader = () => {
@@ -12,7 +12,7 @@ const CatLoader = () => {
 				<div className={classes.cat__head} />
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default CatLoader;
+export default CatLoader

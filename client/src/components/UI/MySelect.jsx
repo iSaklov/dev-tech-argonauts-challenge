@@ -11,7 +11,7 @@ export default class MySelect extends Component {
   }
 
 	componentDidMount(){
-		M.AutoInit();
+		M.AutoInit()
 	}
 
 	onChange(event) {
