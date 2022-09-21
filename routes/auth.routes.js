@@ -38,7 +38,13 @@ router.post(
 
 		await user.save()
 
-		res.status(201).json({ message: 'Nouvel argonaute a été embarqué avec succès' })
+		const token = jwt.sign(
+			{ userId: user.id },
+			config.get('jwtSecret'),
+			{ expiresIn: '1h' }
+		)
+
+		res.status(201).json({ token, userId: user.id, message: 'Nouvel argonaute a été embarqué avec succès' })
 
 	} catch (e) {
 		res.status(500).json({ message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement' })
@@ -79,10 +85,14 @@ router.post(
 		const token = jwt.sign(
 			{ userId: user.id },
 			config.get('jwtSecret'),
-			{ expiresIn: '1h' }
+			{ expiresIn: '10m' }
 		)
 
-		res.json({ token, userId: user.id, message: 'Vous vous êtes connecté avec succès' })
+		res.json({
+			token, 
+			userId: user.id, 
+			message: 'Vous vous êtes connecté avec succès' 
+		})
 
 	} catch (e) {
 		res.status(500).json({ message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement' })

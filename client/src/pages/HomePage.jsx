@@ -3,18 +3,20 @@ import React, { useState, useEffect, useContext, useCallback } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import { ArgoContext } from '../context/ArgoContext'
 import { useHttp } from '../hooks/http.hook'
+import { useMessage } from '../hooks/message.hook'
+// import { useArgos } from '../hooks/useArgos'
 import { Loader } from '../components/Loader'
 // import CatLoader from '../components/UI/loader/CatLoader'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
-// import { useArgos } from '../hooks/useArgos'
+import MyModal from '../components/UI/modal/MyModal'
 import Pagination from '../components/UI/pagination/Pagination'
 import { getTotalPages } from '../utils/pages'
-import MyModal from '../components/UI/modal/MyModal'
 
 export const HomePage = () => {
 	const { token } = useContext(AuthContext)
-	const { request, loading } = useHttp()
+	const { loading, request, error, clearError} = useHttp()
+	const message = useMessage()
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({sort: '', query: ''})
 	// const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
@@ -22,6 +24,11 @@ export const HomePage = () => {
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const [numPerPage, setNumPerPage] = useState(10)
+
+	useEffect(() => {
+		message(error)
+		clearError()
+	}, [error, message, clearError])
 
 	// useEffect(() => {
 	// 	window.M.updateTextFields()
@@ -35,16 +42,19 @@ export const HomePage = () => {
 			})
 			setArgonauts(data.argonauts)
 			setTotalArgonauts(data.size)
-		} catch (e) {}
+		} catch (e) {
+			// throw new Error(e)
+		}
 	}, [token, request])
 
 	const addArgonaut = async (name) => {
 		try {
 			const img = await getImage()
-			await request('/api/argonaut/add', 'POST', { name, img }, {
+			const data = await request('/api/argonaut/add', 'POST', { name, img }, {
 				Authorization: `Bearer ${token}`
 			})
 			changePage(1) // returns to the first page when adding a new element
+			message(data.message)
 		} catch (e) {}
 	}
 
@@ -58,25 +68,28 @@ export const HomePage = () => {
 					? {...argo, name: data.argonaut.name}
 					: argo
 			)))
+			message(data.message)
 		} catch (e) {}
 	}
 
 	const removeAllArgonauts = async () => {
 		try {
-			await request(`api/argonaut/`, 'DELETE', null, {
+			const data = await request(`api/argonaut/`, 'DELETE', null, {
 				Authorization: `Bearer ${token}`
 			})
 			changePage(1)
+			message(data.message)
 		} catch (e) {}
 	}
 
 	const removeArgonaut = async (id) => {
 		try {
-			await request(`api/argonaut/${id}`, 'DELETE', null, {
+			const data = await request(`api/argonaut/${id}`, 'DELETE', null, {
 				Authorization: `Bearer ${token}`
 			})
 			// setArgonauts(argonauts.filter(argo => argo._id !== id))
 			changePage(page)
+			message(data.message)
 		} catch (e) {}
 	}
 

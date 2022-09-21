@@ -69,11 +69,11 @@ router.post('/add', auth, async (req, res) => {
 
 		res.status(201).json({
 			argonaut,
-			message: 'Argonaute embarqué avec succès !'
+			message: `${name} embarqué avec succès !`
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Argonaute \'a pas pu être embarqué',
+			message: `${req.body.name} n'a pas pu être embarqué`,
 			error: e
 		})
 	}
@@ -138,11 +138,11 @@ router.put('/:id', auth, async (req, res) => {
 
 		res.status(201).json({ 
 			argonaut,
-			message: 'Argonaute vient d\'être modifié avec succès !'
+			message: `L'argonaute porte désormais le nome ${newName} !`
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Argonaute n\' a pas pu être modifié',
+			message: `L'argonaute n'a pas pu être modifié`,
 			error: e
 		})
 	}
@@ -156,7 +156,7 @@ router.delete('/', auth, async (req, res) => {
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Les argonautes n\' ont pas pu être débarqués',
+			message: 'Les argonautes n\'ont pas pu être débarqués',
 			error: e
 		})
 	}
@@ -164,13 +164,14 @@ router.delete('/', auth, async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
 	try {
+		const argonaut = await Argonaut.findById({ _id: req.params.id })
 		await Argonaut.deleteOne({ _id: req.params.id })
 		res.status(200).json({
-			message: 'L\'argonaute a été débarqué avec succès !'
+			message: `${argonaut.name} a été débarqué avec succès !`
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Argonaute n\' a pas pu être supprimé',
+			message: `L'argonaute n\'a pas pu être débarqué`,
 			error: e
 		})
 	}
