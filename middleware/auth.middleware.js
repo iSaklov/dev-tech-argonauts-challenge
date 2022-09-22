@@ -21,6 +21,6 @@ module.exports = (req, res, next) => {
 
 		next()
 	} catch (e) {
-		res.status(401).json({ message: 'Présentez-vous Argonaute' })
+		res.status(401).json({ message: 'Notre server n\'arrive pas à vous identifier :(' })
 	}
 }

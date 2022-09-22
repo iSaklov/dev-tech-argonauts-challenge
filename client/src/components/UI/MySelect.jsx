@@ -19,7 +19,6 @@ export default class MySelect extends Component {
 		this.setState({
 			value: event.target.value
 		})
-		// console.log(`The value of state is ${event.target.value}`)
 	}
 
 	render() {

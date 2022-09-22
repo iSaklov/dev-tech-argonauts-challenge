@@ -8,10 +8,12 @@ import { Loader } from './components/Loader'
 import { Footer } from './components/Footer'
 import './styles/App.css'
 
+import isTokenExpired from './utils/isTokenExpired'
+
 
 function App() {
   const {token, login, logout, userId, ready} = useAuth()
-	const isAuthenticated = !!token
+	const isAuthenticated = !!token && !isTokenExpired(token)
   const routes = useRoutes(isAuthenticated)
 
   if (!ready) {
