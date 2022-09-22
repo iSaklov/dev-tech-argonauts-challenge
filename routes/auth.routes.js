@@ -18,9 +18,11 @@ router.post(
 		const errors = validationResult(req)
 
 		if(!errors.isEmpty()) {
+			console.log('ERRORS : ', errors.errors[0].msg)
 			return res.status(400).json({
 				errors: errors.array(),
-				message: 'Les données saisies sont incorrectes'
+				message: errors.errors[0].msg
+				// message: 'Les données saisies sont incorrectes'
 			})
 		}
 
@@ -63,7 +65,8 @@ router.post(
 		if(!errors.isEmpty()) {
 			return res.status(400).json({
 				errors: errors.array(),
-				message: 'Les données saisies sont invalides'
+				message: errors.errors[0].msg
+				// message: 'Les données saisies sont invalides'
 			})
 		}
 
@@ -77,7 +80,7 @@ router.post(
 		const isMatch = await bcrypt.compare(password, user.password)
 
 		if(!isMatch) {
-			return res.status(401).json({ message: 'Mot de passe incorrecte, essayez encore' })
+			return res.status(401).json({ message: 'Nous n\'arrivons pas à vous identifier, veuillez essayer encore' })
 		}
 
 		const token = jwt.sign(

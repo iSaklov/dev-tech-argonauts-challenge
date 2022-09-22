@@ -6,10 +6,8 @@ import { AuthContext } from './context/AuthContext'
 import { Navmenu as Navbar } from './components/Navbar'
 import { Loader } from './components/Loader'
 import { Footer } from './components/Footer'
+import { isTokenExpired } from './utils/token'
 import './styles/App.css'
-
-import isTokenExpired from './utils/isTokenExpired'
-
 
 function App() {
   const {token, login, logout, userId, ready} = useAuth()
