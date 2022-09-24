@@ -52,18 +52,24 @@ class ArgoService {
 router.post('/add', auth, async (req, res) => {
 	try {
 		const { name, img } = req.body
+		const owner = req.user.userId
+		console.log('OWNER is : ', owner)
+		console.log('NAME is : ', name)
+		console.log('IMG : ', img)
 
-		const existing = await Argonaut.findOne({ name })
+		const existing = await Argonaut.findOne({ name, owner })
 
 		if (existing) {
-			return res.json({ argonaut: existing })
+			return res.json({message: `Vous avez dèja ${existing.name} à bord` })
 		}
 
 		const argonaut = new Argonaut({
 			name,
 			img,
-			owner: req.user.userId
+			owner
 		})
+
+		console.log('ARGONAUT : ', argonaut)
 
 		await argonaut.save()
 
@@ -112,17 +118,17 @@ router.get('/', auth, async (req, res) => {
 	}
 })
 
-router.get('/:id', auth, async (req, res) => {
-	try {
-		const argonaut = await Argonaut.findById(req.params.id)
-		res.status(200).json(argonaut)
-	} catch (e) {
-		res.status(404).json({
-			message: 'Cet argonaute n\'a pas été trouvé',
-			error: e
-		})
-	}
-})
+// router.get('/:id', auth, async (req, res) => {
+// 	try {
+// 		const argonaut = await Argonaut.findById(req.params.id)
+// 		res.status(200).json(argonaut)
+// 	} catch (e) {
+// 		res.status(404).json({
+// 			message: 'Cet argonaute n\'a pas été trouvé',
+// 			error: e
+// 		})
+// 	}
+// })
 
 router.put('/:id', auth, async (req, res) => {
 	try {

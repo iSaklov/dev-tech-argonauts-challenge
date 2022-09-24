@@ -99,22 +99,38 @@ body {
   text-shadow: 1px 1px 2px var(--dutch-white);
 }
 
-/********** NAVBAR **********/
-#mobile-nav {
-  padding-top: 56px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
-}
-
 /********** HOME PAGE **********/
-/* NAVBAR */
+
+/********** NAVBAR **********/
 nav {
   background: var(--main-bg-color);
 }
 
-nav a, nav ul a, .sidenav li a {
+nav a, nav ul a {
   color: var(--main-color);
+}
+
+nav .sidenav-trigger {
+  position: absolute;
+  right: 0;
+}
+
+nav .sidenav {
+  background-color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav .sidenav a {
+  color: var(--main-bg-color);
+}
+
+nav .sidenav li:last-child {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* MAIN */
@@ -167,11 +183,15 @@ input[type=text]:not(.browser-default):read-only {
 }
 
 .btn-floating:focus {
-  background-color: var(--palatinate-purple);
+  background-color: var(--antique-fuchsia);
 }
 
 .btn-floating:hover {
-  background-color: var(--antique-fuchsia);
+  background-color: var(--turquoise-blue);
+}
+
+.btn-floating:hover i{
+  color: var(--main-color);
 }
 
 /* INPUT FIELDS */

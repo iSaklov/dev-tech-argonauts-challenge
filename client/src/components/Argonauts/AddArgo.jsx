@@ -5,10 +5,16 @@ const AddArgo = ({ onCreate }) => {
 	const [name, setName] = useState('')
 
 	const submitHandler = event => {
-		event.preventDefault()
+		// event.preventDefault()
 		if (name.trim()) {
 			onCreate(name)
 			setName('')
+		}
+	}
+
+	const enterHandler = event => {
+		if(event.key === 'Enter') {
+			submitHandler()
 		}
 	}
 
@@ -23,6 +29,7 @@ const AddArgo = ({ onCreate }) => {
 					placeholder="Charalampos"
 					value={name}
 					onChange={event => setName(event.target.value)}
+					onKeyPress={enterHandler}
 					style={{maxWidth: "70%"}}
 					autoComplete="false"
 				/>
