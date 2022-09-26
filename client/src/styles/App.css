@@ -54,7 +54,6 @@ body {
 
 .auth-page .card {
   background: center / cover no-repeat url("../img/pastel-pusheen-wallpaper.jpg");
-  /* background: center / cover no-repeat url("../img/cat-illustration.jpg"); */
 }
 
 .auth-page .card span {
@@ -67,9 +66,19 @@ body {
   color: var(--main-color);
 }
 
-/* .auth-page .input-field .prefix {
+.auth-page .input-field .prefix {
   text-shadow: 1px 1px 2px var(--turquoise-blue);
-} */
+}
+
+.input-field .prefix.active {
+  color: var(--turquoise-blue);
+  text-shadow: 1px 1px 2px var(--palatinate-purple);
+}
+
+input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+  color: var(--turquoise-blue);
+  text-shadow: 1px 1px 2px var(--palatinate-purple);
+}
 
 .auth-page #email, .auth-page #password {
   background-color: var(--main-color);
@@ -84,24 +93,27 @@ body {
   left: 1.5rem;
 }
 
-.auth-page .card-action button {
-  margin: 1rem;
-  width: 180px;
-}
-
+/* LOGIN BUTTON */
 .auth-page .card-action button:first-of-type {
-  background-color: #f76c6c;
+  background-color: var(--main-color);
 }
 
+/* REGISTER BUTTON */
 .auth-page .card-action button:last-of-type {
   color: var(--main-color);
   background-color: var(--turquoise-blue);
   text-shadow: 1px 1px 2px var(--dutch-white);
 }
 
+@media screen and (max-width: 320px) {
+  .auth-page .card-action button {
+    font-size: 10px;
+  }
+}
+
 /********** HOME PAGE **********/
 
-/********** NAVBAR **********/
+/*** NAVBAR ***/
 nav {
   background: var(--main-bg-color);
 }
@@ -110,7 +122,7 @@ nav a, nav ul a {
   color: var(--main-color);
 }
 
-nav .sidenav-trigger {
+nav .hide-on-med-and-down, nav .sidenav-trigger {
   position: absolute;
   right: 0;
 }
@@ -133,22 +145,54 @@ nav .sidenav li:last-child {
   transform: translateX(-50%);
 }
 
-/* MAIN */
+/********** MAIN **********/
 main {
-  /* margin: 1rem 0.25rem; */
   background-color: white;
   min-height: 100vh;
 }
 
-input[type=text]:not(.browser-default):read-only {
+/*** ARGO LIST ***/
+.argo__table input[type=text]:not(.browser-default):read-only {
   border-bottom: none;
 }
 
-/* ARGO LIST */
-.space button {
+.argo__table .empty button {
   visibility: hidden;
 }
 
+.argo__table .button_disabler {
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: sepia();
+}
+
+.argo__table .btn-floating {
+  background-color: var(--main-color);
+}
+
+.argo__table .btn-floating:focus {
+  background-color: var(--antique-fuchsia);
+}
+
+.argo__table .btn-floating:hover {
+  background-color: var(--turquoise-blue);
+}
+
+.argo__table .btn-floating:hover i{
+  color: var(--main-color);
+}
+
+.argo__table .delele__all__btn:hover {
+  background-color: var(--orchid-crayola);
+}
+
+.argo__table .delele__all__btn:hover i {
+  color: var(--palatinate-purple);
+}
+
+.argo__table .
+
+/*** PAGINATION ***/
 .pagination {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -172,28 +216,6 @@ input[type=text]:not(.browser-default):read-only {
   pointer-events: none;
 }
 
-.button_disabler {
-  cursor: not-allowed;
-  pointer-events: none;
-  filter: sepia();
-}
-
-.btn-floating {
-  background-color: var(--main-color);
-}
-
-.btn-floating:focus {
-  background-color: var(--antique-fuchsia);
-}
-
-.btn-floating:hover {
-  background-color: var(--turquoise-blue);
-}
-
-.btn-floating:hover i{
-  color: var(--main-color);
-}
-
 /* INPUT FIELDS */
 /* label color */
 
@@ -206,13 +228,14 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   box-shadow: 0 1px 0 0 var(--palatinate-purple);
 }
 
-input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+/* input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
   color: var(--turquoise-blue);
-}
+  text-shadow: 1px 1px 2px var(--palatinate-purple);
+} */
 
-.input-field .prefix.active {
+/* .input-field .prefix.active {
   color: var(--turquoise-blue);
-}
+} */
 
 /* REACT TRANSITION */
 .argonaut-enter {

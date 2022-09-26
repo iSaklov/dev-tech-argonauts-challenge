@@ -55,7 +55,7 @@ export const AuthPage = () => {
 								<div className="row">
 									<form className="col s12">
 										<div className="row">
-											<div className="input-field col s11 m9 offset-m1">
+											<div className="input-field col s10 offset-m1 m9">
 												<i className="material-icons prefix">account_circle</i>
 												<input
 													id="email"
@@ -67,7 +67,7 @@ export const AuthPage = () => {
 												/>
 												<label htmlFor="email" data-error="wrong" data-success="right">Email</label>
 											</div>
-											<div className="input-field col s11 m9 offset-m1">
+											<div className="input-field col s10 offset-m1 m9">
 												<i className="material-icons prefix">fingerprint</i>
 												<input
 													id="password"
@@ -83,16 +83,16 @@ export const AuthPage = () => {
 									</form>
 								</div>
 						</div>
-						<div className="card-action">
+						<div className="card-action row">
 							<button
-								className="btn waves-effect waves-light"
+								className="btn waves-effect waves-light col s6 offset-m2 m4 offset-l3 l3"
 								onClick={loginHandler}
 								disabled={loading}
 							>
 								Se connecter
 							</button>
 							<button
-								className="btn waves-effect waves-light"
+								className="btn waves-effect waves-light col s6 m4 l3"
 								onClick={registerHandler}
 								disabled={loading}
 							>

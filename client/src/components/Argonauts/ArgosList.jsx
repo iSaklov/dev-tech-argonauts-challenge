@@ -30,7 +30,6 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 				setArgos([...argos, dummy])
 			}
 		}
-		
 	}, [argos, numPerPage])
 
 	const btnBlocker = () => {
@@ -49,7 +48,7 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 	return (
 		<div>
 			<h4>Membres de l'équipage</h4>
-			<table className="centered striped">
+			<table className="centered striped argo__table">
 				<thead>
 						<tr>
 							<th>№</th>

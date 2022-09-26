@@ -28,11 +28,9 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 				preventScrolling: true,
 				startingTop: '4%'
 			}}
-			// root={[object HTMLBodyElement]}
-			// trigger={<Button node="button">MODAL</Button>}
 			trigger={
 			<Button
-				className="red"
+				className="delele__all__btn"
 				floating
 				icon={<Icon>delete_forever</Icon>}
 				large

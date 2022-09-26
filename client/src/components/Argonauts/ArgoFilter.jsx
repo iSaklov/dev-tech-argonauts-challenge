@@ -17,9 +17,9 @@ const ArgoFilter = ({filter, setFilter, numPerPage, setNumPerPage}) => {
 				<MySelect
 					value={filter.sort}
 					onChange={selectedSort => setFilter({...filter, sort: selectedSort})}
-					defaultValue="Choose your option"
+					defaultValue="Trier par"
 					options={[
-						{value: "name", name: "by name"},
+						{value: "nom", name: "by name"},
 						{value: "date", name: "by date"},
 					]}
 				/>
@@ -28,7 +28,7 @@ const ArgoFilter = ({filter, setFilter, numPerPage, setNumPerPage}) => {
 				<MySelect
 					value={numPerPage}
 					onChange={value => setNumPerPage(parseInt(value))}
-					defaultValue="Nombre Argonautes par page"
+					defaultValue="Nombre par page"
 					options={[
 						{value: 10, name: "10"},
 						{value: 25, name: "25"},
