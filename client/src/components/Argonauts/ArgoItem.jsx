@@ -34,7 +34,7 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 
 	if(!argonaut.name) {
 		return (
-			<tr key={argonaut._id} className="empty">
+			<tr key={argonaut._id} className="__empty">
 				<td />
 				<td />
 				<td />
@@ -66,11 +66,9 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 					autoFocus={selected}
 					autoComplete="false"
 					onChange={event => setName(event.target.value)}
-					// onChange={event => setargonaut({...argonaut, name: event.target.value})}
-					// className={classes.join(' ')}
 				/>
 			</td>
-			<td>{new Date(argonaut.date).toLocaleDateString()}</td>
+			<td className="hide-on-small-only">{new Date(argonaut.date).toLocaleDateString()}</td>
 			<td>
 				<Modal name={argonaut.name} img={argonaut.img}/>
 			</td>
@@ -79,13 +77,13 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 					?
 					<>
 						<button
-							className="btn waves-effect waves-light yellow lighten-1 btn_blocked"
+							className="btn waves-effect waves-light yellow lighten-1 __edit-btn __btn-blocked"
 							onClick={editHandler}
 						>
 							<i className="small material-icons">edit</i>
 						</button>
 						<button
-							className="btn waves-effect waves-light red lighten-1 btn_blocked"
+							className="btn waves-effect waves-light __delete-btn __btn-blocked"
 							onClick={removeArgonaut.bind(null, argonaut._id)}
 						>
 							<i className="small material-icons">delete</i>
@@ -94,14 +92,14 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 					: 
 					<>
 						<button
-							className="btn waves-effect waves-light green lighten-1"
+							className="btn waves-effect waves-light green lighten-1 __edit-confirm-btn"
 							type="submit"
 							onClick={saveHandler}
 						>
 							<i className="small material-icons">check_circle</i>
 						</button>
 						<button
-							className="btn waves-effect waves-light red lighten-1"
+							className="btn waves-effect waves-light red lighten-1 __delete-confirm-btn"
 							onClick={cancelHandler}
 						>
 							<i className="small material-icons">cancel</i>

@@ -21,6 +21,13 @@ const MyModal = ({ onCreate }) => {
 						})
 	}
 
+	// const toast = value => {
+	// 	M.toast({ html: value > 1
+	// 								? `${value} argonautes ont été embarqués avec succès`
+	// 								: "Un argonaute a été embarqué avec succès"
+	// 					})
+	// }
+
 	return (
 		<div id="addModal" className="modal">
 			<div className="modal-content">

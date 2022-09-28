@@ -30,7 +30,7 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 			}}
 			trigger={
 			<Button
-				className="delele__all__btn"
+				className="__delele-all-btn"
 				floating
 				icon={<Icon>delete_forever</Icon>}
 				large

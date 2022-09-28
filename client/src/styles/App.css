@@ -37,14 +37,23 @@ body {
   background-color: var(--main-color);
 }
 
+/*** M TOAST ***/
+.toast {
+  background-color: var(--palatinate-purple);
+}
+
+/* input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid var(--dark-sky-blue);
+} */
+
 /********** AUTHENTIFICATION **********/
-.auth-page h1 {
+.__auth-page h1 {
   margin-top: 10vh;
   font-size: 2.25rem;
   color: var(--main-bg-color);
 }
 
-.auth-page > span {
+.__auth-page > span {
   font-family: 'Dancing Script', cursive;
   font-size: 2rem;
   color: var(--turquoise-blue);
@@ -52,35 +61,18 @@ body {
   margin-top: -3.25rem;
 }
 
-.auth-page .card {
+.__auth-page .card {
   background: center / cover no-repeat url("../img/pastel-pusheen-wallpaper.jpg");
 }
 
-.auth-page .card span {
+.__auth-page .card span {
   font-weight: 900;
   color: var(--main-color);
   text-shadow: 1px 1px 2px var(--turquoise-blue);
 }
 
-.auth-page .material-icons {
-  color: var(--main-color);
-}
-
-.auth-page .input-field .prefix {
-  text-shadow: 1px 1px 2px var(--turquoise-blue);
-}
-
-.input-field .prefix.active {
-  color: var(--turquoise-blue);
-  text-shadow: 1px 1px 2px var(--palatinate-purple);
-}
-
-input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
-  color: var(--turquoise-blue);
-  text-shadow: 1px 1px 2px var(--palatinate-purple);
-}
-
-.auth-page #email, .auth-page #password {
+/*** INPUT FIELDS ***/
+.__auth-page #email, .__auth-page #password {
   background-color: var(--main-color);
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -88,31 +80,49 @@ input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-def
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
-.auth-page .input-field>label {
+.__auth-page .input-field>label {
   color: var(--main-bg-color);
   left: 1.5rem;
 }
 
+.__auth-page input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+  border-bottom: 1px solid var(--antique-fuchsia);
+}
+
+.__auth-page input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+  color: var(--turquoise-blue);
+  text-shadow: 1px 1px 2px var(--palatinate-purple);
+}
+
+.__auth-page .material-icons {
+  color: var(--main-color);
+  text-shadow: 1px 1px 2px var(--palatinate-purple);
+}
+
+.__auth-page .input-field .prefix.active {
+  color: var(--main-color);
+  text-shadow: 1px 1px 2px var(--turquoise-blue);
+}
+
 /* LOGIN BUTTON */
-.auth-page .card-action button:first-of-type {
+.__auth-page .card-action button:first-of-type {
   background-color: var(--main-color);
 }
 
 /* REGISTER BUTTON */
-.auth-page .card-action button:last-of-type {
+.__auth-page .card-action button:last-of-type {
   color: var(--main-color);
   background-color: var(--turquoise-blue);
   text-shadow: 1px 1px 2px var(--dutch-white);
 }
 
 @media screen and (max-width: 320px) {
-  .auth-page .card-action button {
+  .__auth-page .card-action button {
     font-size: 10px;
   }
 }
 
 /********** HOME PAGE **********/
-
 /*** NAVBAR ***/
 nav {
   background: var(--main-bg-color);
@@ -151,50 +161,145 @@ main {
   min-height: 100vh;
 }
 
+/*** ADD ARGONAUT MODAL ***/
+/*** NOUISLIDER ***/
+.noUi-tooltip {
+  display: none;
+}
+.noUi-active .noUi-tooltip {
+  display: block;
+}
+
+.noUi-connect {
+  background: var(--main-color);
+}
+
+/*** MODALS BUTTONS ***/
+main .btn, .btn-small {
+  background-color: var(--main-color);
+}
+
+main .btn:focus, .btn-small:focus {
+  background-color: var(--antique-fuchsia);
+  color: var(--dark-sky-blue);
+}
+
+main .btn:hover {
+  background-color: var(--turquoise-blue);
+  color: var(--antique-fuchsia);
+}
+
+main .btn-small:hover {
+  background-color: var(--antique-fuchsia);
+  color: var(--snow-color);
+ }
+
+/*** ARGO FILTER ***/
+
+/*** EMPTY LIST and WALLPAPER ***/
+.__empty-list {
+  padding-bottom: 2rem;
+}
+
+.__empty-list > div {
+  margin-top: 1rem;
+  background-color: var(--main-color);
+}
+
+.__empty-list img {
+  width: 100%;
+  margin-bottom: -5.75px;
+  filter: opacity(80%);
+}
+
+.__border-radial-repeating {
+  border: 8px solid;
+	border-width: 20px;
+	border-image: repeating-radial-gradient(
+			circle at 10px,
+      var(--turquoise-blue),
+      var(--main-color) 2px,
+      var(--antique-fuchsia) 4px,
+      var(--main-color) 2px
+		)
+		1;
+}
+
 /*** ARGO LIST ***/
-.argo__table input[type=text]:not(.browser-default):read-only {
+.__argo-table input[type=text]:not(.browser-default):read-only {
   border-bottom: none;
 }
 
-.argo__table .empty button {
+.__argo-table .__empty button {
   visibility: hidden;
 }
 
-.argo__table .button_disabler {
+.__argo-table .__button-disabler {
   cursor: not-allowed;
   pointer-events: none;
   filter: sepia();
 }
 
-.argo__table .btn-floating {
+.__argo-table .btn-floating {
   background-color: var(--main-color);
 }
 
-.argo__table .btn-floating:focus {
+.__argo-table .btn-floating:focus {
   background-color: var(--antique-fuchsia);
 }
 
-.argo__table .btn-floating:hover {
+.__argo-table .btn-floating:hover {
   background-color: var(--turquoise-blue);
 }
 
-.argo__table .btn-floating:hover i{
+.__argo-table .btn-floating:hover i{
   color: var(--main-color);
 }
 
-.argo__table .delele__all__btn:hover {
+.__argo-table .__delele-all-btn:hover {
   background-color: var(--orchid-crayola);
 }
 
-.argo__table .delele__all__btn:hover i {
+.__argo-table .__delele-all-btn:hover i {
   color: var(--palatinate-purple);
 }
 
-.argo__table .
+/* edit button */
+.__argo-table .__edit-btn i {
+  color: var(--orchid-crayola);
+}
+
+.__argo-table .__edit-btn:hover {
+  background-color: #ffeb3b !important;
+}
+
+.__argo-table .__edit-btn:hover i {
+  color: var(--palatinate-purple);
+}
+
+.__argo-table .__edit-confirm-btn:hover {
+  background-color: #4caf50 !important;
+}
+
+/* delete button */
+.__argo-table .__delete-btn {
+  background-color: var(--main-color);
+}
+
+.__argo-table .__delete-btn:hover {
+  background-color: #ef5350;
+}
+
+.__argo-table .__delete-btn:hover {
+  color: var(--snow-color);
+}
+
+.__argo-table .__delete-confirm-btn:hover {
+  background-color: #f44336 !important;
+}
 
 /*** PAGINATION ***/
 .pagination {
-  padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -202,42 +307,22 @@ main {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  /* text-decoration: underline; */
   display: inline;
-  margin: 0;
-  padding: 0;
   width: 30px;
   height: 30px;
 }
 
+.pagination .active button {
+  color: white;
+}
+
 .pagination .disabled button {
-  color: #999;
+  color: var(--dark-sky-blue);
   cursor: not-allowed;
   pointer-events: none;
 }
 
-/* INPUT FIELDS */
-/* label color */
-
-input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
-  border-bottom: 1px solid var(--antique-fuchsia);
-}
-
-input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid var(--palatinate-purple);
-  box-shadow: 0 1px 0 0 var(--palatinate-purple);
-}
-
-/* input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
-  color: var(--turquoise-blue);
-  text-shadow: 1px 1px 2px var(--palatinate-purple);
-} */
-
-/* .input-field .prefix.active {
-  color: var(--turquoise-blue);
-} */
-
-/* REACT TRANSITION */
+/*** REACT TRANSITION ***/
 .argonaut-enter {
   opacity: 0;
 }
@@ -253,21 +338,11 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
   transition: opacity 500ms ease-in;
 }
 
-/* NOUISLIDER */
-.noUi-tooltip {
-  display: none;
-}
-.noUi-active .noUi-tooltip {
-  display: block;
-}
-
 footer {
-  /* margin-top: 2rem; */
-  padding: 0.5rem 0;
+  margin: 2rem auto;
   color: #fff;
-  background: var(--main-color);
 }
 
 footer img {
-  max-height: 10vh;
+  height: 10vh;
 }

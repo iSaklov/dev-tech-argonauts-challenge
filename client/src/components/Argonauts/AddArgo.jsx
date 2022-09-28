@@ -34,7 +34,7 @@ const AddArgo = ({ onCreate }) => {
 					autoComplete="false"
 				/>
 				<button
-					className="btn waves-effect waves-light btn_blocked"
+					className="btn waves-effect waves-light"
 					type="submit"
 					onClick={submitHandler}
 				>

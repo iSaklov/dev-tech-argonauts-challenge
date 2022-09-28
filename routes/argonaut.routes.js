@@ -144,7 +144,7 @@ router.put('/:id', auth, async (req, res) => {
 
 		res.status(201).json({ 
 			argonaut,
-			message: `L'argonaute porte désormais le nome ${newName} !`
+			message: `L'argonaute porte désormais le nom ${newName} !`
 		})
 	} catch (e) {
 		res.status(500).json({

@@ -44,7 +44,7 @@ export const AuthPage = () => {
 	}
 
 	return (
-		<div className="auth-page">
+		<div className="__auth-page">
 			<h1 className="">Les Argonautes</h1>
 			<span className="">par iSaklov</span>
 			<div className="row">

@@ -5,7 +5,7 @@ import MySelect from "../UI/MySelect"
 const ArgoFilter = ({filter, setFilter, numPerPage, setNumPerPage}) => {
 	return (
 		<div className="row">
-			<div className="input-field col s4">
+			<div className="input-field col s6 m4">
 				<MyInput
 					type="search" 
 					value={filter.query}
@@ -13,7 +13,7 @@ const ArgoFilter = ({filter, setFilter, numPerPage, setNumPerPage}) => {
 					placeholder="Recherche ..."
 				/>
 			</div>
-			<div className="col s4">
+			<div className="col s6 m4">
 				<MySelect
 					value={filter.sort}
 					onChange={selectedSort => setFilter({...filter, sort: selectedSort})}
@@ -24,7 +24,7 @@ const ArgoFilter = ({filter, setFilter, numPerPage, setNumPerPage}) => {
 					]}
 				/>
 			</div>
-			<div className="col s4">
+			<div className="col m4 hide-on-small-only">
 				<MySelect
 					value={numPerPage}
 					onChange={value => setNumPerPage(parseInt(value))}
