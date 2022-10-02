@@ -42,10 +42,6 @@ body {
   background-color: var(--palatinate-purple);
 }
 
-/* input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid var(--dark-sky-blue);
-} */
-
 /********** AUTHENTIFICATION **********/
 .__auth-page h1 {
   margin-top: 10vh;
@@ -85,11 +81,13 @@ body {
   left: 1.5rem;
 }
 
-.__auth-page input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+.__auth-page input[type=password]:not(.browser-default),
+.__auth-page input[type=email]:not(.browser-default) {
   border-bottom: 1px solid var(--antique-fuchsia);
 }
 
-.__auth-page input:not([type]):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+.__auth-page input[type=password]:not(.browser-default):focus:not([readonly])+label,
+.__auth-page input[type=email]:not(.browser-default):focus:not([readonly])+label {
   color: var(--turquoise-blue);
   text-shadow: 1px 1px 2px var(--palatinate-purple);
 }
@@ -192,40 +190,35 @@ main .btn:hover {
 main .btn-small:hover {
   background-color: var(--antique-fuchsia);
   color: var(--snow-color);
- }
+}
 
 /*** ARGO FILTER ***/
-
-/*** EMPTY LIST and WALLPAPER ***/
-.__empty-list {
-  padding-bottom: 2rem;
+.__argo-filter input[type=search]:not(.browser-default):focus {
+  border-bottom: 1px solid transparent;
 }
 
-.__empty-list > div {
-  margin-top: 1rem;
-  background-color: var(--main-color);
+.__argo-filter input[type=search]:not(.browser-default):focus:not([readonly])+label,
+.__argo-filter .input-field input[type=search]:focus:not(.browser-default) ~ .material-icons {
+  color: var(--main-color);
 }
 
-.__empty-list img {
-  width: 100%;
-  margin-bottom: -5.75px;
-  filter: opacity(80%);
+.__argo-filter .select-wrapper input.select-dropdown,
+.__argo-filter .select-wrapper input.select-dropdown:focus {
+  border-bottom: none;
 }
 
-.__border-radial-repeating {
-  border: 8px solid;
-	border-width: 20px;
-	border-image: repeating-radial-gradient(
-			circle at 10px,
-      var(--turquoise-blue),
-      var(--main-color) 2px,
-      var(--antique-fuchsia) 4px,
-      var(--main-color) 2px
-		)
-		1;
+.__argo-filter .dropdown-content li>span {
+color: var(--main-color);
 }
 
 /*** ARGO LIST ***/
+.__empty-list {
+  background-image: url('../img/cat-food.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 75vh;
+}
+
 .__argo-table input[type=text]:not(.browser-default):read-only {
   border-bottom: none;
 }
@@ -279,6 +272,7 @@ main .btn-small:hover {
 
 .__argo-table .__edit-confirm-btn:hover {
   background-color: #4caf50 !important;
+  color: var(--main-bg-color);
 }
 
 /* delete button */
@@ -290,16 +284,18 @@ main .btn-small:hover {
   background-color: #ef5350;
 }
 
-.__argo-table .__delete-btn:hover {
+.__argo-table .__delete-btn:hover i {
   color: var(--snow-color);
 }
 
 .__argo-table .__delete-confirm-btn:hover {
   background-color: #f44336 !important;
+  color: var(--main-bg-color);
 }
 
 /*** PAGINATION ***/
 .pagination {
+  margin-top: 0.5rem;
   padding-bottom: 1rem;
 }
 

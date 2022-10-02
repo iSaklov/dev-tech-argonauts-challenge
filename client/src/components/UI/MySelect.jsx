@@ -23,19 +23,18 @@ export default class MySelect extends Component {
 
 	render() {
 		return (
-			<div className="input-field col s12">
+			<div className="input-field">
 				<select
 					value={this.state.value}
 					onChange={this.onChange.bind(this)}
 				>
-					<option disabled value="">{this.props.defaultValue}</option>
 					{this.props.options.map(option =>
 						<option key={option.value} value={option.value}>
 							{option.name}
 						</option>
 					)}
 				</select>
-				<label>Materialize Select</label>
+				<label>{this.props.label}</label>
 			</div>
 		)
 	}

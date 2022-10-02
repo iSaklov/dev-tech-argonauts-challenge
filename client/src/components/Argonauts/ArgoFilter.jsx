@@ -4,36 +4,38 @@ import MySelect from "../UI/MySelect"
 
 const ArgoFilter = ({filter, setFilter, numPerPage, setNumPerPage}) => {
 	return (
-		<div className="row">
+		<div className="row container __argo-filter">
 			<div className="input-field col s6 m4">
 				<MyInput
 					type="search" 
 					value={filter.query}
 					onChange={e => setFilter({...filter, query: e.target.value})}
-					placeholder="Recherche ..."
+					label="Recherche"
+					icon="search"
 				/>
 			</div>
-			<div className="col s6 m4">
+			<div className="col s6 m4 offset-l2 l3">
 				<MySelect
 					value={filter.sort}
 					onChange={selectedSort => setFilter({...filter, sort: selectedSort})}
-					defaultValue="Trier par"
 					options={[
-						{value: "nom", name: "by name"},
-						{value: "date", name: "by date"},
+						{value: "", name: "plus récents"},
+						{value: "name", name: "nom"},
+						{value: "date", name: "date croissantes"},
 					]}
+					label="Trier par"
 				/>
 			</div>
-			<div className="col m4 hide-on-small-only">
+			<div className="col m4 l3 hide-on-small-only">
 				<MySelect
 					value={numPerPage}
-					onChange={value => setNumPerPage(parseInt(value))}
-					defaultValue="Nombre par page"
+					onChange={value => setNumPerPage(value)}
 					options={[
 						{value: 10, name: "10"},
 						{value: 25, name: "25"},
 						{value: 50, name: "50"},
 					]}
+					label="Nombre par page"
 				/>
 			</div>
 		</div>

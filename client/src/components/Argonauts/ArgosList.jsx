@@ -42,12 +42,7 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 
 	if (!argonauts.length) {
 		return (
-				<div className="container __empty-list">
-					<p>La liste de membres de l'équipage est vide</p>
-					<div className="__border-radial-repeating">
-							<img src={img} alt="cat-wallpaper"/>
-					</div>
-				</div>
+			<p className="__empty-list">La liste de membres de l'équipage est vide</p>
 		)
 	}
 

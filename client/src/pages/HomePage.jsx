@@ -18,8 +18,8 @@ export const HomePage = () => {
 	const { loading, request, error, clearError} = useHttp()
 	const message = useMessage()
 	const [argonauts, setArgonauts] = useState([])
-	const [filter, setFilter] = useState({sort: '', query: ''})
-	// const sortedAndSearchedArgos = useArgos(argonauts, filter.sort, filter.query)
+	const [filter, setFilter] = useState({query: '', sort: ''})
+	// const sortedAndSearchedArgos = useArgos(argonauts, filter.query, filter.sort)
 	const [page, setPage] = useState(1)
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
@@ -34,17 +34,15 @@ export const HomePage = () => {
 	// 	window.M.updateTextFields()
 	// }, [])
 
-	const fetchArgonauts = useCallback(async (page, numPerPage, search, sort) => {
+	const fetchArgonauts = useCallback(async (page, numPerPage, query, sort) => {
 		try {
 			// Make sure you send 'page' as query parameters to your node.js server
-			const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${search}&sort=${sort}`, 'GET', null, {
+			const data = await request(`/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${query}&sort=${sort}`, 'GET', null, {
 				Authorization: `Bearer ${token}`
 			})
 			setArgonauts(data.argonauts)
 			setTotalArgonauts(data.size)
-		} catch (e) {
-			// throw new Error(e)
-		}
+		} catch (e) {}
 	}, [token, request])
 
 	const addArgonaut = async (name) => {
@@ -128,7 +126,6 @@ export const HomePage = () => {
 				/>
 				{loading
 					? <Loader />
-					// ? <CatLoader />
 					:
 					<>
 						<ArgosList argonauts={argonauts} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
