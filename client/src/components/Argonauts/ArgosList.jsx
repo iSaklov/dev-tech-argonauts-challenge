@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import { TransitionGroup, CSSTransition } from "react-transition-group"
 import ArgoItem from './ArgoItem'
 import DeleteAllArgos from './DeleteAllArgos'
-import img from '../../img/cat-wallpaper.png'
 
 const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 	const [currentNum, setCurrentNum] = useState()

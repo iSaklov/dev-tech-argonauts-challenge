@@ -31,7 +31,7 @@
   height: 50%;
   background-size: 200%;
   background-repeat: no-repeat;
-  background-image: url('../../../img/cat-loader.png');
+  background-image: url('../../../img/cat-loader.webp');
 }
  .cat__head::before {
   top: 0;

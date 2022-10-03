@@ -58,7 +58,7 @@ body {
 }
 
 .__auth-page .card {
-  background: center / cover no-repeat url("../img/pastel-pusheen-wallpaper.jpg");
+  background: center / cover no-repeat url("../img/pastel-pusheen-wallpaper.webp");
 }
 
 .__auth-page .card span {
@@ -172,7 +172,12 @@ main {
   background: var(--main-color);
 }
 
-/*** MODALS BUTTONS ***/
+/*** MAIN INPUT and BUTTONS ***/
+input:not([type]):focus:not([readonly]):focus {
+  border-color: var(--antique-fuchsia);
+  box-shadow: 0 1px 0 0 var(--turquoise-blue);
+}
+
 main .btn, .btn-small {
   background-color: var(--main-color);
 }
@@ -211,9 +216,77 @@ main .btn-small:hover {
 color: var(--main-color);
 }
 
+/*** DELETE ALL MODAL ***/
+.__delele-all-modal {
+  background-color: var(--main-bg-color);
+  background-image: url('../img/schrodinger-cat.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.__delele-all-modal .modal-content > div {
+  background-color: rgba(109, 62, 116, 0.5);
+  color: var(--main-bg-color);
+  text-shadow: 1px 1px 2px black;
+  border-radius: 2px;
+  padding-top: 1px;
+  padding-bottom: 10px;
+}
+
+.__delele-all-modal .modal-content > div i {
+  vertical-align: text-top;
+}
+
+.__delele-all-modal .modal-content h4 {
+  color: var(--turquoise-blue);
+  text-shadow: 0 1px 0 var(--snow-color), 
+              0 2px 0 var(--dutch-white),
+              0 3px 0 var(--beaver),
+              0 4px 0 var(--antique-fuchsia),
+              0 5px 0 var(--orchid-crayola),
+              0 6px 1px rgba(0,0,0,.1),
+              0 0 5px rgba(0,0,0,.1),
+              0 1px 3px rgba(0,0,0,.3),
+              0 3px 5px rgba(0,0,0,.2),
+              0 5px 10px rgba(0,0,0,.25),
+              0 10px 10px rgba(0,0,0,.2),
+              0 20px 20px rgba(0,0,0,.15);
+}
+
+.__delele-all-modal .modal-footer {
+  background-color: transparent;
+}
+
+.__delele-all-modal .modal-footer span{
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: var(--turquoise-blue);
+  text-shadow: 1px 1px 5px var(--palatinate-purple);
+  padding-left: 1rem;
+  position: absolute;
+  left: 10px;
+  bottom: 30px;
+}
+
+.__delele-all-modal .modal-footer button {
+  border: 1px solid transparent;
+  width: 120px;
+  height: 40px;
+}
+
+.__delele-all-modal .modal-footer button:hover {
+  border: 1px solid var(--antique-fuchsia);
+}
+
+.__delele-all-modal .modal-footer button:hover:first-of-type {
+  color: white;
+  background-color: var(--main-color);
+}
+
 /*** ARGO LIST ***/
 .__empty-list {
-  background-image: url('../img/cat-food.png');
+  background-image: url('../img/cat-food.webp');
   background-position: center;
   background-repeat: no-repeat;
   height: 75vh;
@@ -340,5 +413,5 @@ footer {
 }
 
 footer img {
-  height: 10vh;
+  height: 80px;
 }

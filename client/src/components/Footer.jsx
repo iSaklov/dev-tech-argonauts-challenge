@@ -1,5 +1,5 @@
 import React from "react"
-import cat from "../img/cat.png"
+import cat from "../img/unicorn-cat.webp"
 
 export const Footer = () => {
 	return (

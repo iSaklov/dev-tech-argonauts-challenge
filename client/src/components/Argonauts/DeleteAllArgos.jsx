@@ -6,6 +6,7 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 		<Modal
 			actions={[
 				<div>
+					<span>Chat de Schrödinger</span>
 					<Button flat modal="close" node="button" waves="red" onClick={onDeleteAll.bind(null)}>Supprimer</Button>
 					<Button flat modal="close" node="button" waves="green">Annuler</Button>
 				</div>
@@ -38,9 +39,10 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 				waves="light"
 			/>
 			}
+			className="__delele-all-modal"
 		>
 			<div>
-				<h5> <i className="material-icons">warning</i> Avertissement :</h5>
+				<h5><i className="material-icons">warning</i> Avertissement :</h5>
 				<p>Si vous confirmez cette action, toutes les données seront supprimées. Cette action est irréversible.</p>
 			</div>
 		</Modal>
