@@ -254,6 +254,10 @@ color: var(--main-color);
               0 20px 20px rgba(0,0,0,.15);
 }
 
+.__delele-all-modal .modal-content p {
+  padding: 0.25rem;
+}
+
 .__delele-all-modal .modal-footer {
   background-color: transparent;
 }
