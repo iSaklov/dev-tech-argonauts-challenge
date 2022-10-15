@@ -6,10 +6,9 @@ import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
 // import { useArgos } from '../hooks/useArgos'
 import { Loader } from '../components/Loader'
-// import CatLoader from '../components/UI/loader/CatLoader'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
-import MyModal from '../components/UI/modal/MyModal'
+import ArgoModal from '../components/Argonauts/ArgoModal'
 import Pagination from '../components/UI/pagination/Pagination'
 import { getTotalPages } from '../utils/pages'
 
@@ -24,15 +23,6 @@ export const HomePage = () => {
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const [numPerPage, setNumPerPage] = useState(10)
-
-	useEffect(() => {
-		message(error)
-		clearError()
-	}, [error, message, clearError])
-
-	// useEffect(() => {
-	// 	window.M.updateTextFields()
-	// }, [])
 
 	const fetchArgonauts = useCallback(async (page, numPerPage, query, sort) => {
 		try {
@@ -104,6 +94,11 @@ export const HomePage = () => {
 	}, [fetchArgonauts, numPerPage, filter.query, filter.sort])
 
 	useEffect(() => {
+		message(error)
+		clearError()
+	}, [error, message, clearError])
+
+	useEffect(() => {
 		fetchArgonauts(page, numPerPage, filter.query, filter.sort)
 		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
 	}, [page, numPerPage, totalArgonauts, fetchArgonauts, filter.query, filter.sort])
@@ -117,7 +112,7 @@ export const HomePage = () => {
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut, getImage }}>
 			<main>
-				<MyModal onCreate={ addArgonaut }/>
+				<ArgoModal onCreate={ addArgonaut }/>
 				<ArgoFilter
 					filter={filter}
 					setFilter={setFilter}

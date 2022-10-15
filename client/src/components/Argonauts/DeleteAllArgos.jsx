@@ -14,7 +14,6 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 			bottomSheet={false}
 			fixedFooter={false}
 			header="Suppression des données"
-			id="Modal-10"
 			open={false}
 			options={{
 				dismissible: true,

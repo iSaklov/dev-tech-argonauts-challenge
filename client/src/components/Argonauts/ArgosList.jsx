@@ -47,7 +47,7 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 
 	return (
 		<div className="container">
-			<h4>Membres de l'équipage</h4>
+			<h5>Membres de l'équipage</h5>
 			<table className="centered striped __argo-table">
 				<thead>
 						<tr>

@@ -1,10 +1,10 @@
 import React, { useState }from 'react'
-import AddArgo from '../../Argonauts/AddArgo'
-import MyRange from '../range/MyRange'
-import { generateName } from '../../../utils/names'
+import AddArgo from './AddArgo'
+import MyRange from '../UI/MyRange'
+import { generateName } from '../../utils/names'
 import M from 'materialize-css'
 
-const MyModal = ({ onCreate }) => {
+const ArgoModal = ({ onCreate }) => {
 	const [value, setValue] = useState(25)
 
 	const onChange = value => {
@@ -17,9 +17,11 @@ const MyModal = ({ onCreate }) => {
 		}
 		M.toast({ html: value > 1
 									? `${value} argonautes ont été embarqués avec succès`
-									: "Un argonaute a été embarqué avec succès"
+									: "Un(e) argonaute a été embarqué(e) avec succès"
 						})
 	}
+
+	
 
 	// const toast = value => {
 	// 	M.toast({ html: value > 1
@@ -34,7 +36,7 @@ const MyModal = ({ onCreate }) => {
 				<AddArgo onCreate={ onCreate } />
 				<p>Ou opter pour une génération automatique de membres d'équipage</p>
 				<p>Cela peut prendre quelques minutes. Veuillez de ne pas interrompre l'embarquement </p>
-				<MyRange value={value} onChange={onChange}/>
+				<MyRange value={value} onChange={onChange} min={0} max={100}/>
 			</div>
 			<div className="modal-footer">
 				<a
@@ -49,4 +51,4 @@ const MyModal = ({ onCreate }) => {
 	)
 }
 
-export default MyModal
+export default ArgoModal
