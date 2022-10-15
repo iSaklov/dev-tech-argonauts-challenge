@@ -21,7 +21,7 @@ const AddArgo = ({ onCreate }) => {
 	return (
 		<div className="row">
 			<div className="col s8 offset-s2">
-				<h4>Ajouter un(e) Argonaute</h4>
+				<h5>Ajouter un(e) Argonaute</h5>
 				<label htmlFor="argonaut">Nom de l'Argonaute</label>
 				<MyInput
 					id="argonaut"

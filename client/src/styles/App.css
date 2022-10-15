@@ -159,21 +159,9 @@ main {
   min-height: 100vh;
 }
 
-/*** ADD ARGONAUT MODAL ***/
-/*** NOUISLIDER ***/
-.noUi-tooltip {
-  display: none;
-}
-.noUi-active .noUi-tooltip {
-  display: block;
-}
-
-.noUi-connect {
-  background: var(--main-color);
-}
-
 /*** MAIN INPUT and BUTTONS ***/
-input:not([type]):focus:not([readonly]):focus {
+input:not([type]):focus:not([readonly]):focus,
+input[type=text]:not(.browser-default):focus:not([readonly]) {
   border-color: var(--antique-fuchsia);
   box-shadow: 0 1px 0 0 var(--turquoise-blue);
 }
@@ -195,6 +183,27 @@ main .btn:hover {
 main .btn-small:hover {
   background-color: var(--antique-fuchsia);
   color: var(--snow-color);
+}
+
+/*** ADD ARGONAUT MODAL ***/
+/*** NOUISLIDER ***/
+.noUi-target {
+ margin-top: 1rem;
+}
+
+.noUi-tooltip {
+  display: none;
+}
+.noUi-active .noUi-tooltip {
+  display: block;
+}
+
+.noUi-connect {
+  background: var(--main-color);
+}
+
+.modal-footer {
+  margin-top: 1rem;
 }
 
 /*** ARGO FILTER ***/
