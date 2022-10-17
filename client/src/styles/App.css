@@ -424,6 +424,8 @@ main .btn-small:hover {
 footer {
   margin: 2rem auto;
   color: #fff;
+  max-width: 1280px;
+  width: 90%;
 }
 
 footer .__footer-link {

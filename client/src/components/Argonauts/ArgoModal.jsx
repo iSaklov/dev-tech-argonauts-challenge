@@ -1,34 +1,38 @@
 import React, { useState }from 'react'
 import AddArgo from './AddArgo'
 import MyRange from '../UI/MyRange'
+import { useMessage } from '../../hooks/message.hook'
 import { generateName } from '../../utils/names'
-import M from 'materialize-css'
 
 const ArgoModal = ({ onCreate }) => {
 	const [value, setValue] = useState(25)
+	const message = useMessage()
 
 	const onChange = value => {
 		setValue(value)
 	}
 
-	const generateArgos = amount => {
-		for(let i = 0; i < amount; i++) {
-			onCreate(generateName())
+	const summaryMessage = amount => {		
+		if (amount > 1) {
+			message(`${amount} argonautes ont été embarqués avec succès`)
+		} else {
+			message("Un(e) argonaute a été embarqué(e) avec succès")
 		}
-		M.toast({ html: value > 1
-									? `${value} argonautes ont été embarqués avec succès`
-									: "Un(e) argonaute a été embarqué(e) avec succès"
-						})
 	}
 
-	
+	const generateArgos = amount => {
+		const arr = []
 
-	// const toast = value => {
-	// 	M.toast({ html: value > 1
-	// 								? `${value} argonautes ont été embarqués avec succès`
-	// 								: "Un argonaute a été embarqué avec succès"
-	// 					})
-	// }
+		for(let i = 0; i < amount; i++) {
+			arr[i] = onCreate(generateName())
+		}
+
+		Promise.all(arr).then((argos) => {
+			summaryMessage(argos.length)
+		}).catch(reason => {
+			message(reason)
+		})
+	}
 
 	return (
 		<div id="addModal" className="modal">

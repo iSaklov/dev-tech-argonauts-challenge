@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import MyInput from '../UI/MyIput'
+import { useMessage } from '../../hooks/message.hook'
 import toCapitalize from '../../utils/capitalize'
-import M from 'materialize-css'
 // import { useInputValue } from '../../hooks/inputValue.hook'
 
 const AddArgo = ({ onCreate }) => {
 	const [name, setName] = useState('')
+	const message = useMessage()
 
 	const submitHandler = () => {
 		if (name.trim()) {
 			onCreate(toCapitalize(name.trim()))
 			setName('')
 		} else {
-			M.toast({ html: 'Admettez que le nom entièrement composé de blancs semble étrange' })
+			message('Admettez que le nom entièrement composé de blancs semble étrange')
 		}
 	}
 

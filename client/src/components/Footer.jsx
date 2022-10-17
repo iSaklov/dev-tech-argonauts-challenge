@@ -6,7 +6,7 @@ import githubIcon from "../img/icons/github-icon.svg"
 
 export const Footer = () => {
 	return (
-		<footer>
+		<footer className="">
   		<p>Réalisé par Jason en Anthestérion de l'an 515 avant JC.</p>
 			<p>Révisé par iSaklov à Paris 2022. Aucun droit n'est résérvé ©</p>
 			<div className="__footer-links">
