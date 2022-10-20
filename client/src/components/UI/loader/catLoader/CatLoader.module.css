@@ -4,18 +4,19 @@
   max-width: 20em;
   overflow: hidden;
   background-color: transparent;
+  user-select: none;
 }
  .cat::before {
   content: '';
   display: block;
   padding-bottom: 100%;
 }
- .cat:hover > * {
+ /* .cat:hover > * {
   animation-play-state: paused;
-}
- .cat:active > * {
+} */
+ /* .cat:active > * {
   animation-play-state: running;
-}
+} */
  .cat__head, .cat__tail, .cat__body {
   position: absolute;
   top: 0;
@@ -31,7 +32,7 @@
   height: 50%;
   background-size: 200%;
   background-repeat: no-repeat;
-  background-image: url('../../../img/cat-loader.webp');
+  background-image: url('../../../../img/cat-loader.webp');
 }
  .cat__head::before {
   top: 0;
@@ -65,10 +66,10 @@
  @keyframes rotating {
   from {
     transform: rotate(720deg);
-}
+  }
   to {
     transform: none;
-}
+  }
 }
  .box {
   display: flex;

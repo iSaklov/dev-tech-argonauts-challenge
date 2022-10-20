@@ -1,0 +1,27 @@
+/* https://codepen.io/Manoz/pen/kyWvQw */
+.load__wrapp {
+  padding: 1rem;
+  user-select: none;
+}
+
+.letter {
+  display: inline;
+  color: var(--dark-sky-blue);
+  /* ANIMATION */
+  animation-name: loading;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0.5;
+    color: var(--turquoise-blue);
+  }
+  50% {
+    color: var(--main-color);
+  }
+  100% {
+    opacity: 1;
+  }
+}

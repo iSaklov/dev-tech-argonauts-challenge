@@ -23,6 +23,7 @@ export const HomePage = () => {
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
 	const [numPerPage, setNumPerPage] = useState(10)
+	const [boarding, setBoarding] = useState(false)
 
 	const fetchArgonauts = useCallback(async (page, numPerPage, query, sort) => {
 		try {
@@ -35,10 +36,10 @@ export const HomePage = () => {
 		} catch (e) {}
 	}, [token, request])
 
-	const addArgonaut = async (name) => {
+	const addArgonaut = async (name, boarding = false) => {
 		try {
 			const img = await getImage()
-			const data = await request('/api/argonaut/add', 'POST', { name, img }, {
+			const data = await request('/api/argonaut/add', 'POST', { name, img, boarding }, {
 				Authorization: `Bearer ${token}`
 			})
 			changePage(1) // returns to the first page when adding a new element
@@ -112,15 +113,24 @@ export const HomePage = () => {
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut, getImage }}>
 			<main>
-				<ArgoModal onCreate={ addArgonaut }/>
-				<ArgoFilter
-					filter={filter}
-					setFilter={setFilter}
-					numPerPage={numPerPage}
-					setNumPerPage={setNumPerPage}
+				<ArgoModal
+					onCreate={addArgonaut} 
+					boarding={boarding} 
+					setBoarding={setBoarding}
 				/>
-				{loading
+				{boarding
+				? null
+				: <ArgoFilter
+						filter={filter}
+						setFilter={setFilter}
+						numPerPage={numPerPage}
+						setNumPerPage={setNumPerPage}
+					/>
+				}
+				{loading && !boarding
 					? <Loader />
+					: boarding
+					? null
 					:
 					<>
 						<ArgosList argonauts={argonauts} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>

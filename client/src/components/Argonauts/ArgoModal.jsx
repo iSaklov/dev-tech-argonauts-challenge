@@ -1,12 +1,19 @@
-import React, { useState }from 'react'
+import React, { useEffect, useState }from 'react'
 import AddArgo from './AddArgo'
 import MyRange from '../UI/MyRange'
+import CatLoader from '../UI/loader/catLoader/CatLoader'
 import { useMessage } from '../../hooks/message.hook'
 import { generateName } from '../../utils/names'
+import M from "materialize-css"
 
-const ArgoModal = ({ onCreate }) => {
+const ArgoModal = ({ onCreate, boarding, setBoarding }) => {
 	const [value, setValue] = useState(25)
 	const message = useMessage()
+
+	useEffect(() => {
+		const modal = document.querySelector(".modal")
+		M.Modal.init(modal)
+	}, [boarding, setBoarding])
 
 	const onChange = value => {
 		setValue(value)
@@ -20,18 +27,30 @@ const ArgoModal = ({ onCreate }) => {
 		}
 	}
 
-	const generateArgos = amount => {
+	const generateArgos = (amount) => {
+		setBoarding(true)
 		const arr = []
 
 		for(let i = 0; i < amount; i++) {
-			arr[i] = onCreate(generateName())
+			arr[i] = onCreate(generateName(), true)
 		}
 
 		Promise.all(arr).then((argos) => {
 			summaryMessage(argos.length)
+			setBoarding(false)
 		}).catch(reason => {
 			message(reason)
+			setBoarding(false)
 		})
+	}
+
+	if(boarding) {
+		return (
+			<CatLoader
+				style={{paddingTop: "10%"}}
+				text = "Embarquement en cours. Veuillez patienter..."
+			/>
+		)
 	}
 
 	return (

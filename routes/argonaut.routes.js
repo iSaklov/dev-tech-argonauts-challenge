@@ -51,11 +51,8 @@ class ArgoService {
 
 router.post('/add', auth, async (req, res) => {
 	try {
-		const { name, img } = req.body
+		const { name, img, boarding } = req.body
 		const owner = req.user.userId
-		console.log('OWNER is : ', owner)
-		console.log('NAME is : ', name)
-		console.log('IMG : ', img)
 
 		const existing = await Argonaut.findOne({ name, owner })
 
@@ -69,14 +66,19 @@ router.post('/add', auth, async (req, res) => {
 			owner
 		})
 
-		console.log('ARGONAUT : ', argonaut)
-
 		await argonaut.save()
 
-		res.status(201).json({
-			argonaut,
-			message: `${name} embarqué avec succès !`
-		})
+		if(boarding) {
+			res.status(201).json({
+				argonaut
+			})
+		} else {
+			res.status(201).json({
+				argonaut,
+				message: `${name} embarqué avec succès !`
+			})
+
+	}
 	} catch (e) {
 		res.status(500).json({
 			message: `${req.body.name} n'a pas pu être embarqué`,
