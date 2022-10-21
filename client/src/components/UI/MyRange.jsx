@@ -5,12 +5,12 @@ import 'nouislider/distribute/nouislider.css'
 
 class MyRange extends React.Component {
 	constructor(props) {
-		super(props);
-		this.onChange = this.onChange.bind(this);
+		super(props)
+		this.onChange = this.onChange.bind(this)
 	}
 
 	onChange(value) {
-		this.props.onChange(value);
+		this.props.onChange(value)
 	}
 
   render() {
@@ -18,8 +18,8 @@ class MyRange extends React.Component {
 			<Nouislider
 				start={this.props.value}
 				range={{
-					min: 0,
-					max: 100
+					min: this.props.min,
+					max: this.props.max
 				}}
 				step={1}
 				connect={'lower'}

@@ -8,16 +8,36 @@ class ArgoService {
 		return Argonaut.find({ owner }).sort({ $natural: -1 }) 
 	}
 
-	getPerPage(owner, page = 1, numPerPage = 10, search = '') {
+	getPerPage(owner, page = 1, numPerPage = 10, search = '', sort = '') {
 		const PAGE_SIZE = numPerPage					// Similar to 'limit'
 		const skip = (page - 1) * PAGE_SIZE		// For page 1, the skip is: (1 - 1) * 10 => 0 * 10 = 0
-		return Argonaut.find({
-											owner,
-											name: { $regex: search, $options: 'i' }
-										})
-										.skip(skip)          	// Same as before, always use 'skip' first
-										.limit(PAGE_SIZE)
-										.sort({ $natural: -1 }) // Similar to 'reverse'
+
+		switch(sort) {
+			case '':
+				return Argonaut.find({
+									owner,
+									name: { $regex: search, $options: 'i' }
+								})
+								.skip(skip)          	// Same as before, always use 'skip' first
+								.limit(PAGE_SIZE)
+								.sort({ $natural: -1 }) // Similar to 'reverse'
+			case 'name':
+				return Argonaut.find({
+								owner,
+								name: { $regex: search, $options: 'i' }
+							})
+							.skip(skip)
+							.limit(PAGE_SIZE)
+							.sort({ name: 1 })
+			case 'date':
+				return Argonaut.find({
+								owner,
+								name: { $regex: search, $options: 'i' }
+							})
+							.skip(skip)
+							.limit(PAGE_SIZE)
+							.sort({ date: 1 })
+		}
 	}
 
 	getCollectionSize(owner, search = '') {
@@ -31,29 +51,37 @@ class ArgoService {
 
 router.post('/add', auth, async (req, res) => {
 	try {
-		const { name, img } = req.body
+		const { name, img, boarding } = req.body
+		const owner = req.user.userId
 
-		const existing = await Argonaut.findOne({ name })
+		const existing = await Argonaut.findOne({ name, owner })
 
 		if (existing) {
-			return res.json({ argonaut: existing })
+			return res.json({message: `Vous avez dèja ${existing.name} à bord` })
 		}
 
 		const argonaut = new Argonaut({
 			name,
 			img,
-			owner: req.user.userId
+			owner
 		})
 
 		await argonaut.save()
 
-		res.status(201).json({
-			argonaut,
-			message: 'Argonaute embarqué avec succès !'
-		})
+		if(boarding) {
+			res.status(201).json({
+				argonaut
+			})
+		} else {
+			res.status(201).json({
+				argonaut,
+				message: `${name} embarqué avec succès !`
+			})
+
+	}
 	} catch (e) {
 		res.status(500).json({
-			message: 'Argonaute \'a pas pu être embarqué',
+			message: `${req.body.name} n'a pas pu être embarqué`,
 			error: e
 		})
 	}
@@ -66,16 +94,15 @@ router.get('/', auth, async (req, res) => {
 		const page = parseInt(req.query.page)
 		const numPerPage = parseInt(req.query.numperpage)
 		const search = req.query.search
+		const sort = req.query.sort
 
 		let argonauts = []
 		let size = 0
 		
 		if(!isNaN(page) || !isNaN(numPerPage)) {
-			console.log('--- IF ---')
-			argonauts = await argoService.getPerPage(owner, page, numPerPage, search)
+			argonauts = await argoService.getPerPage(owner, page, numPerPage, search, sort)
 			size = await argoService.getCollectionSize(owner, search)
 		} else {
-			console.log('--- ELSE ---')
 			argonauts = await argoService.getAll(owner)
 			size = await argoService.getCollectionSize(owner)
 		}
@@ -93,17 +120,17 @@ router.get('/', auth, async (req, res) => {
 	}
 })
 
-router.get('/:id', auth, async (req, res) => {
-	try {
-		const argonaut = await Argonaut.findById(req.params.id)
-		res.status(200).json(argonaut)
-	} catch (e) {
-		res.status(404).json({
-			message: 'Cet argonaute n\'a pas été trouvé',
-			error: e
-		})
-	}
-})
+// router.get('/:id', auth, async (req, res) => {
+// 	try {
+// 		const argonaut = await Argonaut.findById(req.params.id)
+// 		res.status(200).json(argonaut)
+// 	} catch (e) {
+// 		res.status(404).json({
+// 			message: 'Cet argonaute n\'a pas été trouvé',
+// 			error: e
+// 		})
+// 	}
+// })
 
 router.put('/:id', auth, async (req, res) => {
 	try {
@@ -119,11 +146,11 @@ router.put('/:id', auth, async (req, res) => {
 
 		res.status(201).json({ 
 			argonaut,
-			message: 'Argonaute vient d\'être modifié avec succès !'
+			message: `L'argonaute porte désormais le nom ${newName} !`
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Argonaute n\' a pas pu être modifié',
+			message: `L'argonaute n'a pas pu être modifié`,
 			error: e
 		})
 	}
@@ -137,7 +164,7 @@ router.delete('/', auth, async (req, res) => {
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Les argonautes n\' ont pas pu être débarqués',
+			message: 'Les argonautes n\'ont pas pu être débarqués',
 			error: e
 		})
 	}
@@ -145,13 +172,14 @@ router.delete('/', auth, async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
 	try {
+		const argonaut = await Argonaut.findById({ _id: req.params.id })
 		await Argonaut.deleteOne({ _id: req.params.id })
 		res.status(200).json({
-			message: 'L\'argonaute a été débarqué avec succès !'
+			message: `${argonaut.name} a été débarqué avec succès !`
 		})
 	} catch (e) {
 		res.status(500).json({
-			message: 'Argonaute n\' a pas pu être supprimé',
+			message: `L'argonaute n\'a pas pu être débarqué`,
 			error: e
 		})
 	}

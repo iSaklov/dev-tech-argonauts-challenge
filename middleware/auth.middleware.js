@@ -10,8 +10,6 @@ module.exports = (req, res, next) => {
 
 		const token = req.headers.authorization.split(' ')[1] // "Bearer TOKEN ..."
 
-		console.log('TOKEN is => ' + token)
-
 		if (!token) {
 			return res.status(401).json({ message: 'Présentez-vous Argonaute' })
 		}
@@ -21,6 +19,6 @@ module.exports = (req, res, next) => {
 
 		next()
 	} catch (e) {
-		res.status(401).json({ message: 'Présentez-vous Argonaute' })
+		res.status(401).json({ message: 'Le server n\'arrive pas à vous identifier :( <br> Veuillez rafraîchir la page' })
 	}
 }

@@ -4,7 +4,6 @@ import Modal from '../Modal/Modal'
 
 const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 	const { removeArgonaut, updateArgonaut } = useContext(ArgoContext)
-	// const [argo, setArgo] = useState(argonaut)
 	const [name, setName] = useState(argonaut.name)
 	const [selected, setSelected] = useState(false)
 
@@ -35,14 +34,12 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 
 	if(!argonaut.name) {
 		return (
-			<tr key={argonaut._id} className="space">
+			<tr key={argonaut._id} className="__empty">
 				<td />
 				<td />
 				<td />
 				<td>
-					<button
-						className="btn-floating btn-large"
-					>
+					<button className="btn-floating btn-large">
 						<i className="material-icons">adb</i>
 					</button>
 				</td>
@@ -69,11 +66,9 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 					autoFocus={selected}
 					autoComplete="false"
 					onChange={event => setName(event.target.value)}
-					// onChange={event => setargonaut({...argonaut, name: event.target.value})}
-					// className={classes.join(' ')}
 				/>
 			</td>
-			<td>{new Date(argonaut.date).toLocaleDateString()}</td>
+			<td className="hide-on-small-only">{new Date(argonaut.date).toLocaleDateString()}</td>
 			<td>
 				<Modal name={argonaut.name} img={argonaut.img}/>
 			</td>
@@ -82,13 +77,13 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 					?
 					<>
 						<button
-							className="btn waves-effect waves-light yellow btn_blocked"
+							className="btn waves-effect waves-light yellow lighten-1 __edit-btn __btn-blocked"
 							onClick={editHandler}
 						>
 							<i className="small material-icons">edit</i>
 						</button>
 						<button
-							className="btn waves-effect waves-light red btn_blocked"
+							className="btn waves-effect waves-light __delete-btn __btn-blocked"
 							onClick={removeArgonaut.bind(null, argonaut._id)}
 						>
 							<i className="small material-icons">delete</i>
@@ -97,14 +92,14 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 					: 
 					<>
 						<button
-							className="btn waves-effect waves-light green"
+							className="btn waves-effect waves-light green lighten-1 __edit-confirm-btn"
 							type="submit"
 							onClick={saveHandler}
 						>
 							<i className="small material-icons">check_circle</i>
 						</button>
 						<button
-							className="btn waves-effect waves-light red"
+							className="btn waves-effect waves-light red lighten-1 __delete-confirm-btn"
 							onClick={cancelHandler}
 						>
 							<i className="small material-icons">cancel</i>

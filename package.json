@@ -18,7 +18,7 @@
     "react",
     "nodejs"
   ],
-  "author": "Ivan Saklov <isaklov@gmail.com>",
+  "author": "Ivan Saklov <ivansaklov@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

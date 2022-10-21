@@ -1,4 +1,4 @@
-.modal {
+.__modal {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -11,13 +11,26 @@
 	z-index: 10;
 }
 
-.modal_body {
+.__modal_body {
 	padding: 2rem;
 	width: 400px;
-	border-radius: 5px;
+	border-radius: 2px;
 	background: #fff;
 }
 
-.modal_body img {
-	width: 100%;
+.__modal_body p {
+	margin-top: 0.5rem;
+}
+
+.__modal_body strong {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: var(--palatinate-purple);
+	text-shadow: 1px 1px 2px var(--turquoise-blue);
+}
+
+.__modal_body img {
+	margin-top: 1rem;
+	border-radius: 2px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
 }

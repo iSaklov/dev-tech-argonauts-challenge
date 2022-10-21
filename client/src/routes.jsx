@@ -8,8 +8,8 @@ export const useRoutes = isAuthenticated => {
 		return (
 			<Routes>
 				<Route path="/" element={<HomePage />} />
-				<Route path="*" element={<Navigate to ="/" />} />
-				{console.log('isAuthenticated')}
+				<Route path="*" element={<Navigate to="/" />} />
+				{/* {console.log('isAuthenticated')} */}
 			</Routes>
 		)
 	}
@@ -17,8 +17,8 @@ export const useRoutes = isAuthenticated => {
 	return (
 		<Routes>
 			<Route path="/login" element={<AuthPage />} />
-			<Route path="*" element={<Navigate to ="/login" />} />
-			{console.log('is non Authenticated')}
+			<Route path="*" element={<Navigate to="/login" />} />
+			{/* {console.log('is non Authenticated')} */}
 		</Routes>
 	)
 }

@@ -1,5 +1,5 @@
-import { Error } from "mongoose";
-import { useState, useCallback } from "react";
+import { Error } from "mongoose"
+import { useState, useCallback } from "react"
 
 export const useHttp = () => {
 	const [loading, setLoading] = useState(false)
@@ -17,7 +17,7 @@ export const useHttp = () => {
 
 			const response = await fetch(url, { method, body, headers })
 			const data = await response.json()
-			console.log('response data : ', data)
+			// console.log('response http.hook data : ', data)
 
 			if(!response.ok) {
 				throw new Error(data.message || 'Quelque chose a mal tourné')
@@ -27,7 +27,6 @@ export const useHttp = () => {
 
 			return data
 		} catch (e) {
-			console.log(`Catch ${e.message}`)
 			setError(e.message)
 			throw e
 		} finally {

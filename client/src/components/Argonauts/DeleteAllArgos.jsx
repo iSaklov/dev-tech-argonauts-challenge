@@ -6,6 +6,7 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 		<Modal
 			actions={[
 				<div>
+					<span>Chat de Schrödinger</span>
 					<Button flat modal="close" node="button" waves="red" onClick={onDeleteAll.bind(null)}>Supprimer</Button>
 					<Button flat modal="close" node="button" waves="green">Annuler</Button>
 				</div>
@@ -13,7 +14,6 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 			bottomSheet={false}
 			fixedFooter={false}
 			header="Suppression des données"
-			id="Modal-10"
 			open={false}
 			options={{
 				dismissible: true,
@@ -28,11 +28,9 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 				preventScrolling: true,
 				startingTop: '4%'
 			}}
-			// root={[object HTMLBodyElement]}
-			// trigger={<Button node="button">MODAL</Button>}
 			trigger={
 			<Button
-				className="red"
+				className="__delele-all-btn"
 				floating
 				icon={<Icon>delete_forever</Icon>}
 				large
@@ -40,9 +38,10 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
 				waves="light"
 			/>
 			}
+			className="__delele-all-modal"
 		>
 			<div>
-				<h5> <i className="material-icons">warning</i> Avertissement :</h5>
+				<h5><i className="material-icons">warning</i> Avertissement :</h5>
 				<p>Si vous confirmez cette action, toutes les données seront supprimées. Cette action est irréversible.</p>
 			</div>
 		</Modal>

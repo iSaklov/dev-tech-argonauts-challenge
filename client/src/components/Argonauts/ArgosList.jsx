@@ -30,31 +30,32 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 				setArgos([...argos, dummy])
 			}
 		}
-		
 	}, [argos, numPerPage])
 
 	const btnBlocker = () => {
-		const buttons = document.querySelectorAll('.btn_blocked')
+		const buttons = document.querySelectorAll('.__btn-blocked')
 		for(const btn of buttons) {
-			btn.classList.toggle('button_disabler')
+			btn.classList.toggle('__button-disabler')
 		}
 	}
 
 	if (!argonauts.length) {
 		return (
-				<p className="center">La liste de membres de l'équipage est vide</p>
+			<div className="__empty-list">
+				<p className="container">La liste de membres de l'équipage est vide ou personne n'a été trouvé</p>
+			</div>
 		)
 	}
 
 	return (
-		<div>
-			<h4>Membres de l'équipage</h4>
-			<table className="centered striped">
+		<div className="container">
+			<h5>Membres de l'équipage</h5>
+			<table className="centered striped __argo-table">
 				<thead>
 						<tr>
 							<th>№</th>
 							<th>Nom d'argonaut</th>
-							<th>Date d'embarquation</th>
+							<th className="hide-on-small-only">Date d'embarquation</th>
 							<th>Sa belle gueule</th>
 							<th>
 								<DeleteAllArgos onDeleteAll={onDeleteAll}/>
