@@ -27,15 +27,25 @@ const ArgoModal = ({ onCreate, boarding, setBoarding }) => {
 		}
 	}
 
-	const generateArgos = (amount) => {
+	const generateArgos = async (amount) => {
+		console.log('START')
+		
 		setBoarding(true)
 		const arr = []
 
 		for(let i = 0; i < amount; i++) {
 			arr[i] = onCreate(generateName(), true)
+			console.log('ARG ', arr[i])
 		}
 
 		Promise.all(arr).then((argos) => {
+			const arr = []
+			console.log('ARGOS ', argos)
+			for(const argo of argos) {
+				// console.log('STATUS', argo)
+				console.log('A ', argo instanceof Promise.status["resolved"])
+			}
+
 			summaryMessage(argos.length)
 			setBoarding(false)
 		}).catch(reason => {

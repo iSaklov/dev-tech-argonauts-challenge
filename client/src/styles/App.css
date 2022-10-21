@@ -123,6 +123,7 @@ body {
 /*** NAVBAR ***/
 nav {
   background: var(--main-bg-color);
+  user-select: none;
 }
 
 nav a, nav ul a {
@@ -206,6 +207,10 @@ main .btn-small:hover {
 }
 
 /*** ARGO FILTER ***/
+.__argo-filter {
+  user-select: none;
+}
+
 .__argo-filter input[type=search]:not(.browser-default):focus {
   border-bottom: 1px solid transparent;
 }
@@ -382,6 +387,7 @@ main .btn-small:hover {
 .pagination {
   margin-top: 0.5rem;
   padding-bottom: 1rem;
+  user-select: none;
 }
 
 .pagination button {
@@ -425,6 +431,7 @@ footer {
   color: #fff;
   max-width: 1280px;
   width: 90%;
+  user-select: none;
 }
 
 footer .__footer-link {
