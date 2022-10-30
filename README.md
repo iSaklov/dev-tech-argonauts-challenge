@@ -11,7 +11,7 @@ Sleep Well aims at developing a smart alarm clock for iPhones that monitors your
 - JS
 - CSS
 - Mongo.db
-- Express
+- Express.js
 - React
 - Node.js
 
