@@ -22,6 +22,7 @@ The author realizes that this project is far from being finished, nor optimized,
 - React
 - Node.js
 - Materialize CSS
+
 A list of technologies used within the project:
 * [Technologie name](https://example.com): Version 12.3
 * [Technologie name](https://example.com): Version 2.34
