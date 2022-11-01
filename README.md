@@ -1,5 +1,5 @@
-[![forthebadge](https://forthebadge.com/images/badges/ages-12.svg)]
-[![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)]
+![forthebadge](https://forthebadge.com/images/badges/ages-12.svg)
+![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)
 
 # The Argonauts challenge : Wild Code School work-study entry test
 The author aims to develop a web application allowing users to create their own list of aurgonauts, a group of heroes who set out from Iolcos, present-day Volos, with Jason aboard the ship Argo to find the Golden Fleece.
