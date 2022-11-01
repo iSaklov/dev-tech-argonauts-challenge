@@ -17,14 +17,13 @@ The Argonauts challenge is an educational project requested by The Wild Code Sch
 The author realizes that this project is far from being finished, nor optimized, in particular in the part concerning the treatment of the server errors. Nevertheless, the application is now fully functional and responsive. Additions and possible modifications, as well as performance tests are planned within the framework of continuous learning as the professional evolution of the author progresses.
 
 ## Technologies
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) : Mongoose version ^6.0.13
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) : Version ^4.17.1
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) : Version ^17.0.2
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) : Version 16.13.0
-- Materialize CSS
-[![MaterializeCSS](http://materializecss.com/res/materialize.svg)](https://materializecss.com)
+* ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) : Mongoose version ^6.0.13
+* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) : Version ^4.17.1
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) : Version ^17.0.2
+* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) : Version 16.13.0
+* [![MaterializeCSS](http://materializecss.com/res/materialize.svg)](https://materializecss.com)
 
-<img src="https://camo.githubusercontent.com/86f17df730ccbbbef991d61bb586bf2d3c165f19cfe334e6e4ba4f97d2dd691a/687474703a2f2f6d6174657269616c697a656373732e636f6d2f7265732f6d6174657269616c697a652e737667" width="150" data-canonical-src="http://materializecss.com/res/materialize.svg" style="max-width: 100%;">
+<!-- <img src="https://camo.githubusercontent.com/86f17df730ccbbbef991d61bb586bf2d3c165f19cfe334e6e4ba4f97d2dd691a/687474703a2f2f6d6174657269616c697a656373732e636f6d2f7265732f6d6174657269616c697a652e737667" width="150" data-canonical-src="http://materializecss.com/res/materialize.svg" style="max-width: 100%;"> -->
 
 * [Technologie name](https://example.com): Version 12.3
 * [MaterializeCSS](https://materializecss.com)
