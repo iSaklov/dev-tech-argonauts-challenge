@@ -24,6 +24,11 @@ The author realizes that this project is far from being finished, nor optimized,
 - Materialize CSS
 
 A list of technologies used within the project:
+* ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+
 * [Technologie name](https://example.com): Version 12.3
 * [Technologie name](https://example.com): Version 2.34
 * [Library name](https://example.com): Version 1234
@@ -43,7 +48,9 @@ $ npm run dev
 The Argonauts challenge is an open source project. Feel free to fork the source and contribute with your own features.
 
 ## Authors
-Our code squad : iSaklov & Global Internet Community
+Our code squad : iSaklov & Global Internet Community.
+![CodePen](https://img.shields.io/badge/Codepen-000000?style=for-the-badge&logo=codepen&logoColor=white)
+![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
 
 ## Licensing
 This project was built under the iSac Creative Studio licence despite his own indifference to the feline family.
