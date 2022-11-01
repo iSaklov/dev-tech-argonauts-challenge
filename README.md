@@ -1,6 +1,5 @@
 [![forthebadge](https://forthebadge.com/images/badges/ages-12.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com)
-![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)
 
 # The Argonauts challenge : Wild Code School work-study entry test
 The author aims to develop a web application allowing users to create their own list of aurgonauts, a group of heroes who set out from Iolcos, present-day Volos, with Jason aboard the ship Argo to find the Golden Fleece.
@@ -49,4 +48,4 @@ Our code squad : iSaklov & Global Internet Community
 ## Licensing
 This project was built under the iSac Creative Studio licence despite his own indifference to the feline family.
 
-*Dedicated to all cat lovers.*
+*Dedicated to all cat lovers. :cat2:*
