@@ -17,20 +17,13 @@ The Argonauts challenge is an educational project requested by The Wild Code Sch
 The author realizes that this project is far from being finished, nor optimized, in particular in the part concerning the treatment of the server errors. Nevertheless, the application is now fully functional and responsive. Additions and possible modifications, as well as performance tests are planned within the framework of continuous learning as the professional evolution of the author progresses.
 
 ## Technologies
-- MongoDB
-- Express.js
-- React
-- Node.js
+* ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) : Mongoose version ^6.0.13
+* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) : Version ^4.17.1
+* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) : Version 16.13.0
 - Materialize CSS
 
-A list of technologies used within the project:
-* ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-* ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-* ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-
 * [Technologie name](https://example.com): Version 12.3
-* [Technologie name](https://example.com): Version 2.34
 * [Library name](https://example.com): Version 1234
 
 ## Installation
