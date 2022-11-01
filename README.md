@@ -20,7 +20,7 @@ The author realizes that this project is far from being finished, nor optimized,
 * ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)(https://www.mongodb.com)
 * ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)(https://expressjs.com/fr/) : v4.17.1
 * ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)(https://fr.reactjs.org) : v17.0.2
-* [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) : v16.13.0
+* [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) <sub>: v16.13.0</sub>
 
 * [![MaterializeCSS](http://materializecss.com/res/materialize.svg)](https://materializecss.com)
 
