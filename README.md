@@ -1,6 +1,6 @@
 [![forthebadge](https://forthebadge.com/images/badges/ages-12.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com)
-[![npm version](https://badge.fury.io/js/react.svg)](https://badge.fury.io/js/react)
+[![react](https://badge.fury.io/js/react.svg)](https://badge.fury.io/js/react)
 
 # Argonautes challenge : the wildcodeschool work-study entry test
 
