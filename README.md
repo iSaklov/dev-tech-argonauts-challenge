@@ -27,7 +27,7 @@ The author realizes that this project is far from being finished, nor optimized,
 * [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) <sup>: v16.13.0</sup>
 
 
-* [![MaterializeCSS](https://img.shields.io/static/v1?label=Materialize&color=red)](https://materializecss.com)
+* [![MaterializeCSS](https://img.shields.io/static/v1?label=MaterializeCSS&color=red&logo=data:image/svg;http://materializecss.com/res/materialize.svg)](https://materializecss.com)
 
 <!-- <img src="https://camo.githubusercontent.com/86f17df730ccbbbef991d61bb586bf2d3c165f19cfe334e6e4ba4f97d2dd691a/687474703a2f2f6d6174657269616c697a656373732e636f6d2f7265732f6d6174657269616c697a652e737667" width="40" data-canonical-src="http://materializecss.com/res/materialize.svg" style="max-width: 100%;"> -->
 <!-- * [MaterializeCSS](https://materializecss.com) -->
