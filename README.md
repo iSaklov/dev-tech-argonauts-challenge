@@ -25,11 +25,11 @@ The author realizes that this project is far from being finished, nor optimized,
 * [![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)](https://expressjs.com) <sup>: v4.17.1</sup>
 * [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org) <sup>: v17.0.2</sup>
 * [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) <sup>: v16.13.0</sup>
-* [![MaterializeCSS](https://img.shields.io/endpoint?url="http://materializecss.com/res/materialize.svg"&style=social&logo=appveyor)](https://materializecss.com)
+* [![MaterializeCSS](https://img.shields.io/endpoint?url="http://materializecss.com/res/materialize.svg"&style=social&logo="http://materializecss.com/res/materialize.svg")](https://materializecss.com)
 
 <!-- <img src="https://camo.githubusercontent.com/86f17df730ccbbbef991d61bb586bf2d3c165f19cfe334e6e4ba4f97d2dd691a/687474703a2f2f6d6174657269616c697a656373732e636f6d2f7265732f6d6174657269616c697a652e737667" width="40" data-canonical-src="http://materializecss.com/res/materialize.svg" style="max-width: 100%;"> -->
 
-* [![MATERIALIZE](https://img.shields.io/endpoint?url="http://materializecss.com/res/materialize.svg"&style=social)](https://materializecss.com)
+* [![MaterializeCSS](https://img.shields.io/endpoint?url="http://materializecss.com/res/materialize.svg"&style=social)](https://materializecss.com)
 
 * [MaterializeCSS](https://img.shields.io/static/v1?label="http://materializecss.com/res/materialize.svg&message="MATERIALIZE"&color="red")
 <!-- * [MaterializeCSS](https://materializecss.com) -->
