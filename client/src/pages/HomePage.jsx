@@ -82,7 +82,7 @@ export const HomePage = () => {
 		} catch (e) {}
 	}
 
-	//TODO Regenerate the image if it is already in the database
+	//TODO Regenerate new image if it is already in the database
 	const getImage = useCallback( async () => {
 		try{
 			const fetched = await request('https://api.thecatapi.com/v1/images/search?limit=1&category_ids=2')
