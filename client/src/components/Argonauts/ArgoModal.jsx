@@ -27,25 +27,22 @@ const ArgoModal = ({ onCreate, boarding, setBoarding }) => {
 		}
 	}
 
+	//TODO
+	/* 
+	The function waits for the completion of all Promises, after which it displays a message about the number of Argonots generated.
+
+	The problem is that if any of the Argonots were not allowed on board (duplicate name, image, etc.) the final message would still indicate that the requested quantity was successfully loaded, not the actual one.
+	*/
+	
 	const generateArgos = async (amount) => {
-		console.log('START')
-		
 		setBoarding(true)
-		const arr = []
+		const promisesArray = []
 
 		for(let i = 0; i < amount; i++) {
-			arr[i] = onCreate(generateName(), true)
-			console.log('ARG ', arr[i])
+			promisesArray[i] = onCreate(generateName(), true)
 		}
 
-		Promise.all(arr).then((argos) => {
-			const arr = []
-			console.log('ARGOS ', argos)
-			for(const argo of argos) {
-				// console.log('STATUS', argo)
-				console.log('A ', argo instanceof Promise.status["resolved"])
-			}
-
+		Promise.all(promisesArray).then((argos) => {
 			summaryMessage(argos.length)
 			setBoarding(false)
 		}).catch(reason => {
