@@ -63,6 +63,13 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 						</tr>
 				</thead>
 				<tbody>
+					{ //TODO
+					/*
+						Transition doesn't work because fetching() is called each time it interacts with the database and the page is partially refreshed.
+
+						It is necessary to think over a different mechanism for CRUD and data actualization. 
+					*/
+					}
 					<TransitionGroup component={null}>
 						{ argos.map((argonaut, index) =>
 						  <CSSTransition
