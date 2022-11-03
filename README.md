@@ -22,7 +22,7 @@ The author realizes that this project is far from being finished, nor optimized,
 ## Technologies
 
 * [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com)
-* [![Express.js](https://img.shields.io/badge/Express.js-v4.17.1-111?style=for-the-badge&logo=express&logoColor=white&labelColor=black)](https://expressjs.com)
+* [![Express.js](https://img.shields.io/badge/Express.js-v4.17.1-000000?style=for-the-badge&logo=express&logoColor=white&labelColor=black&color=gray)](https://expressjs.com)
 * [![React](https://img.shields.io/badge/React-v17.0.2-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org)
 * [![NodeJS](https://img.shields.io/badge/Node.js-v16.13.0-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en/)
 * [![Materialize](https://img.shields.io/badge/Materialize-%23ee6e73?style=for-the-badge)](https://materializecss.com)
