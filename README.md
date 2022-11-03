@@ -22,9 +22,9 @@ The author realizes that this project is far from being finished, nor optimized,
 ## Technologies
 
 * [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com)
-* [![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white&message=v4.17.1)](https://expressjs.com) <sup>: v4.17.1</sup>
-* [![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB&message=v1.2)](https://reactjs.org) <sup>: v17.0.2</sup>
-* [![NodeJS](https://img.shields.io/badge/node/v/:v16.13.0?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/en/) <sup>: v16.13.0</sup>
+* [![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com) <sup>: v4.17.1</sup>
+* [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org) <sup>: v17.0.2</sup>
+* [![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en/) <sup>: v16.13.0</sup>
 
 * [![MaterializeCSS](https://img.shields.io/static/v1?label=Materialize&style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAMCAYAAAB4MH11AAAABmJLR0QA/wD/AP+gvaeTAAACQklEQVQ4jY2STUgUcRjGf+9/193VVbZZ6VDSB2ZERYewTwovUR2LEi/mIeokSnnSbl7rJtFFCMLwUAZ5LDCQooNJJHSRNiRWMdEyNnN3dnd23g67M7PJQs7pP/O88/ze55kRalyrvcONEsnNAy0A0da26bBlTTb0dI4ArN4ZeiSivQChWP1C7Mixtfqea2dFRLd6mVoAiWSveOYA4YR1CJU+gFR/f1REu32tZc8icDo39vJMLa+aAMVc9AdisTQiu4C23NjzvVYofg5IeHqosWkngIhe2DZA0PP+hjuS6YBsOhA95c8ZsSUUagNwoWNbgMzAQBJo9TdMWH6vKpxEafe1psQXIFJeihOqKv8FOG5de3m+smU0kq0aP64SAIhEFqpetewnk/u2+oXt8RcHXUduld1E7dQ8bGQ8vWDC4XcKlwHUKRxA2e2JpY3NN8BV7z6/+ePS6t2h/YhrjBrHqI6aWHdnCqEVYRB0KNQQD7oUPouYD77h78zyP/Gz9jTwzU+fXrwp6D1RGURUkyP30wbAKKP+UOaXvyGqn/J55yPgVgB/Ag3bSkbmgdnKE1eLhcMB3YxD5RtE60vvAQfVNTdvV/VoZhK3u9aBuXIlG/EgnczI8LCD6iyA5rILqHq/b7E5/TXlA6SrKwfMlfJ2iuBPUFNyX1XOU6qa10LhaBBOpwA0JNMAxfWfQX1CSiYmSj6gHNB95iwvNVTV87r54YOlcnYdL658n0Hw9M26sPMUIH7j+qzrOm8LaytV1fLYO/4FsgfkkSdN3G8AAAAASUVORK5CYII=&message=v1.2&color=#ee6e73)](https://materializecss.com)
 
