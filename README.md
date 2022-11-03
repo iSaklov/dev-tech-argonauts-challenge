@@ -33,9 +33,7 @@ The author realizes that this project is far from being finished, nor optimized,
 $ git clone https://github.com/iSaklov/dev-tech-argonauts-challenge.git
 $ cd dev-tech-argonauts-challenge
 $ npm install
-$ cd client
-$ npm install
-$ cd ..
+$ npm run client:install
 $ npm run dev
 ```
 
