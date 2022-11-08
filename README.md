@@ -5,6 +5,8 @@
 
 The author aims to develop a web application allowing users to create their own list of aurgonauts, a group of heroes who set out from Iolcos, present-day Volos, with Jason aboard the ship Argo to find the Golden Fleece.
 
+[this](https://the-argos.go.yo.fr) is the link to the latest published stable version of the project
+
 ## Table of Contents
 
 1. [General Info](#general-info)
