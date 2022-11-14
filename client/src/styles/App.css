@@ -313,6 +313,10 @@ main .btn-small:hover {
   border-bottom: none;
 }
 
+.__argo-table .__empty {
+  user-select: none;
+}
+
 .__argo-table .__empty button {
   visibility: hidden;
 }

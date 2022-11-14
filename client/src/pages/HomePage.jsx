@@ -4,12 +4,10 @@ import { AuthContext } from '../context/AuthContext'
 import { ArgoContext } from '../context/ArgoContext'
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
-// import { useArgos } from '../hooks/useArgos'
 import { Loader } from '../components/Loader'
 import ArgoFilter from '../components/Argonauts/ArgoFilter'
 import ArgosList from '../components/Argonauts/ArgosList'
 import ArgoModal from '../components/Argonauts/ArgoModal'
-import Pagination from '../components/UI/pagination/Pagination'
 import { getTotalPages } from '../utils/pages'
 
 export const HomePage = () => {
@@ -18,7 +16,6 @@ export const HomePage = () => {
 	const message = useMessage()
 	const [argonauts, setArgonauts] = useState([])
 	const [filter, setFilter] = useState({query: '', sort: ''})
-	// const sortedAndSearchedArgos = useArgos(argonauts, filter.query, filter.sort)
 	const [page, setPage] = useState(1)
 	const [totalArgonauts, setTotalArgonauts] = useState()
 	const [totalPages, setTotalPages] = useState()
@@ -93,7 +90,7 @@ export const HomePage = () => {
 	const changePage = useCallback((page) => {
 		setPage(page)
 		fetchArgonauts(page, numPerPage, filter.query, filter.sort)
-	}, [fetchArgonauts, numPerPage, filter.query, filter.sort])
+	}, [numPerPage, filter.query, filter.sort, fetchArgonauts])
 
 	useEffect(() => {
 		message(error)
@@ -102,14 +99,14 @@ export const HomePage = () => {
 
 	useEffect(() => {
 		fetchArgonauts(page, numPerPage, filter.query, filter.sort)
-		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-	}, [page, numPerPage, totalArgonauts, fetchArgonauts, filter.query, filter.sort])
+	}, [page, numPerPage, filter.query, filter.sort, fetchArgonauts])
 
 	useEffect(() => {
-		if(!argonauts.length && page > 1) {
-			changePage(totalPages)
+		setTotalPages(getTotalPages(totalArgonauts, numPerPage))
+		if(page > totalPages && page !== 1) {
+			setPage(page - 1)
 		}
-	}, [argonauts, page, totalPages, changePage])
+	}, [totalArgonauts, numPerPage, page, totalPages])
 
 	return (
 		<ArgoContext.Provider value={{ updateArgonaut, removeArgonaut, getImage }}>
@@ -119,26 +116,26 @@ export const HomePage = () => {
 					boarding={boarding} 
 					setBoarding={setBoarding}
 				/>
-				{boarding
-				? null
-				: <ArgoFilter
-						filter={filter}
-						setFilter={setFilter}
-						numPerPage={numPerPage}
-						setNumPerPage={setNumPerPage}
-					/>
-				}
 				{loading && !boarding
 					? <Loader />
 					: boarding
 					? null
-					:
-					<>
-						<ArgosList argonauts={argonauts} page={page} numPerPage={numPerPage} onDeleteAll={removeAllArgonauts}/>
-						{argonauts.length
-							? <Pagination page={page} totalPages={totalPages} changePage={changePage}/>
-							: null
-						}
+					: <>
+						<ArgoFilter
+							filter={filter}
+							setFilter={setFilter}
+							numPerPage={numPerPage}
+							setNumPerPage={setNumPerPage}
+						/>
+						<ArgosList 
+							argonauts={argonauts} 
+							setArgonauts={setArgonauts}
+							page={page} 
+							numPerPage={numPerPage} 
+							totalPages={totalPages}
+							changePage={changePage}
+							onDeleteAll={removeAllArgonauts}
+						/>
 					</>
 				}
 			</main>

@@ -1,36 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { TransitionGroup, CSSTransition } from "react-transition-group"
-import ArgoItem from './ArgoItem'
+import React, { useEffect } from 'react'
+// import { TransitionGroup, CSSTransition } from "react-transition-group"
 import DeleteAllArgos from './DeleteAllArgos'
+import ArgoItem from './ArgoItem'
+import Pagination from '../../components/UI/pagination/Pagination'
+import getDummy from '../../utils/dummy'
 
-const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
-	const [currentNum, setCurrentNum] = useState()
-	const [argos, setArgos] = useState([])
-	const nodeRef = useRef(null)
-
-	useEffect(() => {
-		setArgos(argonauts)
-	}, [argonauts])
+const ArgosList = ({ argonauts, setArgonauts, page, numPerPage, totalPages, changePage, onDeleteAll }) => {
 
 	useEffect(() => {
-		setCurrentNum((page - 1) * numPerPage)
-	}, [page, numPerPage])
-
-	useEffect(() => {
-		const dummy = {
-			_id: Date.now(),
-			name: undefined,
-			date: undefined,
-			img: undefined,
-			owner: undefined
-		}
-		
-		if(argos.length < numPerPage) {
-			for(let i = argos.length; i < numPerPage; i++) {
-				setArgos([...argos, dummy])
+		// fills the Argonauts array with Dummy's to ensure the same indentation from the Pagination
+		if(argonauts.length && argonauts.length < numPerPage) {
+			for(let i = argonauts.length; i < numPerPage; i++) {
+				setArgonauts([...argonauts, getDummy()])
 			}
 		}
-	}, [argos, numPerPage])
+	}, [argonauts, setArgonauts, numPerPage])
 
 	const btnBlocker = () => {
 		const buttons = document.querySelectorAll('.__btn-blocked')
@@ -63,30 +47,21 @@ const ArgosList = ({ argonauts, page, numPerPage, onDeleteAll }) => {
 						</tr>
 				</thead>
 				<tbody>
-					{ //TODO
-					/*
-						Transition doesn't work because fetching() is called each time it interacts with the database and the page is partially refreshed.
-
-						It is necessary to think over a different mechanism for CRUD and data actualization. 
-					*/
-					}
-					<TransitionGroup component={null}>
-						{ argos.map((argonaut, index) =>
-						  <CSSTransition
-								key={argonaut._id}
-								nodeRef={nodeRef} in timeout={250}
-								classNames="argonaut"
-            	>
-								<ArgoItem
-									argonaut={argonaut}
-									index={currentNum + index + 1}
-									btnBlocker={btnBlocker}
-								/>
-							</CSSTransition>
-						)}
-					</TransitionGroup>
+					{ argonauts.map((argonaut, index) =>
+						<ArgoItem
+							key={argonaut._id}
+							argonaut={argonaut}
+							index={(page - 1) * numPerPage + index + 1 }
+							btnBlocker={btnBlocker}
+						/>
+					)}
 				</tbody>
 			</table>
+			<Pagination
+				page={page}
+				totalPages={totalPages} 
+				changePage={changePage} 
+			/>
 		</div>
 	)
 }

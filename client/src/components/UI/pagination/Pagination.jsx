@@ -22,7 +22,7 @@ const Pagination = ({ page, totalPages, changePage }) => {
 				<button>
 					<i
 						className="material-icons"
-						onClick={() => changePage(page > 1 ? page - 1 : page)}
+						onClick={() => changePage(page > 1 ? page - 1 : null)}
 					>
 						chevron_left
 					</i>
@@ -30,7 +30,8 @@ const Pagination = ({ page, totalPages, changePage }) => {
 			</li>
 			{pagesArray.filter(p => p !== null).map(p =>
 				<li
-					onClick={() => changePage(p)}
+					// prevents reloading when the active page is clicked again
+					onClick={() => p !== page ? changePage(p) : null}
 					key={p}
 					className={page === p ? "active" : "waves-effect waves-light"}
 				>
@@ -43,7 +44,7 @@ const Pagination = ({ page, totalPages, changePage }) => {
 				<button>
 					<i
 						className="material-icons"
-						onClick={() => changePage(page < totalPages ? page + 1 : page)}
+						onClick={() => changePage(page < totalPages ? page + 1 : null)}
 					>
 						chevron_right
 					</i>
