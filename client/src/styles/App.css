@@ -1,5 +1,5 @@
 /* Import materialize.css */
-@import "~materialize-css/dist/css/materialize.min.css";
+@import '~materialize-css/dist/css/materialize.min.css';
 /* Materialize Icons */
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 /* Google Fonts */
@@ -10,17 +10,19 @@
   --main-color: #f76c6c;
   --main-bg-color: #f4f4f4;
 
-  --snow-color: #F7F0F3;
-  --palatinate-purple: #4F244B;
-  --antique-fuchsia: #905C86;
-  --turquoise-blue: #64F5E2;
-  --dark-sky-blue: #9CB9C7;
-  --orchid-crayola: #DEA1D0;
-  --dutch-white: #DCCEAA;
-  --beaver: #957E71;
+  --snow-color: #f7f0f3;
+  --palatinate-purple: #4f244b;
+  --antique-fuchsia: #905c86;
+  --turquoise-blue: #64f5e2;
+  --dark-sky-blue: #9cb9c7;
+  --orchid-crayola: #dea1d0;
+  --dutch-white: #dcceaa;
+  --beaver: #957e71;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -57,7 +59,8 @@ body {
 }
 
 .__auth-page .card {
-  background: center / cover no-repeat url("../img/pastel-pusheen-wallpaper.webp");
+  background: center / cover no-repeat
+    url('../img/pastel-pusheen-wallpaper.webp');
 }
 
 .__auth-page .card span {
@@ -67,26 +70,41 @@ body {
 }
 
 /*** INPUT FIELDS ***/
-.__auth-page #email, .__auth-page #password {
+.__auth-page #email,
+.__auth-page #password {
   background-color: var(--main-color);
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   border-radius: 0 0 2px 2px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 }
 
-.__auth-page .input-field>label {
+.__auth-page .input-field .__icon-password {
+  cursor: pointer;
+  position: absolute;
+  top: 0.75rem;
+  right: 2.5rem;
+  font-size: 1.5rem;
+  color: var(--main-bg-color);
+}
+
+.__auth-page .input-field > label {
   color: var(--main-bg-color);
   left: 1.5rem;
 }
 
-.__auth-page input[type=password]:not(.browser-default),
-.__auth-page input[type=email]:not(.browser-default) {
+.__auth-page input[type='password']:not(.browser-default),
+.__auth-page input[type='email']:not(.browser-default) {
   border-bottom: 1px solid var(--antique-fuchsia);
 }
 
-.__auth-page input[type=password]:not(.browser-default):focus:not([readonly])+label,
-.__auth-page input[type=email]:not(.browser-default):focus:not([readonly])+label {
+.__auth-page
+  input[type='password']:not(.browser-default):focus:not([readonly])
+  + label,
+.__auth-page
+  input[type='email']:not(.browser-default):focus:not([readonly])
+  + label {
   color: var(--turquoise-blue);
   text-shadow: 1px 1px 2px var(--palatinate-purple);
 }
@@ -126,11 +144,13 @@ nav {
   user-select: none;
 }
 
-nav a, nav ul a {
+nav a,
+nav ul a {
   color: var(--main-color);
 }
 
-nav .hide-on-med-and-down, nav .sidenav-trigger {
+nav .hide-on-med-and-down,
+nav .sidenav-trigger {
   position: absolute;
   right: 0;
 }
@@ -161,16 +181,18 @@ main {
 
 /*** MAIN INPUT and BUTTONS ***/
 input:not([type]):focus:not([readonly]):focus,
-input[type=text]:not(.browser-default):focus:not([readonly]) {
+input[type='text']:not(.browser-default):focus:not([readonly]) {
   border-color: var(--antique-fuchsia);
   box-shadow: 0 1px 0 0 var(--turquoise-blue);
 }
 
-main .btn, .btn-small {
+main .btn,
+.btn-small {
   background-color: var(--main-color);
 }
 
-main .btn:focus, .btn-small:focus {
+main .btn:focus,
+.btn-small:focus {
   background-color: var(--antique-fuchsia);
   color: var(--dark-sky-blue);
 }
@@ -186,9 +208,12 @@ main .btn-small:hover {
 }
 
 /*** ADD ARGONAUT MODAL ***/
+.switch {
+  float: right;
+}
 /*** NOUISLIDER ***/
 .noUi-target {
- margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .noUi-tooltip {
@@ -211,12 +236,17 @@ main .btn-small:hover {
   user-select: none;
 }
 
-.__argo-filter input[type=search]:not(.browser-default):focus {
+.__argo-filter input[type='search']:not(.browser-default):focus {
   border-bottom: 1px solid transparent;
 }
 
-.__argo-filter input[type=search]:not(.browser-default):focus:not([readonly])+label,
-.__argo-filter .input-field input[type=search]:focus:not(.browser-default) ~ .material-icons {
+.__argo-filter
+  input[type='search']:not(.browser-default):focus:not([readonly])
+  + label,
+.__argo-filter
+  .input-field
+  input[type='search']:focus:not(.browser-default)
+  ~ .material-icons {
   color: var(--main-color);
 }
 
@@ -225,7 +255,7 @@ main .btn-small:hover {
   border-bottom: none;
 }
 
-.__argo-filter .dropdown-content li>span {
+.__argo-filter .dropdown-content li > span {
   color: var(--main-color);
 }
 
@@ -253,18 +283,12 @@ main .btn-small:hover {
 
 .__delele-all-modal .modal-content h4 {
   color: var(--turquoise-blue);
-  text-shadow: 0 1px 0 var(--snow-color), 
-              0 2px 0 var(--dutch-white),
-              0 3px 0 var(--beaver),
-              0 4px 0 var(--antique-fuchsia),
-              0 5px 0 var(--orchid-crayola),
-              0 6px 1px rgba(0,0,0,.1),
-              0 0 5px rgba(0,0,0,.1),
-              0 1px 3px rgba(0,0,0,.3),
-              0 3px 5px rgba(0,0,0,.2),
-              0 5px 10px rgba(0,0,0,.25),
-              0 10px 10px rgba(0,0,0,.2),
-              0 20px 20px rgba(0,0,0,.15);
+  text-shadow: 0 1px 0 var(--snow-color), 0 2px 0 var(--dutch-white),
+    0 3px 0 var(--beaver), 0 4px 0 var(--antique-fuchsia),
+    0 5px 0 var(--orchid-crayola), 0 6px 1px rgba(0, 0, 0, 0.1),
+    0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3),
+    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
 }
 
 .__delele-all-modal .modal-content p {
@@ -275,7 +299,7 @@ main .btn-small:hover {
   background-color: transparent;
 }
 
-.__delele-all-modal .modal-footer span{
+.__delele-all-modal .modal-footer span {
   font-family: 'Dancing Script', cursive;
   font-size: 2rem;
   color: var(--turquoise-blue);
@@ -309,7 +333,7 @@ main .btn-small:hover {
   height: 75vh;
 }
 
-.__argo-table input[type=text]:not(.browser-default):read-only {
+.__argo-table input[type='text']:not(.browser-default):read-only {
   border-bottom: none;
 }
 
@@ -339,7 +363,7 @@ main .btn-small:hover {
   background-color: var(--turquoise-blue);
 }
 
-.__argo-table .btn-floating:hover i{
+.__argo-table .btn-floating:hover i {
   color: var(--main-color);
 }
 
@@ -414,7 +438,7 @@ main .btn-small:hover {
 }
 
 /*** REACT TRANSITION ***/
-.argonaut-enter {
+/* .argonaut-enter {
   opacity: 0;
 }
 .argonaut-enter-active {
@@ -427,6 +451,11 @@ main .btn-small:hover {
 .argonaut-exit-active {
   opacity: 0;
   transition: opacity 500ms ease-in;
+} */
+
+/*** LOADER ***/
+.preloader-wrapper {
+  margin-top: 25vh;
 }
 
 /*** FOOTER ***/
@@ -447,13 +476,13 @@ footer > img {
   height: 80px;
 }
 
-.__bg-color-filter{
-  filter: invert(90%) sepia(57%) saturate(0%) hue-rotate(15deg) brightness(103%) contrast(91%);
+.__bg-color-filter {
+  filter: invert(90%) sepia(57%) saturate(0%) hue-rotate(15deg) brightness(103%)
+    contrast(91%);
 }
 
 footer .__footer-link:hover {
-  filter: invert(100%) sepia(98%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+  filter: invert(100%) sepia(98%) saturate(0%) hue-rotate(288deg)
+    brightness(102%) contrast(102%);
   transform: scale(1.2);
 }
-
-

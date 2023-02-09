@@ -6,7 +6,7 @@ import { useMessage } from '../../hooks/message.hook'
 import { generateName } from '../../utils/names'
 import M from "materialize-css"
 
-const ArgoModal = ({ onCreate, boarding, setBoarding }) => {
+const ArgoModal = ({ onCreate, boarding, setBoarding, uniqueImg, setUniqueImg }) => {
 	const [value, setValue] = useState(25)
 	const message = useMessage()
 
@@ -39,16 +39,23 @@ const ArgoModal = ({ onCreate, boarding, setBoarding }) => {
 		const promisesArray = []
 
 		for(let i = 0; i < amount; i++) {
-			promisesArray[i] = onCreate(generateName(), true)
+			// promisesArray.push(onCreate(generateName(), true))
+			promisesArray[i] = await onCreate(generateName(), uniqueImg)
+			console.log(`promisesArray ${i}`, promisesArray[i])
 		}
 
-		Promise.all(promisesArray).then((argos) => {
-			summaryMessage(argos.length)
-			setBoarding(false)
-		}).catch(reason => {
-			message(reason)
-			setBoarding(false)
-		})
+		console.log('promisesArray', promisesArray)
+
+		Promise.all(promisesArray)
+      .then((result) => {
+        summaryMessage(result.length)
+      })
+      .catch((reason) => {
+        message(reason)
+      })
+      .finally(
+				setBoarding(false)
+			)
 	}
 
 	if(boarding) {
@@ -63,7 +70,7 @@ const ArgoModal = ({ onCreate, boarding, setBoarding }) => {
 	return (
 		<div id="addModal" className="modal">
 			<div className="modal-content">
-				<AddArgo onCreate={ onCreate } />
+				<AddArgo onCreate={onCreate} uniqueImg={uniqueImg} setUniqueImg={setUniqueImg} />
 				<p>Ou opter pour une génération automatique de membres d'équipage</p>
 				<p>Cela peut prendre quelques minutes. Veuillez de ne pas interrompre l'embarquement </p>
 				<MyRange value={value} onChange={onChange} min={0} max={100}/>
