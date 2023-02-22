@@ -1,11 +1,11 @@
 export default function getDummy() {
-	const dummy = {
-		_id: Date.now(),
-		name: undefined,
-		date: undefined,
-		img: undefined,
-		owner: undefined
-	}
+  const dummy = {
+    _id: Math.random(),
+    name: undefined,
+    date: undefined,
+    img: undefined,
+    owner: undefined,
+  }
 
-	return dummy
+  return dummy
 }

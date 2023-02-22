@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { ArgoContext } from '../../context/ArgoContext'
-import Modal from '../Modal/Modal'
+import CatModal from '../CatModal/CatModal'
 
 const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 	const { removeArgonaut, updateArgonaut } = useContext(ArgoContext)
@@ -34,25 +34,25 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 
 	if(!argonaut.name) {
 		return (
-			<tr key={argonaut._id} className="__empty">
-				<td />
-				<td />
-				<td />
-				<td>
-					<button className="btn-floating btn-large">
-						<i className="material-icons">adb</i>
-					</button>
-				</td>
-				<td>
-					<button className="btn">
-						<i className="small material-icons">edit</i>
-					</button>
-					<button className="btn">
-						<i className="small material-icons">delete</i>
-					</button>
-				</td>
-			</tr>
-		)
+      <tr key={argonaut._id} className="__empty">
+        <td />
+        <td />
+        <td className="hide-on-small-only" />
+        <td>
+          <button className="btn-floating btn-large">
+            <i className="material-icons">adb</i>
+          </button>
+        </td>
+        <td>
+          <button className="btn">
+            <i className="small material-icons">edit</i>
+          </button>
+          <button className="btn">
+            <i className="small material-icons">delete</i>
+          </button>
+        </td>
+      </tr>
+    )
 	}
 
 	return (
@@ -70,7 +70,7 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 			</td>
 			<td className="hide-on-small-only">{new Date(argonaut.date).toLocaleDateString()}</td>
 			<td>
-				<Modal name={argonaut.name} img={argonaut.img}/>
+				<CatModal name={argonaut.name} img={argonaut.img}/>
 			</td>
 			<td>
 				{ !selected

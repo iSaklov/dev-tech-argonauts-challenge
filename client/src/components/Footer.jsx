@@ -8,7 +8,7 @@ export const Footer = () => {
 	return (
 		<footer className="">
   		<p>Réalisé par Jason en Anthestérion de l'an 515 avant JC.</p>
-			<p>Révisé par iSaklov à Paris 2022. Aucun droit n'est résérvé ©</p>
+			<p>Révisé par iSaklov à Paris 2023. Aucun droit n'est résérvé ©</p>
 			<div className="__footer-links">
 			<a href="https://www.linkedin.com/in/aleh-smaliakou/" target="_blank" rel="nofollow noopener noreferrer">
 				<img src={linkedinIcon} alt="linkedin-logo" className="__footer-link __bg-color-filter" />

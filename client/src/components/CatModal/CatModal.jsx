@@ -1,9 +1,9 @@
 import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import PlaceholderImage from '../../img/giphy.webp'
-import classes from './Modal.module.css'
+import classes from './CatModal.module.css'
 
-export default class Modal extends React.Component {
+export default class CatModal extends React.Component {
 	state = {
 		isOpen: false
 	}

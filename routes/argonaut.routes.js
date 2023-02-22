@@ -54,7 +54,6 @@ class ArgoService {
 router.post('/add', auth, async (req, res) => {
   try {
     const { name, uniqueImg } = req.body
-    console.log('uniqueImg', uniqueImg)
     const owner = req.user.userId
 
     const existing = await Argonaut.findOne({ name, owner })

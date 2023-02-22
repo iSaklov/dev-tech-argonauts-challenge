@@ -11,7 +11,8 @@ export default class MySelect extends Component {
   }
 
 	componentDidMount(){
-		M.AutoInit()
+		const select = document.querySelectorAll('select')
+		M.FormSelect.init(select)
 	}
 
 	onChange(event) {

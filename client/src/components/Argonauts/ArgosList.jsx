@@ -1,44 +1,70 @@
-import React, { useContext, useEffect } from 'react'
-// import { TransitionGroup, CSSTransition } from "react-transition-group"
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { ArgoContext } from '../../context/ArgoContext'
+import { Loader } from '../Loader'
+import EmptyList from './EmptyList'
 import DeleteAllArgos from './DeleteAllArgos'
 import ArgoItem from './ArgoItem'
 import Pagination from '../../components/UI/pagination/Pagination'
 import getDummy from '../../utils/dummy'
-import { Loader } from '../Loader'
 
-const ArgosList = ({ argonauts, setArgonauts, page, numPerPage, totalPages, changePage, onDeleteAll }) => {
-  const { loading } = useContext(ArgoContext)
+const ArgosList = ({
+  argonauts,
+  setArgonauts,
+  page,
+  numPerPage,
+  totalPages,
+  changePage,
+  onDeleteAll,
+}) => {
+  const { loading, renderReady } = useContext(ArgoContext)
 
-	useEffect(() => {
-		// fills the Argonauts array with Dummy's to ensure the same indentation from the Pagination
-		if(argonauts.length && argonauts.length < numPerPage && page === totalPages) {
-			for(let i = argonauts.length; i < numPerPage; i++) {
-				setArgonauts([...argonauts, getDummy()])
-			}
-		}
-	}, [argonauts, setArgonauts, numPerPage, page, totalPages])
+  const btnBlocker = () => {
+    const buttons = document.querySelectorAll('.__btn-blocked')
+    for (const btn of buttons) {
+      btn.classList.toggle('__button-disabler')
+    }
+  }
 
-	const btnBlocker = () => {
-		const buttons = document.querySelectorAll('.__btn-blocked')
-		for(const btn of buttons) {
-			btn.classList.toggle('__button-disabler')
-		}
-	}
+  const dummiesArray = useCallback(() => {
+    const dummies = []
+    for (let i = argonauts.length; i < numPerPage; i++) {
+      dummies.push(getDummy())
+    }
+    return dummies
+  }, [argonauts, numPerPage])
 
-  if (loading) {
+  // fills the Argonauts array with Dummy's to ensure the same indentation from the Pagination component
+  useEffect(() => {
+    if (
+      argonauts.length &&
+      argonauts.length < numPerPage &&
+      page === totalPages
+    ) {
+      setArgonauts([...argonauts, ...dummiesArray()])
+    }
+    if (renderReady && !loading) {
+      console.log('useEffect', argonauts)
+    }
+  }, [
+    argonauts,
+    setArgonauts,
+    numPerPage,
+    page,
+    totalPages,
+    loading,
+    renderReady,
+    dummiesArray
+  ])
+
+  if (loading || !renderReady) {
     return <Loader />
   }
 
-	if (!loading && !argonauts.length) {
-		return (
-			<div className="__empty-list">
-				<p className="container">La liste de membres de l'équipage est vide ou personne n'a été trouvé</p>
-			</div>
-		)
-	}
+  if (!argonauts.length) {
+    return <EmptyList />
+  }
 
-	return (
+  return (
     <div className="container">
       <h5>Membres de l'équipage</h5>
       <table className="centered highlight __argo-table">
@@ -57,6 +83,7 @@ const ArgosList = ({ argonauts, setArgonauts, page, numPerPage, totalPages, chan
           {argonauts.map((argonaut, index) => (
             <ArgoItem
               key={argonaut._id}
+              // key={index}
               argonaut={argonaut}
               index={(page - 1) * numPerPage + index + 1}
               btnBlocker={btnBlocker}

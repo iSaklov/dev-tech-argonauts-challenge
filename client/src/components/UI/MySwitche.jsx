@@ -1,13 +1,23 @@
 import React from 'react'
 
-const MySwitche = ({ switchHandler, ...props }) => {
+const MySwitche = ({ checked, setChecked, ...props }) => {
+
+  const switchHandler = () => {
+    setChecked(!checked)
+  }
+
   return (
     <div className="switch">
+      {props.children}
       <h6>{props.title}</h6>
       <label>
         Non
-        <input type="checkbox" />
-        <span className="lever" onClick={switchHandler.bind(null)}></span>
+        <input
+          type="checkbox"
+          defaultChecked={checked}
+          onChange={switchHandler.bind(null)}
+        />
+        <span className="lever" />
         Oui
       </label>
     </div>

@@ -259,6 +259,21 @@ main .btn-small:hover {
   color: var(--main-color);
 }
 
+/*** UNIQUE IMG MODAL ***/
+.__unique-img-modal .modal-trigger {
+  color: var(--main-color);
+}
+
+.__unique-img-modal .modal-content a  {
+  background-color: var(--main-color);
+}
+
+.__unique-img-modal .modal-content .__warning  {
+  color: var(--palatinate-purple);
+  background-color: #ffee58;
+  border-radius: 2px;
+}
+
 /*** DELETE ALL MODAL ***/
 .__delele-all-modal {
   background-color: var(--main-bg-color);

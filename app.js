@@ -23,7 +23,7 @@ const PORT = config.get('port') || 5000
 async function start() {
 	mongoose.set('strictQuery', true)
 	try {
-		await mongoose.connect(config.get('mongoUri'), {
+			mongoose.connect(config.get('mongoUri'), {
 			dbName: 'the-argos-DB',
 			useNewUrlParser: true,
 			useUnifiedTopology: true

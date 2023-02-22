@@ -12,21 +12,24 @@ import { getTotalPages } from '../utils/pages'
 
 export const HomePage = () => {
   const { token } = useContext(AuthContext)
-  const { loading, request, error, clearError } = useHttp()
+  const { loading, setLoading, request, error, clearError } = useHttp()
   const message = useMessage()
   const [argonauts, setArgonauts] = useState([])
   const [filter, setFilter] = useState({ query: '', sort: '' })
   const [page, setPage] = useState(1)
-  const [totalArgonauts, setTotalArgonauts] = useState()
-  const [totalPages, setTotalPages] = useState()
+  const [totalArgonauts, setTotalArgonauts] = useState(0)
+  const [totalPages, setTotalPages] = useState(0)
   const [numPerPage, setNumPerPage] = useState(10)
   const [boarding, setBoarding] = useState(false)
   const [uniqueImg, setUniqueImg] = useState(false)
+  // necessary to avoid EMPTY LIST rendering since the initial argonauts state [ ]
+  const [renderReady, setRenderReady] = useState(false)
 
   const fetchArgonauts = useCallback(
     async (page, numPerPage, query, sort) => {
       try {
-        // Make sure you send 'page' as query parameters to your node.js server
+        console.log('FECTHING')
+        setRenderReady(false)
         const data = await request(
           `/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${query}&sort=${sort}`,
           'GET',
@@ -37,7 +40,10 @@ export const HomePage = () => {
         )
         setArgonauts(data.argonauts)
         setTotalArgonauts(data.size)
-      } catch (e) {}
+      } catch (e) {
+      } finally {
+        setRenderReady(true)
+      }
     },
     [token, request]
   )
@@ -104,6 +110,15 @@ export const HomePage = () => {
     [numPerPage, filter.query, filter.sort, fetchArgonauts]
   )
 
+  const pagination = useCallback(() => {
+    console.log('PAGINATION')
+    setTotalPages(getTotalPages(totalArgonauts, numPerPage))
+    console.log('TOTAL PAGES', totalPages)
+    if (page > totalPages && page !== 1) {
+      setPage(page - 1)
+    }
+  }, [totalArgonauts, numPerPage, page, totalPages])
+
   useEffect(() => {
     message(error)
     clearError()
@@ -111,32 +126,28 @@ export const HomePage = () => {
 
   useEffect(() => {
     fetchArgonauts(page, numPerPage, filter.query, filter.sort)
-  }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts])
-
-  useEffect(() => {
-    setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-    if (page > totalPages && page !== 1) {
-      setPage(page - 1)
-    }
-  }, [totalArgonauts, numPerPage, page, totalPages])
-
-  useEffect(() => {
-    console.log('uniqueImg', uniqueImg)
-  }, [uniqueImg])
+    pagination()
+  }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts, pagination])
 
   return (
     <ArgoContext.Provider
-      value={{ loading, boarding, updateArgonaut, removeArgonaut }}
+      value={{
+        loading,
+        setLoading,
+        boarding,
+        setBoarding,
+        uniqueImg,
+        setUniqueImg,
+        addArgonaut,
+        updateArgonaut,
+        removeArgonaut,
+        renderReady,
+        setRenderReady,
+      }}
     >
       <main>
         <>
-          <ArgoModal
-            onCreate={addArgonaut}
-            boarding={boarding}
-            setBoarding={setBoarding}
-            uniqueImg={uniqueImg} 
-            setUniqueImg={setUniqueImg}
-          />
+          <ArgoModal />
           {!boarding && (
             <>
               <ArgoFilter

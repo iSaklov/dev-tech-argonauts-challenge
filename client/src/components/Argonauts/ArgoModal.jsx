@@ -1,4 +1,5 @@
-import React, { useEffect, useState }from 'react'
+import React, { useContext, useEffect, useState }from 'react'
+import { ArgoContext } from '../../context/ArgoContext'
 import AddArgo from './AddArgo'
 import MyRange from '../UI/MyRange'
 import CatLoader from '../UI/loader/catLoader/CatLoader'
@@ -6,7 +7,9 @@ import { useMessage } from '../../hooks/message.hook'
 import { generateName } from '../../utils/names'
 import M from "materialize-css"
 
-const ArgoModal = ({ onCreate, boarding, setBoarding, uniqueImg, setUniqueImg }) => {
+const ArgoModal = () => {
+  const { addArgonaut, boarding, setBoarding, uniqueImg, setUniqueImg } =
+    useContext(ArgoContext)
 	const [value, setValue] = useState(25)
 	const message = useMessage()
 
@@ -39,12 +42,10 @@ const ArgoModal = ({ onCreate, boarding, setBoarding, uniqueImg, setUniqueImg })
 		const promisesArray = []
 
 		for(let i = 0; i < amount; i++) {
-			// promisesArray.push(onCreate(generateName(), true))
-			promisesArray[i] = await onCreate(generateName(), uniqueImg)
-			console.log(`promisesArray ${i}`, promisesArray[i])
-		}
-
-		console.log('promisesArray', promisesArray)
+      // promisesArray.push(addArgonaut(generateName(), uniqueImg))
+      promisesArray[i] = await addArgonaut(generateName(), uniqueImg)
+      // console.log(`promisesArray ${i}`, promisesArray[i])
+    }
 
 		Promise.all(promisesArray)
       .then((result) => {
@@ -68,24 +69,31 @@ const ArgoModal = ({ onCreate, boarding, setBoarding, uniqueImg, setUniqueImg })
 	}
 
 	return (
-		<div id="addModal" className="modal">
-			<div className="modal-content">
-				<AddArgo onCreate={onCreate} uniqueImg={uniqueImg} setUniqueImg={setUniqueImg} />
-				<p>Ou opter pour une génération automatique de membres d'équipage</p>
-				<p>Cela peut prendre quelques minutes. Veuillez de ne pas interrompre l'embarquement </p>
-				<MyRange value={value} onChange={onChange} min={0} max={100}/>
-			</div>
-			<div className="modal-footer">
-				<a
-					href="#!"
-					className="modal-close waves-effect waves-light btn"
-					onClick={generateArgos.bind(null, value)}
-				>
-					C'est parti !
-				</a>
-			</div>
-		</div>
-	)
+    <div id="addModal" className="modal">
+      <div className="modal-content">
+        <AddArgo
+          addArgonaut={addArgonaut}
+          uniqueImg={uniqueImg}
+          setUniqueImg={setUniqueImg}
+        />
+        <p>Ou opter pour une génération automatique de membres d'équipage</p>
+        <p>
+          Cela peut prendre quelques minutes. Veuillez de ne pas interrompre
+          l'embarquement{' '}
+        </p>
+        <MyRange value={value} onChange={onChange} min={0} max={uniqueImg ? 73 : 100} />
+      </div>
+      <div className="modal-footer">
+        <a
+          href="#!"
+          className="modal-close waves-effect waves-light btn"
+          onClick={generateArgos.bind(null, value)}
+        >
+          C'est parti !
+        </a>
+      </div>
+    </div>
+  )
 }
 
 export default ArgoModal

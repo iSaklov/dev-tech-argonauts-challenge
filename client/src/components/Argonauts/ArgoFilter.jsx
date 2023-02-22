@@ -28,7 +28,7 @@ const ArgoFilter = ({ filter, setFilter, numPerPage, setNumPerPage }) => {
           options={[
             { value: '', name: 'plus récents' },
             { value: 'name', name: 'nom' },
-            { value: 'date', name: 'date croissantes' },
+            { value: 'date', name: 'date croissante' },
           ]}
           label="Trier par"
         />
