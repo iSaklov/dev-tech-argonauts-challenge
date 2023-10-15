@@ -1,40 +1,29 @@
-import React, { useContext, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { AuthContext } from "../context/AuthContext"
+import React, { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 import CatHead from '../components/UI/cat/CatHead'
-import M from "materialize-css"
+import AnimatedLogo from './AnimatedLogo'
+import M from 'materialize-css'
 
 export const Navbar = () => {
+  const auth = useContext(AuthContext)
+  const navigate = useNavigate()
 
-	const auth = useContext(AuthContext)
-	const navigate = useNavigate()
+  const logoutHandler = (event) => {
+    event.preventDefault()
+    auth.logout()
+    navigate('/login')
+  }
 
-	const logoutHandler = event => {
-		event.preventDefault()
-		auth.logout()
-		navigate('/login')
-	}
-
-	useEffect(() => {
+  useEffect(() => {
     const sidenav = document.querySelector('.sidenav')
     M.Sidenav.init(sidenav, { edge: 'right' })
   }, [])
 
-	return (
+  return (
     <nav>
       <div className="nav-wrapper">
-        <a
-          className="brand-logo"
-          href="https://www.wildcodeschool.com/fr-FR"
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-        >
-          <img
-            src="https://www.wildcodeschool.com/assets/logo_main-e4f3f744c8e717f1b7df3858dce55a86c63d4766d5d9a7f454250145f097c2fe.png"
-            alt="Wild Code School logo"
-            style={{ maxWidth: '96px' }}
-          />
-        </a>
+        <AnimatedLogo />
         <a href="/" data-target="mobile-demo" className="sidenav-trigger">
           <i className="material-icons">menu</i>
         </a>
@@ -59,11 +48,7 @@ export const Navbar = () => {
           </a>
         </li>
         <li>
-          <a
-            className="sidenav-close"
-            href="/login"
-            onClick={logoutHandler}
-          >
+          <a className="sidenav-close" href="/login" onClick={logoutHandler}>
             Se deconnecter
           </a>
         </li>

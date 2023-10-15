@@ -113,14 +113,14 @@ export const AuthPage = () => {
               <button
                 className="btn waves-effect waves-light col s6 offset-m2 m4 offset-l3 l3"
                 onClick={loginHandler}
-                disabled={loading}
+                // disabled={loading}
               >
                 Se connecter
               </button>
               <button
                 className="btn waves-effect waves-light col s6 m4 l3"
                 onClick={registerHandler}
-                disabled={loading}
+                // disabled={loading}
               >
                 Créer un compte
               </button>

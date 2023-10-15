@@ -26,10 +26,10 @@ export const HomePage = () => {
   const [renderReady, setRenderReady] = useState(false)
 
   const fetchArgonauts = useCallback(
-    async (page, numPerPage, query, sort) => {
+    async (page, numPerPage, query, sort, ignore) => {
       try {
         console.log('FECTHING')
-        setRenderReady(false)
+
         const data = await request(
           `/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${query}&sort=${sort}`,
           'GET',
@@ -38,8 +38,13 @@ export const HomePage = () => {
             Authorization: `Bearer ${token}`,
           }
         )
-        setArgonauts(data.argonauts)
-        setTotalArgonauts(data.size)
+        if (!ignore) {
+          setArgonauts(data.argonauts)
+          setTotalArgonauts(data.size)
+
+          setTotalPages(getTotalPages(data.size, numPerPage))
+          console.log('!ignore')
+        }
       } catch (e) {
       } finally {
         setRenderReady(true)
@@ -124,10 +129,20 @@ export const HomePage = () => {
     clearError()
   }, [error, message, clearError])
 
+  // useEffect(() => {
+  //   fetchArgonauts(page, numPerPage, filter.query, filter.sort)
+  //   pagination()
+  // }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts, pagination])
+
   useEffect(() => {
-    fetchArgonauts(page, numPerPage, filter.query, filter.sort)
-    pagination()
-  }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts, pagination])
+    let ignore = false
+    fetchArgonauts(page, numPerPage, filter.query, filter.sort, ignore)
+    // https://blog.andrewmmc.com/fetch-data-with-loading-and-error-state-in-react-hooks-a341706a6ffe
+    return () => {
+      ignore = true
+    }
+  }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts])
+
 
   return (
     <ArgoContext.Provider

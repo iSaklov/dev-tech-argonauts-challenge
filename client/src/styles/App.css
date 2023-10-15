@@ -144,6 +144,12 @@ nav {
   user-select: none;
 }
 
+nav .nav-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 nav a,
 nav ul a {
   color: var(--main-color);
@@ -152,6 +158,7 @@ nav ul a {
 nav .hide-on-med-and-down,
 nav .sidenav-trigger {
   position: absolute;
+	top: 0;
   right: 0;
 }
 
@@ -171,6 +178,118 @@ nav .sidenav li:last-child {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
+}
+
+/********** Wild School Logo **********/
+.header__logo {
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+}
+
+.header-logo-link {
+  width: 139px;
+  height: 45px;
+}
+
+.animated-shape {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.logo-changer {
+  fill: #212121;
+  transition: fill 0.75s ease-in-out;
+}
+
+.animated-shape .line {
+  stroke-width: 3.5;
+  transition: stroke-dashoffset 0.75s ease-in-out,
+    stroke-dasharray 0.75s ease-in-out;
+}
+
+.animated-shape .line.yellow-upper-mid-right {
+  stroke-dasharray: 85 89;
+  stroke-dashoffset: 89;
+}
+
+.animated-shape .line.purple-bottom {
+  stroke-dasharray: 51 55;
+  stroke-dashoffset: 55;
+}
+
+.animated-shape .line.purple-left {
+  stroke-dasharray: 20 24;
+  stroke-dashoffset: 24;
+}
+
+.animated-shape .line.yellow-upper-left,
+.animated-shape .line.green-upper-left {
+  stroke-dasharray: 50 54;
+  stroke-dashoffset: 54;
+}
+
+.animated-shape .line.green-upper-right {
+  stroke-dasharray: 50 54;
+  stroke-dashoffset: 54;
+}
+
+.animated-shape .line.blue-upper-right {
+  stroke-dasharray: 40 44;
+  stroke-dashoffset: 44;
+}
+
+.animated-shape .line.green-upper-mid,
+.animated-shape .line.yellow-upper-mid {
+  stroke-dasharray: 85 89;
+  stroke-dashoffset: 89;
+}
+
+.show-for-sr {
+  border: 0 !important;
+  clip: rect(0, 0, 0, 0) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
+}
+
+/* :hover animation */
+.header-logo-link:hover .logo-changer {
+	fill: var(--main-color);
+}
+
+.header-logo-link:hover .animated-shape .line.yellow-upper-mid-right {
+  stroke-dashoffset: 0;
+}
+
+.header-logo-link:hover .animated-shape .line.purple-bottom {
+  stroke-dashoffset: 0;
+}
+
+.header-logo-link:hover .animated-shape .line.purple-left {
+  stroke-dashoffset: 0;
+}
+
+.header-logo-link:hover .animated-shape .line.yellow-upper-left,
+.header-logo-link:hover .animated-shape .line.green-upper-left {
+  stroke-dashoffset: 0;
+}
+
+.header-logo-link:hover .animated-shape .line.green-upper-right {
+  stroke-dashoffset: 0;
+}
+
+.header-logo-link:hover .animated-shape .line.blue-upper-right {
+  stroke-dashoffset: 0;
+}
+
+.header-logo-link:hover .animated-shape .line.green-upper-mid,
+.header-logo-link:hover .animated-shape .line.yellow-upper-mid {
+  stroke-dashoffset: 0;
 }
 
 /********** MAIN **********/
@@ -264,11 +383,11 @@ main .btn-small:hover {
   color: var(--main-color);
 }
 
-.__unique-img-modal .modal-content a  {
+.__unique-img-modal .modal-content a {
   background-color: var(--main-color);
 }
 
-.__unique-img-modal .modal-content .__warning  {
+.__unique-img-modal .modal-content .__warning {
   color: var(--palatinate-purple);
   background-color: #ffee58;
   border-radius: 2px;

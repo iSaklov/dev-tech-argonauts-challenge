@@ -16,7 +16,7 @@ const ArgosList = ({
   changePage,
   onDeleteAll,
 }) => {
-  const { loading, renderReady } = useContext(ArgoContext)
+  const { loading } = useContext(ArgoContext)
 
   const btnBlocker = () => {
     const buttons = document.querySelectorAll('.__btn-blocked')
@@ -42,8 +42,15 @@ const ArgosList = ({
     ) {
       setArgonauts([...argonauts, ...dummiesArray()])
     }
-    if (renderReady && !loading) {
-      console.log('useEffect', argonauts)
+    if (!loading) {
+      console.log('!loading')
+      // console.log('useEffect', !!argonauts)
+      // console.log('DATA', !!data)
+      // console.log('!argonauts.length', argonauts.length)
+    }
+    if (loading) {
+      console.log('loading')
+      console.log('data', !argonauts)
     }
   }, [
     argonauts,
@@ -52,11 +59,13 @@ const ArgosList = ({
     page,
     totalPages,
     loading,
-    renderReady,
-    dummiesArray
+    dummiesArray,
   ])
 
-  if (loading || !renderReady) {
+  // if (loading && !data) {
+  //   return <Loader />
+  // }
+  if (loading && !argonauts) {
     return <Loader />
   }
 
