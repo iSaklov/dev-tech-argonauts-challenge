@@ -1,11 +1,11 @@
-import { Error } from "mongoose"
-import { useState, useCallback } from "react"
+import { Error } from 'mongoose'
+import { useState, useCallback } from 'react'
 
 export const useHttp = () => {
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-	const request = useCallback(
+  const request = useCallback(
     async (url, method = 'GET', body = null, headers = {}) => {
       if (!url) {
         throw new Error('URL is required')
@@ -38,7 +38,7 @@ export const useHttp = () => {
     []
   )
 
-	const clearError = useCallback(() => setError(null), [])
+  const clearError = useCallback(() => setError(null), [])
 
-	return { loading, setLoading, request, error, clearError }
+  return { loading, setLoading, request, error, clearError }
 }

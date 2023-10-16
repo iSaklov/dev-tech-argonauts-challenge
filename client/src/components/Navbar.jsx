@@ -5,7 +5,7 @@ import CatHead from '../components/UI/cat/CatHead'
 import AnimatedLogo from './AnimatedLogo'
 import M from 'materialize-css'
 
-export const Navbar = () => {
+const Navbar = () => {
   const auth = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -59,3 +59,5 @@ export const Navbar = () => {
     </nav>
   )
 }
+
+export default Navbar

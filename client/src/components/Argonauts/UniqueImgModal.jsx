@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import M from 'materialize-css'
 
-const UniqueImgModal = () => {
-  const UNIQUE_IMG_DB_LIMIT = 73
+const UniqueImgInfoModal = () => {
+  const UNIQUE_IMG_DB_LIMIT = 72
+
+  useEffect(() => {
+    const modal = document.querySelector('.__unique-img-modal-info')
+    M.Modal.init(modal)
+  }, [])
 
   return (
     <div className="__unique-img-modal">
       {/* <!-- Modal Trigger --> */}
-      <a className="modal-trigger" href="#modal">
+      <a className="modal-trigger" href="#modal-info">
         plus d'infos
       </a>
 
       {/* <!-- Modal Structure --> */}
-      <div id="modal" className="modal">
+      <div id="modal-info" className="__unique-img-modal-info">
         <div className="modal-content">
           <p>
             Veuillez noter que notre base de donées est limitée par{' '}
@@ -48,4 +54,4 @@ const UniqueImgModal = () => {
   )
 }
 
-export default UniqueImgModal
+export default UniqueImgInfoModal

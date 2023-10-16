@@ -143,7 +143,6 @@ export const HomePage = () => {
     }
   }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts])
 
-
   return (
     <ArgoContext.Provider
       value={{

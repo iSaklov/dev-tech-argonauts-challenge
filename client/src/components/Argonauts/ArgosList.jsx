@@ -1,6 +1,6 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { ArgoContext } from '../../context/ArgoContext'
-import { Loader } from '../Loader'
+import Loader from '../Loader'
 import EmptyList from './EmptyList'
 import DeleteAllArgos from './DeleteAllArgos'
 import ArgoItem from './ArgoItem'

@@ -3,9 +3,9 @@ import MyInput from '../UI/MyIput'
 import MySelect from '../UI/MySelect'
 
 const ArgoFilter = ({ filter, setFilter, numPerPage, setNumPerPage }) => {
-		const clearInput = () => {
-      setFilter({ ...filter, query: '' })
-    }
+  const clearInput = () => {
+    setFilter({ ...filter, query: '' })
+  }
 
   return (
     <div className="row container __argo-filter">

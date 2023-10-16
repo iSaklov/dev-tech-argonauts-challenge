@@ -1,14 +1,12 @@
 import React from 'react'
 
 const MySwitche = ({ checked, setChecked, ...props }) => {
-
   const switchHandler = () => {
     setChecked(!checked)
   }
 
   return (
     <div className="switch">
-      {props.children}
       <h6>{props.title}</h6>
       <label>
         Non

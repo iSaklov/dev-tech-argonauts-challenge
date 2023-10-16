@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Loader = () => (
+const Loader = () => (
   <div className="preloader-wrapper big active">
     <div className="spinner-layer spinner-red-only">
       <div className="circle-clipper left">
@@ -15,3 +15,5 @@ export const Loader = () => (
     </div>
   </div>
 )
+
+export default Loader
