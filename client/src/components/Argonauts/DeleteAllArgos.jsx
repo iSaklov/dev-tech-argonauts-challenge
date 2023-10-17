@@ -19,7 +19,7 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
           <Button flat modal="close" node="button" waves="green">
             Annuler
           </Button>
-        </div>,
+        </div>
       ]}
       bottomSheet={false}
       fixedFooter={false}
@@ -36,7 +36,7 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
         opacity: 0.5,
         outDuration: 250,
         preventScrolling: true,
-        startingTop: '4%',
+        startingTop: '4%'
       }}
       trigger={
         <Button

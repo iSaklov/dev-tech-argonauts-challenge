@@ -19,7 +19,7 @@ class ArgoService {
       case '':
         return Argonaut.find({
           owner,
-          name: { $regex: search, $options: 'i' },
+          name: { $regex: search, $options: 'i' }
         })
           .skip(skip) // Same as before, always use 'skip' first
           .limit(PAGE_SIZE)
@@ -27,7 +27,7 @@ class ArgoService {
       case 'name':
         return Argonaut.find({
           owner,
-          name: { $regex: search, $options: 'i' },
+          name: { $regex: search, $options: 'i' }
         })
           .skip(skip)
           .limit(PAGE_SIZE)
@@ -35,7 +35,7 @@ class ArgoService {
       case 'date':
         return Argonaut.find({
           owner,
-          name: { $regex: search, $options: 'i' },
+          name: { $regex: search, $options: 'i' }
         })
           .skip(skip)
           .limit(PAGE_SIZE)
@@ -46,14 +46,14 @@ class ArgoService {
   getCollectionSize(owner, search = '') {
     return Argonaut.find({
       owner,
-      name: { $regex: search, $options: 'i' },
+      name: { $regex: search, $options: 'i' }
     }).countDocuments()
   }
 }
 
 router.post('/add', auth, async (req, res) => {
   try {
-    const { name, uniqueImg } = req.body
+    const { name, requestUniqueImage } = req.body
     const owner = req.user.userId
 
     const existing = await Argonaut.findOne({ name, owner })
@@ -75,7 +75,7 @@ router.post('/add', auth, async (req, res) => {
         const data = await response.json()
         img = data[0].url
 
-        if (uniqueImg) {
+        if (requestUniqueImage) {
           const existing = await Argonaut.findOne({ img, owner })
 
           if (existing) {
@@ -92,19 +92,19 @@ router.post('/add', auth, async (req, res) => {
     const argonaut = new Argonaut({
       name,
       img,
-      owner,
+      owner
     })
 
     await argonaut.save()
 
     res.status(201).json({
       argonaut,
-      message: `${name} embarqué avec succès !`,
+      message: `${name} embarqué avec succès !`
     })
   } catch (e) {
     res.status(500).json({
       message: `${req.body.name} n'a pas pu être embarqué`,
-      error: e,
+      error: e
     })
   }
 })
@@ -138,12 +138,12 @@ router.get('/', auth, async (req, res) => {
     // res.status(200).json(argonauts)
     res.status(200).json({
       argonauts: argonauts,
-      size: size,
+      size: size
     })
   } catch (e) {
     res.status(500).json({
       message: 'Quelque chose tourne mal, veuillez rafraîchir la page',
-      error: e,
+      error: e
     })
   }
 })
@@ -167,19 +167,19 @@ router.put('/:id', auth, async (req, res) => {
       _id: req.params.id,
       name: newName,
       // imageUrl: req.body.imageUrl,
-      owner: req.user.userId,
+      owner: req.user.userId
     })
 
     await Argonaut.updateOne({ _id: req.params.id }, argonaut)
 
     res.status(201).json({
       argonaut,
-      message: `L'argonaute porte désormais le nom ${newName} !`,
+      message: `L'argonaute porte désormais le nom ${newName} !`
     })
   } catch (e) {
     res.status(500).json({
       message: `L'argonaute n'a pas pu être modifié`,
-      error: e,
+      error: e
     })
   }
 })
@@ -188,12 +188,12 @@ router.delete('/', auth, async (req, res) => {
   try {
     await Argonaut.deleteMany({ owner: req.user.userId })
     res.status(200).json({
-      message: 'Tous les argonautes ont été débarqués!',
+      message: 'Tous les argonautes ont été débarqués!'
     })
   } catch (e) {
     res.status(500).json({
       message: "Les argonautes n'ont pas pu être débarqués",
-      error: e,
+      error: e
     })
   }
 })
@@ -203,12 +203,12 @@ router.delete('/:id', auth, async (req, res) => {
     const argonaut = await Argonaut.findById({ _id: req.params.id })
     await Argonaut.deleteOne({ _id: req.params.id })
     res.status(200).json({
-      message: `${argonaut.name} a été débarqué avec succès !`,
+      message: `${argonaut.name} a été débarqué avec succès !`
     })
   } catch (e) {
     res.status(500).json({
       message: `L'argonaute n\'a pas pu être débarqué`,
-      error: e,
+      error: e
     })
   }
 })

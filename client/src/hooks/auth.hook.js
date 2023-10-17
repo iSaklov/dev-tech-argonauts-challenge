@@ -15,7 +15,7 @@ export const useAuth = () => {
       storageName,
       JSON.stringify({
         userId: id,
-        token: jwtToken,
+        token: jwtToken
       })
     )
   }, [])

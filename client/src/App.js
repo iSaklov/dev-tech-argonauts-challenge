@@ -25,7 +25,7 @@ function App() {
         userId,
         login,
         logout,
-        isAuthenticated,
+        isAuthenticated
       }}
     >
       <BrowserRouter>

@@ -14,7 +14,7 @@ router.post(
     check(
       'password',
       'Le mot de passe doit comprendre au moins 8 caractères'
-    ).isLength({ min: 8 }),
+    ).isLength({ min: 8 })
   ],
   async (req, res) => {
     try {
@@ -23,7 +23,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: errors.errors[0].msg,
+          message: errors.errors[0].msg
         })
       }
 
@@ -42,22 +42,18 @@ router.post(
       await user.save()
 
       const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {
-        expiresIn: '1h',
+        expiresIn: '1h'
       })
 
-      res
-        .status(201)
-        .json({
-          token,
-          userId: user.id,
-          message: 'Nouvel argonaute a été embarqué avec succès',
-        })
+      res.status(201).json({
+        token,
+        userId: user.id,
+        message: 'Nouvel argonaute a été embarqué avec succès'
+      })
     } catch (e) {
-      res
-        .status(500)
-        .json({
-          message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement',
-        })
+      res.status(500).json({
+        message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement'
+      })
     }
   }
 )
@@ -69,7 +65,7 @@ router.post(
     check('email', 'Veuillez saisir un email correcte')
       .normalizeEmail()
       .isEmail(),
-    check('password', 'Veuillez saisir votre mot de passe').exists(),
+    check('password', 'Veuillez saisir votre mot de passe').exists()
   ],
   async (req, res) => {
     try {
@@ -78,7 +74,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: errors.errors[0].msg,
+          message: errors.errors[0].msg
         })
       }
 
@@ -94,29 +90,25 @@ router.post(
       const isMatch = await bcrypt.compare(password, user.password)
 
       if (!isMatch) {
-        return res
-          .status(401)
-          .json({
-            message:
-              "Nous n'arrivons pas à vous identifier, veuillez essayer encore",
-          })
+        return res.status(401).json({
+          message:
+            "Nous n'arrivons pas à vous identifier, veuillez essayer encore"
+        })
       }
 
       const token = jwt.sign({ userId: user.id }, config.get('jwtSecret'), {
-        expiresIn: '1h',
+        expiresIn: '1h'
       })
 
       res.json({
         token,
         userId: user.id,
-        message: 'Vous vous êtes connecté avec succès',
+        message: 'Vous vous êtes connecté avec succès'
       })
     } catch (e) {
-      res
-        .status(500)
-        .json({
-          message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement',
-        })
+      res.status(500).json({
+        message: 'Quelque chose ne va pas, veuillez réessayer ultérieurement'
+      })
     }
   }
 )

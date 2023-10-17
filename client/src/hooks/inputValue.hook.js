@@ -6,9 +6,9 @@ export const useInputValue = (defaultValue = '') => {
   return {
     bind: {
       value,
-      onChange: (event) => setValue(event.target.value),
+      onChange: (event) => setValue(event.target.value)
     },
     clear: () => setValue(''),
-    value: () => value,
+    value: () => value
   }
 }

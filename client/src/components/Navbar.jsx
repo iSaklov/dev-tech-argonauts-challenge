@@ -29,7 +29,7 @@ const Navbar = () => {
         </a>
         <ul className="hide-on-med-and-down">
           <li>
-            <a className="modal-trigger" href="#addModal">
+            <a className="modal-trigger" href="#addArgoModal">
               Ajout des argonauts
             </a>
           </li>
@@ -43,7 +43,7 @@ const Navbar = () => {
 
       <ul className="sidenav" id="mobile-demo">
         <li>
-          <a className="modal-trigger sidenav-close" href="#addModal">
+          <a className="modal-trigger sidenav-close" href="#addArgoModal">
             Ajout des argonauts
           </a>
         </li>

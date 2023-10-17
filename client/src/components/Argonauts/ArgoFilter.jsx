@@ -11,10 +11,10 @@ const ArgoFilter = ({ filter, setFilter, numPerPage, setNumPerPage }) => {
     <div className="row container __argo-filter">
       <div className="input-field col s6 m4">
         <MyInput
-          clearInput={clearInput}
           type="search"
           value={filter.query}
           onChange={(e) => setFilter({ ...filter, query: e.target.value })}
+          clearInput={clearInput}
           label="Recherche"
           icon="clear"
         />
@@ -28,7 +28,7 @@ const ArgoFilter = ({ filter, setFilter, numPerPage, setNumPerPage }) => {
           options={[
             { value: '', name: 'plus récents' },
             { value: 'name', name: 'nom' },
-            { value: 'date', name: 'date croissante' },
+            { value: 'date', name: 'date croissante' }
           ]}
           label="Trier par"
         />
@@ -40,7 +40,7 @@ const ArgoFilter = ({ filter, setFilter, numPerPage, setNumPerPage }) => {
           options={[
             { value: 10, name: '10' },
             { value: 25, name: '25' },
-            { value: 50, name: '50' },
+            { value: 50, name: '50' }
           ]}
           label="Nombre par page"
         />

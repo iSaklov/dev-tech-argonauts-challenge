@@ -4,47 +4,41 @@ import { AuthContext } from '../context/AuthContext'
 import { ArgoContext } from '../context/ArgoContext'
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
-// import { Loader } from '../components/Loader'
-import ArgoFilter from '../components/Argonauts/ArgoFilter'
+import Loader from '../components/Loader'
+
 import ArgosList from '../components/Argonauts/ArgosList'
 import ArgoModal from '../components/Argonauts/ArgoModal'
-import { getTotalPages } from '../utils/pages'
+import { calcTotalPages } from '../utils/pages'
 
 export const HomePage = () => {
   const { token } = useContext(AuthContext)
   const { loading, setLoading, request, error, clearError } = useHttp()
   const message = useMessage()
   const [argonauts, setArgonauts] = useState([])
-  const [filter, setFilter] = useState({ query: '', sort: '' })
-  const [page, setPage] = useState(1)
   const [totalArgonauts, setTotalArgonauts] = useState(0)
+  const [filter, setFilter] = useState({ query: '', sort: '' })
+  const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
   const [numPerPage, setNumPerPage] = useState(10)
   const [boarding, setBoarding] = useState(false)
-  const [uniqueImg, setUniqueImg] = useState(false)
-  // necessary to avoid EMPTY LIST rendering since the initial argonauts state [ ]
+  const [isUniqueImage, setIsUniqueImage] = useState(false)
   const [renderReady, setRenderReady] = useState(false)
 
   const fetchArgonauts = useCallback(
-    async (page, numPerPage, query, sort, ignore) => {
+    async (currentPage, numPerPage, query, sort) => {
       try {
-        console.log('FECTHING')
+        console.log('fetchArgonauts')
 
         const data = await request(
-          `/api/argonaut?page=${page}&numperpage=${numPerPage}&search=${query}&sort=${sort}`,
+          `/api/argonaut?page=${currentPage}&numperpage=${numPerPage}&search=${query}&sort=${sort}`,
           'GET',
           null,
           {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`
           }
         )
-        if (!ignore) {
-          setArgonauts(data.argonauts)
-          setTotalArgonauts(data.size)
-
-          setTotalPages(getTotalPages(data.size, numPerPage))
-          console.log('!ignore')
-        }
+        setArgonauts(data.argonauts)
+        setTotalArgonauts(data.size)
       } catch (e) {
       } finally {
         setRenderReady(true)
@@ -53,17 +47,18 @@ export const HomePage = () => {
     [token, request]
   )
 
-  const addArgonaut = async (name, uniqueImg = false) => {
+  const addArgonaut = async (name, requestUniqueImage = false) => {
     try {
       const data = await request(
         '/api/argonaut/add',
         'POST',
-        { name, uniqueImg },
+        { name, requestUniqueImage },
         {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         }
       )
       changePage(1) // returns to the first page when adding a new element
+      // setCurrentPage(1)
       message(data.message)
     } catch (e) {}
   }
@@ -75,7 +70,7 @@ export const HomePage = () => {
         'PUT',
         { newName },
         {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         }
       )
       setArgonauts(
@@ -90,7 +85,7 @@ export const HomePage = () => {
   const removeAllArgonauts = async () => {
     try {
       const data = await request(`api/argonaut/`, 'DELETE', null, {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       })
       changePage(1)
       message(data.message)
@@ -100,48 +95,38 @@ export const HomePage = () => {
   const removeArgonaut = async (id) => {
     try {
       const data = await request(`api/argonaut/${id}`, 'DELETE', null, {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       })
-      changePage(page)
+      setArgonauts(argonauts.filter((argo) => argo._id !== id))
       message(data.message)
     } catch (e) {}
   }
 
-  const changePage = useCallback(
-    (page) => {
-      setPage(page)
-      fetchArgonauts(page, numPerPage, filter.query, filter.sort)
-    },
-    [numPerPage, filter.query, filter.sort, fetchArgonauts]
-  )
-
-  const pagination = useCallback(() => {
-    console.log('PAGINATION')
-    setTotalPages(getTotalPages(totalArgonauts, numPerPage))
-    console.log('TOTAL PAGES', totalPages)
-    if (page > totalPages && page !== 1) {
-      setPage(page - 1)
-    }
-  }, [totalArgonauts, numPerPage, page, totalPages])
+  const changePage = (page) => {
+    setCurrentPage(page)
+  }
 
   useEffect(() => {
     message(error)
     clearError()
   }, [error, message, clearError])
 
-  // useEffect(() => {
-  //   fetchArgonauts(page, numPerPage, filter.query, filter.sort)
-  //   pagination()
-  // }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts, pagination])
+  useEffect(() => {
+    setTotalPages(calcTotalPages(totalArgonauts, numPerPage))
+  }, [totalArgonauts, numPerPage])
 
   useEffect(() => {
-    let ignore = false
-    fetchArgonauts(page, numPerPage, filter.query, filter.sort, ignore)
-    // https://blog.andrewmmc.com/fetch-data-with-loading-and-error-state-in-react-hooks-a341706a6ffe
-    return () => {
-      ignore = true
-    }
-  }, [page, numPerPage, filter.query, filter.sort, fetchArgonauts])
+    fetchArgonauts(currentPage, numPerPage, filter.query, filter.sort)
+  }, [currentPage, numPerPage, filter.query, filter.sort, fetchArgonauts])
+
+  // useEffect(() => {
+  //   let ignore = false
+  //   fetchArgonauts(currentPage, numPerPage, filter.query, filter.sort, ignore)
+  //   // https://blog.andrewmmc.com/fetch-data-with-loading-and-error-state-in-react-hooks-a341706a6ffe
+  //   return () => {
+  //     ignore = true
+  //   }
+  // }, [currentPage, numPerPage, filter.query, filter.sort, fetchArgonauts])
 
   return (
     <ArgoContext.Provider
@@ -150,36 +135,37 @@ export const HomePage = () => {
         setLoading,
         boarding,
         setBoarding,
-        uniqueImg,
-        setUniqueImg,
+        isUniqueImage,
+        setIsUniqueImage,
         addArgonaut,
         updateArgonaut,
         removeArgonaut,
         renderReady,
-        setRenderReady,
+        setRenderReady
       }}
     >
       <main>
         <>
           <ArgoModal />
-          {!boarding && (
+          {!boarding && renderReady ? (
             <>
-              <ArgoFilter
-                filter={filter}
-                setFilter={setFilter}
-                numPerPage={numPerPage}
-                setNumPerPage={setNumPerPage}
-              />
               <ArgosList
                 argonauts={argonauts}
                 setArgonauts={setArgonauts}
-                page={page}
+                currentPage={currentPage}
+                setTotalPages={setTotalPages}
                 numPerPage={numPerPage}
+                setNumPerPage={setNumPerPage}
                 totalPages={totalPages}
                 changePage={changePage}
                 onDeleteAll={removeAllArgonauts}
+                totalArgonauts={totalArgonauts}
+                filter={filter}
+                setFilter={setFilter}ƒ
               />
             </>
+          ) : boarding ? null : (
+            <Loader />
           )}
         </>
       </main>

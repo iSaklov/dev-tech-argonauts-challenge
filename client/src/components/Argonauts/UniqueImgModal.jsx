@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
+import { UNIQUE_IMG_DB_LIMIT } from '../../constants/constants'
 import M from 'materialize-css'
 
-const UniqueImgInfoModal = () => {
-  const UNIQUE_IMG_DB_LIMIT = 72
-
+const UniqueImageInfoModal = () => {
   useEffect(() => {
     const modal = document.querySelector('.__unique-img-modal-info')
     M.Modal.init(modal)
@@ -28,9 +27,9 @@ const UniqueImgInfoModal = () => {
             votre liste d'aurgonautes en appuiyant sur le boutton
             <br />
             <br />
-            <a href="#!" className="btn-floating btn-large __uniqueImgButton">
+            <button className="btn-floating btn-large __isUniqueImageButton">
               <i className="material-icons">delete_forever</i>
-            </a>
+            </button>
             <br />
             <br />
             Afin de ne générer que les images uniques.
@@ -42,16 +41,13 @@ const UniqueImgInfoModal = () => {
           </p>
         </div>
         <div className="modal-footer">
-          <a
-            href="#!"
-            className="modal-close waves-effect waves-green btn-flat"
-          >
+          <button className="modal-close waves-effect waves-green btn-flat">
             C'est noté
-          </a>
+          </button>
         </div>
       </div>
     </div>
   )
 }
 
-export default UniqueImgInfoModal
+export default UniqueImageInfoModal

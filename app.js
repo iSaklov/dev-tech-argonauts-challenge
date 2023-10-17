@@ -26,7 +26,7 @@ async function start() {
     mongoose.connect(config.get('mongoUri'), {
       dbName: 'the-argos-DB',
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     })
     app.listen(PORT, () =>
       console.log(`App has been started on port ${PORT} !`)

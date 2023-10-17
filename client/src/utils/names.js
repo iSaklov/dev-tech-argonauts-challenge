@@ -1360,7 +1360,7 @@ export function generateName() {
     'zealous',
     'zesty',
     'zigzag',
-    'rocky',
+    'rocky'
   ]
 
   const name2 = [
@@ -2864,7 +2864,7 @@ export function generateName() {
     'yesterday',
     'Thomas',
     'Tom',
-    'Lieuwe',
+    'Lieuwe'
   ]
 
   const name =

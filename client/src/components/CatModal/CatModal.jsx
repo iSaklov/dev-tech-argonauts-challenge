@@ -5,7 +5,7 @@ import classes from './CatModal.module.css'
 
 export default class CatModal extends React.Component {
   state = {
-    isOpen: false,
+    isOpen: false
   }
 
   render() {

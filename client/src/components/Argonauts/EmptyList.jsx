@@ -1,7 +1,6 @@
 import React from 'react'
 
 const EmptyList = () => {
-  console.log('EMPTY LIST RENDERED')
   return (
     <div className="__empty-list">
       <p className="container">

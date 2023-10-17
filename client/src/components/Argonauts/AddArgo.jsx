@@ -4,17 +4,17 @@ import { useMessage } from '../../hooks/message.hook'
 import toCapitalize from '../../utils/capitalize'
 import MyInput from '../UI/MyIput'
 import MySwitche from '../UI/MySwitche'
-import UniqueImgModal from './UniqueImgModal'
+// import UniqueImageModal from './UniqueImageModal'
 import M from 'materialize-css'
 
-const AddArgo = ({ addArgonaut, uniqueImg, setUniqueImg }) => {
+const AddArgo = ({ addArgonaut, isUniqueImage, setIsUniqueImage }) => {
   const nameInput = useInputValue()
   const message = useMessage()
 
   const submitHandler = () => {
     const name = nameInput.value().trim()
     if (name) {
-      addArgonaut(toCapitalize(name), uniqueImg)
+      addArgonaut(toCapitalize(name), isUniqueImage)
       nameInput.clear()
     } else {
       message(
@@ -36,11 +36,11 @@ const AddArgo = ({ addArgonaut, uniqueImg, setUniqueImg }) => {
   return (
     <div className="row __add-argo-header">
       <div className="__switch-wrapp">
-        <UniqueImgModal />
+        {/* <isUniqueImageModal /> */}
         <MySwitche
           title="Image unique"
-          checked={uniqueImg}
-          setChecked={setUniqueImg}
+          checked={isUniqueImage}
+          setChecked={setIsUniqueImage}
         />
       </div>
       <div className="col s8 offset-s2">
@@ -54,8 +54,8 @@ const AddArgo = ({ addArgonaut, uniqueImg, setUniqueImg }) => {
             placeholder="Charalampos + &#9166;"
             autoComplete="false"
             onKeyPress={enterHandler}
-            label="Nom de l'Argonaute"
             clearInput={nameInput.clear}
+            label="Nom de l'Argonaute"
             icon="clear"
           />
         </div>

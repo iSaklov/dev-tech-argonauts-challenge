@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { ArgoContext } from '../../context/ArgoContext'
 import CatModal from '../CatModal/CatModal'
 
 const ArgoItem = ({ argonaut, index, btnBlocker }) => {
   const { removeArgonaut, updateArgonaut } = useContext(ArgoContext)
-  const [name, setName] = useState(argonaut.name)
-  const [selected, setSelected] = useState(false)
+  const [name, setName] = useState('')
+  const [isEditing, setIsEditing] = useState(false)
+  const inputRef = useRef(null)
 
   useEffect(() => {
     setName(argonaut.name)
@@ -13,7 +14,8 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
 
   const editHandler = () => {
     btnBlocker()
-    setSelected(true)
+    setIsEditing(true)
+    inputRef.current.focus()
   }
 
   const saveHandler = (event) => {
@@ -22,18 +24,18 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
       updateArgonaut(argonaut._id, name)
     }
     btnBlocker()
-    setSelected(false)
+    setIsEditing(false)
   }
 
   const cancelHandler = () => {
     setName(argonaut.name)
-    // setArgo({...argo, name: argonaut.name})
     btnBlocker()
-    setSelected(false)
+    setIsEditing(false)
   }
 
   if (!argonaut.name) {
     return (
+      // In this section, a placeholder string is generated when there is no Argonaut. All buttons are rendered in a hidden state to ensure proper layout on different devices.
       <tr key={argonaut._id} className="__empty">
         <td />
         <td />
@@ -62,8 +64,8 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
         <input
           type="text"
           value={name}
-          readOnly={!selected}
-          autoFocus={selected}
+          readOnly={!isEditing}
+          ref={inputRef}
           autoComplete="false"
           onChange={(event) => setName(event.target.value)}
         />
@@ -75,7 +77,7 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
         <CatModal name={argonaut.name} img={argonaut.img} />
       </td>
       <td>
-        {!selected ? (
+        {!isEditing ? (
           <>
             <button
               className="btn waves-effect waves-light yellow lighten-1 __edit-btn __btn-blocked"

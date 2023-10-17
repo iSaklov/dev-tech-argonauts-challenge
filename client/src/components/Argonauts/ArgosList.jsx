@@ -1,20 +1,26 @@
 import React, { useCallback, useContext, useEffect } from 'react'
 import { ArgoContext } from '../../context/ArgoContext'
-import Loader from '../Loader'
+import { calcTotalPages } from '../../utils/pages'
+import getDummy from '../../utils/dummy'
 import EmptyList from './EmptyList'
+import ArgoFilter from './ArgoFilter'
 import DeleteAllArgos from './DeleteAllArgos'
 import ArgoItem from './ArgoItem'
 import Pagination from '../../components/UI/pagination/Pagination'
-import getDummy from '../../utils/dummy'
 
 const ArgosList = ({
   argonauts,
   setArgonauts,
-  page,
+  currentPage,
   numPerPage,
+  setNumPerPage,
+  filter,
+  setFilter,
   totalPages,
+  setTotalPages,
   changePage,
   onDeleteAll,
+  totalArgonauts
 }) => {
   const { loading } = useContext(ArgoContext)
 
@@ -25,83 +31,86 @@ const ArgosList = ({
     }
   }
 
-  const dummiesArray = useCallback(() => {
-    const dummies = []
-    for (let i = argonauts.length; i < numPerPage; i++) {
-      dummies.push(getDummy())
-    }
-    return dummies
+  const getDummiesArray = useCallback(() => {
+    const dummiesArray = Array.from(
+      { length: numPerPage - argonauts.length },
+      () => getDummy()
+    )
+    return dummiesArray
   }, [argonauts, numPerPage])
 
-  // fills the Argonauts array with Dummy's to ensure the same indentation from the Pagination component
+  // fills the Argonauts array with Dummy's to ensure the same indentation for the Pagination component
   useEffect(() => {
-    if (
-      argonauts.length &&
-      argonauts.length < numPerPage &&
-      page === totalPages
-    ) {
-      setArgonauts([...argonauts, ...dummiesArray()])
-    }
-    if (!loading) {
-      console.log('!loading')
-      // console.log('useEffect', !!argonauts)
-      // console.log('DATA', !!data)
-      // console.log('!argonauts.length', argonauts.length)
-    }
-    if (loading) {
-      console.log('loading')
-      console.log('data', !argonauts)
+    console.log('argonauts', argonauts)
+    if (argonauts.length && argonauts.length < numPerPage) {
+      const isAllDummies = argonauts.every(
+        (argonaut) => argonaut.name === undefined
+      )
+      setArgonauts([...argonauts, ...getDummiesArray()])
+      if (isAllDummies && currentPage !== 1) {
+        const newTotalPages = calcTotalPages(totalArgonauts, numPerPage)
+        setTotalPages(newTotalPages)
+        changePage(newTotalPages - 1)
+        console.log('newTotalPages', newTotalPages)
+      } else if (isAllDummies) {
+        setArgonauts([])
+      }
     }
   }, [
     argonauts,
     setArgonauts,
+    currentPage,
     numPerPage,
-    page,
-    totalPages,
-    loading,
-    dummiesArray,
+    totalArgonauts,
+    setTotalPages,
+    changePage,
+    getDummiesArray
   ])
-
-  // if (loading && !data) {
-  //   return <Loader />
-  // }
-  if (loading && !argonauts) {
-    return <Loader />
-  }
 
   if (!argonauts.length) {
     return <EmptyList />
   }
 
   return (
-    <div className="container">
-      <h5>Membres de l'équipage</h5>
-      <table className="centered highlight __argo-table">
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>Nom d'argonaut</th>
-            <th className="hide-on-small-only">Date d'embarquation</th>
-            <th>Sa belle gueule</th>
-            <th>
-              <DeleteAllArgos onDeleteAll={onDeleteAll} />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {argonauts.map((argonaut, index) => (
-            <ArgoItem
-              key={argonaut._id}
-              // key={index}
-              argonaut={argonaut}
-              index={(page - 1) * numPerPage + index + 1}
-              btnBlocker={btnBlocker}
-            />
-          ))}
-        </tbody>
-      </table>
-      <Pagination page={page} totalPages={totalPages} changePage={changePage} />
-    </div>
+    <>
+      <ArgoFilter
+        filter={filter}
+        setFilter={setFilter}
+        numPerPage={numPerPage}
+        setNumPerPage={setNumPerPage}
+      />
+      <div className="container">
+        <h5>Membres de l'équipage</h5>
+        <table className="centered highlight __argo-table">
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Nom d'argonaut</th>
+              <th className="hide-on-small-only">Date d'embarquation</th>
+              <th>Sa belle gueule</th>
+              <th>
+                <DeleteAllArgos onDeleteAll={onDeleteAll} />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {argonauts.map((argonaut, index) => (
+              <ArgoItem
+                key={argonaut._id}
+                argonaut={argonaut}
+                index={(currentPage - 1) * numPerPage + index + 1}
+                btnBlocker={btnBlocker}
+              />
+            ))}
+          </tbody>
+        </table>
+        <Pagination
+          page={currentPage}
+          totalPages={totalPages}
+          changePage={changePage}
+        />
+      </div>
+    </>
   )
 }
 

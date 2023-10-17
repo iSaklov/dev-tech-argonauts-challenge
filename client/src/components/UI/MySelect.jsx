@@ -1,30 +1,20 @@
 import React, { Component } from 'react'
 import M from 'materialize-css'
 
-export default class MySelect extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: '',
-    }
-  }
-
+class MySelect extends Component {
   componentDidMount() {
     const select = document.querySelectorAll('select')
     M.FormSelect.init(select)
   }
 
-  onChange(event) {
+  onChange = (event) => {
     this.props.onChange(event.target.value)
-    this.setState({
-      value: event.target.value,
-    })
   }
 
   render() {
     return (
       <div className="input-field">
-        <select value={this.state.value} onChange={this.onChange.bind(this)}>
+        <select defaultValue={this.props.value} onChange={this.onChange}>
           {this.props.options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.name}
@@ -36,3 +26,5 @@ export default class MySelect extends Component {
     )
   }
 }
+
+export default MySelect
