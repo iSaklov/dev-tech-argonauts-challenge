@@ -11,7 +11,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
-export function generateName() {
+export default function generateName() {
   const name1 = [
     'abandoned',
     'able',

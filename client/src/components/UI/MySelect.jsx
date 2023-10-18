@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import M from 'materialize-css'
+import { FormSelect } from 'materialize-css'
 
 class MySelect extends Component {
   componentDidMount() {
     const select = document.querySelectorAll('select')
-    M.FormSelect.init(select)
+    FormSelect.init(select)
   }
 
   onChange = (event) => {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import CatHead from '../components/UI/cat/CatHead'
 import AnimatedLogo from './AnimatedLogo'
-import M from 'materialize-css'
+import { Sidenav } from 'materialize-css'
 
 const Navbar = () => {
   const auth = useContext(AuthContext)
@@ -17,7 +17,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const sidenav = document.querySelector('.sidenav')
-    M.Sidenav.init(sidenav, { edge: 'right' })
+    Sidenav.init(sidenav, { edge: 'right' })
   }, [])
 
   return (

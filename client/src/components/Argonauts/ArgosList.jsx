@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect } from 'react'
-import { ArgoContext } from '../../context/ArgoContext'
-import { calcTotalPages } from '../../utils/pages'
+// import { ArgoContext } from '../../context/ArgoContext'
 import getDummy from '../../utils/dummy'
 import EmptyList from './EmptyList'
 import ArgoFilter from './ArgoFilter'
@@ -12,6 +11,7 @@ const ArgosList = ({
   argonauts,
   setArgonauts,
   currentPage,
+  setCurrentPage,
   numPerPage,
   setNumPerPage,
   filter,
@@ -22,14 +22,14 @@ const ArgosList = ({
   onDeleteAll,
   totalArgonauts
 }) => {
-  const { loading } = useContext(ArgoContext)
-
-  const btnBlocker = () => {
-    const buttons = document.querySelectorAll('.__btn-blocked')
-    for (const btn of buttons) {
-      btn.classList.toggle('__button-disabler')
+  const btnBlocker = useCallback(() => {
+    if (argonauts.length) {
+      const buttons = document.querySelectorAll('.__btn-blocked')
+      for (const btn of buttons) {
+        btn.classList.toggle('__button-disabler')
+      }
     }
-  }
+  }, [argonauts])
 
   const getDummiesArray = useCallback(() => {
     const dummiesArray = Array.from(
@@ -39,33 +39,20 @@ const ArgosList = ({
     return dummiesArray
   }, [argonauts, numPerPage])
 
-  // fills the Argonauts array with Dummy's to ensure the same indentation for the Pagination component
   useEffect(() => {
-    console.log('argonauts', argonauts)
     if (argonauts.length && argonauts.length < numPerPage) {
-      const isAllDummies = argonauts.every(
-        (argonaut) => argonaut.name === undefined
-      )
       setArgonauts([...argonauts, ...getDummiesArray()])
-      if (isAllDummies && currentPage !== 1) {
-        const newTotalPages = calcTotalPages(totalArgonauts, numPerPage)
-        setTotalPages(newTotalPages)
-        changePage(newTotalPages - 1)
-        console.log('newTotalPages', newTotalPages)
-      } else if (isAllDummies) {
-        setArgonauts([])
-      }
     }
-  }, [
-    argonauts,
-    setArgonauts,
-    currentPage,
-    numPerPage,
-    totalArgonauts,
-    setTotalPages,
-    changePage,
-    getDummiesArray
-  ])
+  }, [argonauts, setArgonauts, numPerPage, getDummiesArray])
+
+  // useEffect(() => {
+  //   const isAllDummies = argonauts.every(
+  //     (argonaut) => argonaut.name === undefined
+  //   )
+  //   if (isAllDummies) {
+  //     changePage(currentPage - 1)
+  //   }
+  // }, [argonauts, changePage])
 
   if (!argonauts.length) {
     return <EmptyList />

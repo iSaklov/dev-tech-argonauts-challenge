@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { UNIQUE_IMG_DB_LIMIT } from '../../constants/constants'
-import M from 'materialize-css'
+import { Modal } from 'materialize-css'
 
 const UniqueImageInfoModal = () => {
   useEffect(() => {
     const modal = document.querySelector('.__unique-img-modal-info')
-    M.Modal.init(modal)
+    Modal.init(modal)
   }, [])
 
   return (

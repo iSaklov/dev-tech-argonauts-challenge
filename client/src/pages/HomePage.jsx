@@ -5,10 +5,9 @@ import { ArgoContext } from '../context/ArgoContext'
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
 import Loader from '../components/Loader'
-
 import ArgosList from '../components/Argonauts/ArgosList'
 import ArgoModal from '../components/Argonauts/ArgoModal'
-import { calcTotalPages } from '../utils/pages'
+import calcTotalPages from '../utils/pages'
 
 export const HomePage = () => {
   const { token } = useContext(AuthContext)
@@ -40,6 +39,7 @@ export const HomePage = () => {
         setArgonauts(data.argonauts)
         setTotalArgonauts(data.size)
       } catch (e) {
+        message(e)
       } finally {
         setRenderReady(true)
       }
@@ -58,7 +58,7 @@ export const HomePage = () => {
         }
       )
       changePage(1) // returns to the first page when adding a new element
-      // setCurrentPage(1)
+      fetchArgonauts(currentPage, numPerPage, filter.query, filter.sort)
       message(data.message)
     } catch (e) {}
   }
@@ -87,6 +87,7 @@ export const HomePage = () => {
       const data = await request(`api/argonaut/`, 'DELETE', null, {
         Authorization: `Bearer ${token}`
       })
+      fetchArgonauts(currentPage, numPerPage, filter.query, filter.sort)
       changePage(1)
       message(data.message)
     } catch (e) {}
@@ -97,7 +98,7 @@ export const HomePage = () => {
       const data = await request(`api/argonaut/${id}`, 'DELETE', null, {
         Authorization: `Bearer ${token}`
       })
-      setArgonauts(argonauts.filter((argo) => argo._id !== id))
+      fetchArgonauts(currentPage, numPerPage, filter.query, filter.sort)
       message(data.message)
     } catch (e) {}
   }
@@ -117,16 +118,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     fetchArgonauts(currentPage, numPerPage, filter.query, filter.sort)
-  }, [currentPage, numPerPage, filter.query, filter.sort, fetchArgonauts])
-
-  // useEffect(() => {
-  //   let ignore = false
-  //   fetchArgonauts(currentPage, numPerPage, filter.query, filter.sort, ignore)
-  //   // https://blog.andrewmmc.com/fetch-data-with-loading-and-error-state-in-react-hooks-a341706a6ffe
-  //   return () => {
-  //     ignore = true
-  //   }
-  // }, [currentPage, numPerPage, filter.query, filter.sort, fetchArgonauts])
+  }, [fetchArgonauts, currentPage, numPerPage, filter.query, filter.sort])
 
   return (
     <ArgoContext.Provider
@@ -153,6 +145,7 @@ export const HomePage = () => {
                 argonauts={argonauts}
                 setArgonauts={setArgonauts}
                 currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
                 setTotalPages={setTotalPages}
                 numPerPage={numPerPage}
                 setNumPerPage={setNumPerPage}
@@ -161,7 +154,7 @@ export const HomePage = () => {
                 onDeleteAll={removeAllArgonauts}
                 totalArgonauts={totalArgonauts}
                 filter={filter}
-                setFilter={setFilter}ƒ
+                setFilter={setFilter}
               />
             </>
           ) : boarding ? null : (

@@ -5,7 +5,7 @@ import toCapitalize from '../../utils/capitalize'
 import MyInput from '../UI/MyIput'
 import MySwitche from '../UI/MySwitche'
 // import UniqueImageModal from './UniqueImageModal'
-import M from 'materialize-css'
+import { updateTextFields } from 'materialize-css'
 
 const AddArgo = ({ addArgonaut, isUniqueImage, setIsUniqueImage }) => {
   const nameInput = useInputValue()
@@ -30,7 +30,7 @@ const AddArgo = ({ addArgonaut, isUniqueImage, setIsUniqueImage }) => {
   }
 
   useEffect(() => {
-    M.updateTextFields()
+    updateTextFields()
   }, [])
 
   return (

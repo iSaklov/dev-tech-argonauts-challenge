@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import M from 'materialize-css'
+import { updateTextFields } from 'materialize-css'
 
 const MyInput = ({ id, value, onChange, label, clearInput, icon, ...rest }) => {
   useEffect(() => {
-    M.updateTextFields()
+    updateTextFields()
   }, [])
 
   return (

@@ -4,7 +4,7 @@ import AddArgo from './AddArgo'
 import MyRange from '../UI/MyRange'
 import CatLoader from '../UI/loader/catLoader/CatLoader'
 import { useMessage } from '../../hooks/message.hook'
-import { generateName } from '../../utils/names'
+import generateName from '../../utils/names'
 import { UNIQUE_IMG_DB_LIMIT } from '../../constants/constants'
 import { Modal } from 'materialize-css'
 
