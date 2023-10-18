@@ -27,6 +27,7 @@ export const HomePage = () => {
     async (currentPage, numPerPage, query, sort) => {
       try {
         console.log('fetchArgonauts')
+        // setRenderReady(false)
 
         const data = await request(
           `/api/argonaut?page=${currentPage}&numperpage=${numPerPage}&search=${query}&sort=${sort}`,
@@ -44,7 +45,7 @@ export const HomePage = () => {
         setRenderReady(true)
       }
     },
-    [token, request]
+    [token, request, message]
   )
 
   const addArgonaut = async (name, requestUniqueImage = false) => {

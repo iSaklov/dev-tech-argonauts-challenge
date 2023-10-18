@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 // import { ArgoContext } from '../../context/ArgoContext'
 import getDummy from '../../utils/dummy'
 import EmptyList from './EmptyList'
@@ -22,6 +22,8 @@ const ArgosList = ({
   onDeleteAll,
   totalArgonauts
 }) => {
+  const [isOnlyDummies, setIsOnlyDummies] = useState(false)
+
   const btnBlocker = useCallback(() => {
     if (argonauts.length) {
       const buttons = document.querySelectorAll('.__btn-blocked')
@@ -45,16 +47,28 @@ const ArgosList = ({
     }
   }, [argonauts, setArgonauts, numPerPage, getDummiesArray])
 
-  // useEffect(() => {
-  //   const isAllDummies = argonauts.every(
-  //     (argonaut) => argonaut.name === undefined
-  //   )
-  //   if (isAllDummies) {
-  //     changePage(currentPage - 1)
-  //   }
-  // }, [argonauts, changePage])
+  useEffect(() => {
+    const isOnlyDummiesArray = argonauts.every(
+      (argonaut) => argonaut.name === undefined
+    )
 
-  if (!argonauts.length) {
+    if (isOnlyDummiesArray) {
+      setIsOnlyDummies(true)
+    }
+  }, [argonauts])
+
+  useEffect(() => {
+    if (isOnlyDummies && totalArgonauts) {
+      setCurrentPage(currentPage - 1)
+    }
+    setIsOnlyDummies(false)
+  }, [isOnlyDummies, totalArgonauts, currentPage, setCurrentPage])
+
+  if (!totalArgonauts) {
+    return <EmptyList />
+  }
+
+  if (isOnlyDummies) {
     return <EmptyList />
   }
 
@@ -68,8 +82,11 @@ const ArgosList = ({
       />
       <div className="container">
         <h5>Membres de l'équipage</h5>
-        <table className="centered highlight __argo-table">
-          <thead>
+        <table
+          className="centered highlight __argo-table"
+          style={{ minHeight: '957px', minWidth: '705.5px' }}
+        >
+          <thead style={{ width: '705.5px' }}>
             <tr>
               <th>№</th>
               <th>Nom d'argonaut</th>
