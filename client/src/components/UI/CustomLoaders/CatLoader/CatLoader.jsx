@@ -1,6 +1,6 @@
 // https://codepen.io/Rplus/pen/PWZYRM
 import React from 'react'
-import TextLoading from '../textLoading/TextLoading'
+import TextLoading from '../TextLoading/TextLoading'
 import classes from './CatLoader.module.css'
 
 const CatLoader = (props) => {

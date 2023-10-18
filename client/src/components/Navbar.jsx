@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import CatHead from '../components/UI/cat/CatHead'
+import CatHead from './CatHead/CatHead'
 import AnimatedLogo from './AnimatedLogo'
 import { Sidenav } from 'materialize-css'
 

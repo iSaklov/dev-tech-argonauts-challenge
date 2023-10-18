@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ArgoContext } from '../../context/ArgoContext'
 import { Modal, Button, Icon } from 'react-materialize'
 
-const DeleteAllArgos = ({ onDeleteAll }) => {
+const DeleteAllArgos = () => {
+  const { removeAllArgonauts } = useContext(ArgoContext)
+
   return (
     <Modal
       actions={[
@@ -12,7 +15,7 @@ const DeleteAllArgos = ({ onDeleteAll }) => {
             modal="close"
             node="button"
             waves="red"
-            onClick={onDeleteAll.bind(null)}
+            onClick={removeAllArgonauts.bind(null)}
           >
             Supprimer
           </Button>

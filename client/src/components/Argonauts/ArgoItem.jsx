@@ -1,19 +1,15 @@
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useState, useRef } from 'react'
 import { ArgoContext } from '../../context/ArgoContext'
-import CatModal from '../CatModal/CatModal'
+import CatModal from '../CatModal'
 
-const ArgoItem = ({ argonaut, index, btnBlocker }) => {
+const ArgoItem = ({ argonaut, index, blockButtonsWhileEditing }) => {
   const { removeArgonaut, updateArgonaut } = useContext(ArgoContext)
-  const [name, setName] = useState('')
+  const [name, setName] = useState(argonaut.name)
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef(null)
 
-  useEffect(() => {
-    setName(argonaut.name)
-  }, [argonaut])
-
   const editHandler = () => {
-    btnBlocker()
+    blockButtonsWhileEditing()
     setIsEditing(true)
     inputRef.current.focus()
   }
@@ -23,13 +19,13 @@ const ArgoItem = ({ argonaut, index, btnBlocker }) => {
     if (name.trim() && name !== argonaut.name) {
       updateArgonaut(argonaut._id, name)
     }
-    btnBlocker()
+    blockButtonsWhileEditing()
     setIsEditing(false)
   }
 
   const cancelHandler = () => {
     setName(argonaut.name)
-    btnBlocker()
+    blockButtonsWhileEditing()
     setIsEditing(false)
   }
 

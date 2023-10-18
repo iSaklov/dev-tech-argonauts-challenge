@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ArgoContext } from '../../context/ArgoContext'
 import MyInput from '../UI/MyIput'
 import MySelect from '../UI/MySelect'
 
-const ArgoFilter = ({ filter, setFilter, numPerPage, setNumPerPage }) => {
+const ArgoFilter = () => {
+  const { filter, setFilter, numPerPage, setNumPerPage } =
+    useContext(ArgoContext)
+
   const clearInput = () => {
     setFilter({ ...filter, query: '' })
   }
