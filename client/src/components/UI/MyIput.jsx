@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react'
-import M from 'materialize-css'
+import { updateTextFields } from 'materialize-css'
 
-const MyInput = (props) => {
+const MyInput = ({ id, value, onChange, label, clearInput, icon, ...rest }) => {
+  useEffect(() => {
+    updateTextFields()
+  }, [])
 
-	useEffect(() => {
-		M.updateTextFields()
-	}, [])
-
-	return (
-		<>
-			<input id={`input-${props.type}`} {...props}/>
-			<label htmlFor={`input-${props.type}`}>{props.label}</label>
-			<i className="material-icons prefix">{props.icon}</i>
-		</>
-	)
+  return (
+    <>
+      <input id={id} value={value} onChange={onChange} {...rest} />
+      <label htmlFor={id}>{label}</label>
+      <i className="material-icons prefix" onClick={clearInput}>
+        {icon}
+      </i>
+    </>
+  )
 }
 
 export default MyInput

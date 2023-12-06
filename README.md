@@ -23,11 +23,11 @@ The author realizes that this project is far from being finished, nor optimized,
 
 ## Technologies
 
-* [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com)
-* [![Express.js](https://img.shields.io/badge/Express.js-v4.17.1-000000?style=for-the-badge&logo=express&logoColor=white&labelColor=black&color=gray)](https://expressjs.com)
-* [![React](https://img.shields.io/badge/React-v17.0.2-20232A?style=for-the-badge&logo=react&logoColor=61DAFB&labelColor=20232A&color=gray)](https://reactjs.org)
-* [![NodeJS](https://img.shields.io/badge/Node.js-v16.13.0-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=339933&color=gray)](https://nodejs.org/en/)
-* [![Materialize](https://img.shields.io/badge/Materialize-%23ee6e73?style=for-the-badge)](https://materializecss.com)
+- [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com)
+- [![Express.js](https://img.shields.io/badge/Express.js-v4.17.1-000000?style=for-the-badge&logo=express&logoColor=white&labelColor=black&color=gray)](https://expressjs.com)
+- [![React](https://img.shields.io/badge/React-v17.0.2-20232A?style=for-the-badge&logo=react&logoColor=61DAFB&labelColor=20232A&color=gray)](https://reactjs.org)
+- [![NodeJS](https://img.shields.io/badge/Node.js-v16.13.0-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=339933&color=gray)](https://nodejs.org/en/)
+- [![Materialize](https://img.shields.io/badge/Materialize-%23ee6e73?style=for-the-badge)](https://materializecss.com)
 
 ## Installation
 
@@ -50,8 +50,9 @@ Our code squad : iSaklov & Global Internet Community.
 In particular, special thanks to [![CodePen](https://img.shields.io/badge/Codepen-000000?style=plastic&logo=codepen&logoColor=white)](https://codepen.io) for the inspiration and to [![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=plastic&logo=stack-overflow&logoColor=white)](https://stackoverflow.com) for resolving technical issues.
 
 ## Licensing
+
 This project was built under the iSac Creative Studio licence despite his own indifference to the feline family.
 
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=?style=social&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aleh-smaliakou/)
 
-*Dedicated to all cat lovers. :cat2:*
+_Dedicated to all cat lovers. :cat2:_

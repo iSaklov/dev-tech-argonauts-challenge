@@ -1,40 +1,44 @@
-import { Error } from "mongoose"
-import { useState, useCallback } from "react"
+import { Error } from 'mongoose'
+import { useState, useCallback } from 'react'
 
 export const useHttp = () => {
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-	const request = useCallback( async (url, method = 'GET', body = null, headers = {}) => {
-	
-		setLoading(true)
+  const request = useCallback(
+    async (url, method = 'GET', body = null, headers = {}) => {
+      if (!url) {
+        throw new Error('URL is required')
+      }
 
-		try {
-			if (body) {
-				body = JSON.stringify(body)
-				headers['Content-Type'] = 'application/json'
-			}	
+      setLoading(true)
 
-			const response = await fetch(url, { method, body, headers })
-			const data = await response.json()
-			// console.log('response http.hook data : ', data)
+      try {
+        if (body) {
+          body = JSON.stringify(body)
+          headers['Content-Type'] = 'application/json'
+        }
 
-			if(!response.ok) {
-				throw new Error(data.message || 'Quelque chose a mal tourné')
-			}
+        const response = await fetch(url, { method, body, headers })
+        const data = await response.json()
+        // console.log('response http.hook data : ', data)
 
-			setLoading(false)
+        if (!response.ok) {
+          throw new Error(data.message || 'Quelque chose a mal tourné')
+        }
 
-			return data
-		} catch (e) {
-			setError(e.message)
-			throw e
-		} finally {
-			setLoading(false)
-		}
-	}, [])
+        return data
+      } catch (e) {
+        setError(e.message)
+        throw e
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
 
-	const clearError = useCallback(() => setError(null), [])
+  const clearError = useCallback(() => setError(null), [])
 
-	return { loading, request, error, clearError }
+  return { loading, setLoading, request, error, clearError }
 }

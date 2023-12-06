@@ -11,27 +11,30 @@ app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/argonaut', require('./routes/argonaut.routes'))
 
 if (process.env.NODE_ENV === 'production') {
-	app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+  app.use('/', express.static(path.join(__dirname, 'client', 'build')))
 
-	app.get('*', (req, res) => {
-		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-	})
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
 }
 
 const PORT = config.get('port') || 5000
 
 async function start() {
-	try {
-		await mongoose.connect(config.get('mongoUri'), {
-			dbName: 'the-argos-DB',
-			useNewUrlParser: true,
-			useUnifiedTopology: true
-		})
-		app.listen(PORT, () => console.log(`App has been started on port ${PORT} !`))
-	} catch (e) {
-		console.log('Server Error : ', e.message)
-		process.exit(1)
-	}
+  mongoose.set('strictQuery', true)
+  try {
+    mongoose.connect(config.get('mongoUri'), {
+      dbName: 'the-argos-DB',
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
+    app.listen(PORT, () =>
+      console.log(`App has been started on port ${PORT} !`)
+    )
+  } catch (e) {
+    console.log('Server Error : ', e.message)
+    process.exit(1)
+  }
 }
 
 start()
